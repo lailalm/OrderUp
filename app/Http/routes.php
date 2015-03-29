@@ -21,6 +21,14 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
+Route::get('manajermenu','ManajerMenuController@index');
+
+Route::get('manajermenu/{id}','ManajerMenuController@formMenu');
+
+Route::get('manajerkaryawan','ManajerKaryawanController@index');
+
+Route::get('manajermeja','ManajerMejaController@index');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
