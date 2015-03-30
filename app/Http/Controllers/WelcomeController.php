@@ -33,4 +33,14 @@ class WelcomeController extends Controller {
 		return view('welcome');
 	}
 
+	/**
+	 * 
+	 *
+	 * @return Response
+	 */
+	public function dummy()
+	{
+		return view('dummy');
+	}
+
 }
