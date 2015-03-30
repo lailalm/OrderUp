@@ -13,7 +13,7 @@
 
 				<div class="panel-body">
 					@foreach ($karyawans as $karyawan)
-						<h2>{{$karyawan}}</h2>
+						<h2>{{$karyawan->name}}</h2>
 					@endforeach
 				</div>
 			</div>
