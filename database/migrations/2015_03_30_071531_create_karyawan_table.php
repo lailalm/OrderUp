@@ -14,7 +14,7 @@ class CreateKaryawanTable extends Migration {
 	{
 		Schema::create('Karyawan', function(Blueprint $table)
 		{
-			$table->increments('id');
+			$table->increments('id_karyawan');
 			$table->string('name');
 			$table->string('email')->unique();
 			$table->string('password', 60)->nullable();
@@ -23,7 +23,6 @@ class CreateKaryawanTable extends Migration {
 			$table->text('alamat');
 			$table->date('tanggal_mulai');
 			$table->rememberToken();
-			$table->timestamps();
 		});
 	}
 

@@ -7,7 +7,14 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'CreateKaryawanTable' => $baseDir . '/database/migrations/2015_03_30_071531_create_karyawan_table.php',
+    'CreateMejaTable' => $baseDir . '/database/migrations/2015_03_30_121613_create_meja_table.php',
+    'CreateMenuTable' => $baseDir . '/database/migrations/2015_03_30_123605_create_menu_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePelayananTable' => $baseDir . '/database/migrations/2015_03_30_125407_create_pelayanan_table.php',
+    'CreatePemanggilanTable' => $baseDir . '/database/migrations/2015_03_30_125659_create_pemanggilan_table.php',
+    'CreatePemesananTable' => $baseDir . '/database/migrations/2015_03_30_124242_create_pemesanan_table.php',
+    'CreateReviewMakananTable' => $baseDir . '/database/migrations/2015_03_30_130019_create_review_makanan_table.php',
+    'CreateReviewRestoranTable' => $baseDir . '/database/migrations/2015_03_30_130418_create_review_restoran_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/File/Iterator.php',
