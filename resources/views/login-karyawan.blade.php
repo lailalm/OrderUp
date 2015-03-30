@@ -14,7 +14,7 @@
 
 		{!! HTML::style('assets/css/bootstrap.min.css') !!}
 		{!! HTML::style('assets/css/bootstrap-theme.min.cs') !!} 
-		{!! HTML::style('assets/css/styleKaryawan.css') !!}
+		{!! HTML::style('assets/css/stylePelanggan.css') !!}
 		@section('css')
 		
 

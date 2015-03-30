@@ -46,7 +46,7 @@ Route::controllers([
 | Main Website Customer Routes
 |-------------------------------------------------------------------------
 */
-
+Route::get('/customer', 'CustomerController@index');
 
 /*
 |-------------------------------------------------------------------------
