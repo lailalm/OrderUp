@@ -32,7 +32,7 @@ class ManajerMejaController extends Controller {
 	{
 		$mejas=['meja 1', 'meja 2','meja 3'];
 
-		return view('DaftarMejaUI',compact('mejas'));
+		return view('manajer/DaftarMejaUI',compact('mejas'));
 	}
 
 }

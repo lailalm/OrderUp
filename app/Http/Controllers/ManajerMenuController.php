@@ -32,7 +32,7 @@ class ManajerMenuController extends Controller {
 	{
 		
 		$menus= $this->getAllMenu();
-		return view('DaftarMenuUI',compact('menus'));
+		return view('manajer/DaftarMenuUI',compact('menus'));
 	}
 
 	public function formMenu($id){

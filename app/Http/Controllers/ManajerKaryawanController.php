@@ -34,7 +34,7 @@ class ManajerKaryawanController extends Controller {
 	{
 		$karyawans=DB::table('Karyawan')->get();
 
-		return view('DaftarKaryawanUI',compact('karyawans'));
+		return view('manajer/DaftarKaryawanUI',compact('karyawans'));
 	}
 
 }
