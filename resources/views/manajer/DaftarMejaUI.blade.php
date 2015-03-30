@@ -12,9 +12,15 @@
 				<div class="panel-heading">Daftar Meja</div>
 
 				<div class="panel-body">
+					<table border="1">
 					@foreach ($mejas as $meja)
-						<h2>{{$meja}}</h2>
+						<tr>
+						<td>{{$meja->id_meja}}</td>
+						<td>{{$meja->kodemasuk}}</td>
+						<td>{{$meja->deskripsi}}</td>
+						</tr>
 					@endforeach
+					</table>
 				</div>
 			</div>
 		</div>

@@ -12,9 +12,22 @@
 				<div class="panel-heading">Daftar Karyawan</div>
 
 				<div class="panel-body">
+					<table border="1">
 					@foreach ($karyawans as $karyawan)
-						<h2>{{$karyawan->name}}</h2>
+						<tr>
+						<td>{{$karyawan->id_karyawan}}</td>
+						<td>{{$karyawan->name}}</td>
+						<td>{{$karyawan->email}}</td>
+						<td>{{$karyawan->password}}</td>
+						<td>{{$karyawan->role}}</td>
+						<td>{!! HTML::image('assets/img/yantohidayat.jpg', 'panggil', array( 'width' => '120px')) !!}</td>
+						<td>{{$karyawan->telepon}}</td>
+						<td>{{$karyawan->alamat}}</td>
+						<td>{{$karyawan->tanggal_mulai}}</td>
+						</tr>
 					@endforeach
+					</table>
+
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Meja;
+
 class ManajerMejaController extends Controller {
 
 	/*
@@ -18,7 +20,7 @@ class ManajerMejaController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	/**public function __construct()
 	{
 		$this->middleware('auth');
 	}
@@ -30,9 +32,8 @@ class ManajerMejaController extends Controller {
 	 */
 	public function index()
 	{
-		$mejas=['meja 1', 'meja 2','meja 3'];
+		$mejas=Meja::get();
 
 		return view('manajer/DaftarMejaUI',compact('mejas'));
 	}
-
 }
