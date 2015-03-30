@@ -26,7 +26,7 @@ Route::get('/dummy', 'WelcomeController@dummy');
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
+Route::get('home', 'ManajerMenuController@index');
 
 Route::get('manajermenu','ManajerMenuController@index');
 
