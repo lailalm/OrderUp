@@ -12,6 +12,7 @@ class RedirectIfAuthenticated {
 	 * @var Guard
 	 */
 	protected $auth;
+	protected $role;
 
 	/**
 	 * Create a new filter instance.

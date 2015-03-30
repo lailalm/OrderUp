@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use DB;
+
 class ManajerKaryawanController extends Controller {
 
 	/*
@@ -30,7 +32,7 @@ class ManajerKaryawanController extends Controller {
 	 */
 	public function index()
 	{
-		$karyawans=['pak de karno', 'suminten','juminter'];
+		$karyawans=DB::table('Karyawan')->get();
 
 		return view('DaftarKaryawanUI',compact('karyawans'));
 	}
