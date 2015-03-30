@@ -40,7 +40,7 @@ class WelcomeController extends Controller {
 	 */
 	public function dummy()
 	{
-		return view('dummy');
+		return view('pelanggan/menu');
 	}
 
 }
