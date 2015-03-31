@@ -17,12 +17,15 @@ class Meja extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $table = 'meja';
 
+	public $timestamps = false;
+	public $primaryKey = 'id_meja';
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id_meja', 'kode_masuk', 'deskripsi'];
+	protected $fillable = ['kode_masuk', 'deskripsi'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

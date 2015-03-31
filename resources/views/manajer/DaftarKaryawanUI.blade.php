@@ -9,25 +9,45 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
-				<div class="panel-heading">Daftar Karyawan</div>
+				<div class="panel-heading">Daftar Meja
+						<a class="btn btn-small btn-success" href="{{ URL::to('addkaryawan/') }}">Add Karyawan</a>
+				</div>
 
 				<div class="panel-body">
-					<table border="1">
-					@foreach ($karyawans as $karyawan)
+
+				<table class="table table-striped table-bordered">
+				    <thead>
+				        <tr>
+				            <td>Nama</td>
+				            <td>Email</td>
+				            <td>Password</td>
+				            <td>Role</td>
+				            <td>Foto</td>
+				            <td>Telepon</td>
+				            <td>Alamat</td>
+				            <td>Tanggal Mulai</td>
+				            <td>Action</td>
+				        </tr>
+				    </thead>
+				    <tbody>
+					@foreach ($daftar_karyawan as $karyawan)
 						<tr>
-						<td>{{$karyawan->id_karyawan}}</td>
-						<td>{{$karyawan->name}}</td>
-						<td>{{$karyawan->email}}</td>
-						<td>{{$karyawan->password}}</td>
-						<td>{{$karyawan->role}}</td>
-						<td>{!! HTML::image('assets/img/yantohidayat.jpg', 'panggil', array( 'width' => '120px')) !!}</td>
-						<td>{{$karyawan->telepon}}</td>
-						<td>{{$karyawan->alamat}}</td>
-						<td>{{$karyawan->tanggal_mulai}}</td>
+							<td>{{$karyawan->name}}</td>
+							<td>{{$karyawan->email}}</td>
+							<td>{{$karyawan->password}}</td>
+							<td>{{$karyawan->role}}</td>
+							<td>{{$karyawan->telepon}}</td>
+							<td>{{$karyawan->foto}}</td>
+							<td>{{$karyawan->alamat}}</td>
+							<td>{{$karyawan->tanggal_mulai}}</td>
+							<td>
+								<a class="btn btn-small btn-info" href="{{ URL::to('editmeja/'. $meja->id_meja) }}">Edit</a>
+								<a class="btn btn-small btn-success" href="{{ URL::to('delete/' . $meja->id_meja) }}">Delete</a>
+							</td>
 						</tr>
 					@endforeach
-					</table>
-
+					</tbody>
+				</table>
 				</div>
 			</div>
 		</div>

@@ -15,7 +15,7 @@ class CreateMejaTable extends Migration {
 		Schema::create('meja', function(Blueprint $table)
 		{
 			$table->increments('id_meja');
-			$table->integer('kodemasuk');
+			$table->string('kodemasuk',5);
 			$table->text('deskripsi');
 
 		});

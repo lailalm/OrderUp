@@ -2,8 +2,8 @@
 
 use Illuminate\Foundation\Http\FormRequest;
 
-abstract class Request extends FormRequest {
+class Request extends FormRequest {
 
-	//
+	
 
 }
