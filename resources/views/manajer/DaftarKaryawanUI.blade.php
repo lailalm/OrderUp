@@ -41,8 +41,8 @@
 							<td>{{$karyawan->alamat}}</td>
 							<td>{{$karyawan->tanggal_mulai}}</td>
 							<td>
-								<a class="btn btn-small btn-info" href="{{ URL::to('editmeja/'. $meja->id_meja) }}">Edit</a>
-								<a class="btn btn-small btn-success" href="{{ URL::to('delete/' . $meja->id_meja) }}">Delete</a>
+								<a class="btn btn-small btn-info" href="{{ URL::to('editkaryawan/'. $karyawan->id_karyawan) }}">Edit</a>
+								<a class="btn btn-small btn-success" href="{{ URL::to('deletekaryawan/' . $karyawan->id_karyawan) }}">Delete</a>
 							</td>
 						</tr>
 					@endforeach

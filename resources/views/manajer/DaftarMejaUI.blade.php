@@ -32,7 +32,7 @@
 							<td>{{$meja->deskripsi}}</td>
 							<td>
 								<a class="btn btn-small btn-info" href="{{ URL::to('editmeja/'. $meja->id_meja) }}">Edit</a>
-								<a class="btn btn-small btn-success" href="{{ URL::to('delete/' . $meja->id_meja) }}">Delete</a>
+								<a class="btn btn-small btn-success" href="{{ URL::to('deletemeja/' . $meja->id_meja) }}">Delete</a>
 							</td>
 						</tr>
 					@endforeach

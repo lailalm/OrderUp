@@ -10,12 +10,15 @@ class Karyawan extends Model implements AuthenticatableContract, CanResetPasswor
 
 	use Authenticatable, CanResetPassword;
 
+	public $timestamps = false;
+	public $primaryKey = 'id_karyawan';
+
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'Karyawan';
+	protected $table = 'karyawan';
 
 	/**
 	 * The attributes that are mass assignable.

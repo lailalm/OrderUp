@@ -8,9 +8,9 @@
     @endforeach
 </ul>
 
-<h1> Form Penambahan Karyawan </h1>
+<h1> Edit Karyawan ID #{{$karyawan->id_karyawan}} </h1>
 
-{!! Form::open(array('route' => 'addkaryawan_store', 'class' => 'form')) !!}
+{!! Form::model($karyawan, array('route' => array('editkaryawan_update', $karyawan->id_karyawan), 'method' => 'PUT')) !!}
 
 <div class="form-group">
     {!! Form::label('Nama') !!}
