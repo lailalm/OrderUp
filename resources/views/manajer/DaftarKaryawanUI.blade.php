@@ -9,8 +9,9 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
-				<div class="panel-heading">Daftar Meja
-						<a class="btn btn-small btn-success" href="{{ URL::to('addkaryawan/') }}">Add Karyawan</a>
+				<div class="panel-heading">
+						<h1>Daftar Karyawan
+						<a class="btn btn-small btn-success" href="{{ URL::to('addkaryawan/') }}">+</a></h1>
 				</div>
 
 				<div class="panel-body">

@@ -40,7 +40,7 @@ Route::get('deletemeja/{id}','ManajerMejaController@destroy');
 
 Route::get('deletekaryawan/{id}','ManajerKaryawanController@destroy');
 
-//Route::get('deletemeja/{id}','ManajerMejaController@destroy');
+Route::get('deletemenu/{id}','ManajerMenuController@destroy');
 
 Route::get('addmeja', ['as' => 'addmeja','uses'=> 'ManajerMejaController@create']);
 
@@ -50,6 +50,10 @@ Route::get('addkaryawan', ['as' => 'addkaryawan','uses'=> 'ManajerKaryawanContro
 
 Route::post('addkaryawan', ['as' => 'addkaryawan_store','uses'=> 'ManajerKaryawanController@store']);
 
+Route::get('addmenu', ['as' => 'addmenu','uses'=> 'ManajerMenuController@create']);
+
+Route::post('addmenu', ['as' => 'addmenu_store','uses'=> 'ManajerMenuController@store']);
+
 Route::get('editmeja/{id}', ['as' => 'editmeja', 'uses' => 'ManajerMejaController@edit']);
 
 Route::put('editmeja/{id}', ['as' => 'editmeja_update','uses'=> 'ManajerMejaController@update']);
@@ -57,6 +61,10 @@ Route::put('editmeja/{id}', ['as' => 'editmeja_update','uses'=> 'ManajerMejaCont
 Route::get('editkaryawan/{id}', ['as' => 'editkaryawan', 'uses' => 'ManajerKaryawanController@edit']);
 
 Route::put('editkaryawan/{id}', ['as' => 'editkaryawan_update','uses'=> 'ManajerKaryawanController@update']);
+
+Route::get('editmenu/{id}', ['as' => 'editmenu', 'uses' => 'ManajerMenuController@edit']);
+
+Route::put('editmenu/{id}', ['as' => 'editmenu_update','uses'=> 'ManajerMenuController@update']);
 
 
 
