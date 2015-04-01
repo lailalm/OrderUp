@@ -27,16 +27,4 @@ class Menu extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $fillable = ['name', 'harga', 'kategori', 'gambar', 'isRekomendasi', 'end_date_rekomendasi', 'is_promosi', 'end_date_promosi', 'diskon', 'durasi_penyelesaian', 'status'];
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = ['password', 'remember_token'];
-
-
-
-
-
-
 }

@@ -80,7 +80,7 @@ class ManajerKaryawanController extends Controller {
 			
 			$karyawan->name 			= Input::get('name');
 			$karyawan->email 			= Input::get('email');
-			$karyawan->password 		= Input::get('password');
+			$karyawan->password 		= bcrypt(Input::get('password'));
 			$karyawan->role 			= Input::get('role');
 			$karyawan->telepon 			= Input::get('telepon');
 			$karyawan->foto 			= Input::get('foto');
