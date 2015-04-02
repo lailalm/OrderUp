@@ -20,7 +20,9 @@ class CreateKaryawanTable extends Migration {
 			$table->string('password', 60)->nullable();
 			$table->string('role');
 			$table->string('telepon');
-			$table->string('foto');
+			$table->string('photoname');
+			$table->string('mime');
+			$table->string('original_photoname');
 			$table->text('alamat');
 			$table->date('tanggal_mulai');
 			$table->rememberToken();

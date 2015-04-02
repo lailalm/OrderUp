@@ -7,6 +7,9 @@ use Input;
 use Redirect;
 use Session;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 class ManajerKaryawanController extends Controller {
 
 	/*
@@ -83,9 +86,14 @@ class ManajerKaryawanController extends Controller {
 			$karyawan->password 		= bcrypt(Input::get('password'));
 			$karyawan->role 			= Input::get('role');
 			$karyawan->telepon 			= Input::get('telepon');
-			$karyawan->foto 			= Input::get('foto');
 			$karyawan->alamat 			= Input::get('alamat');
 			$karyawan->tanggal_mulai 	= Input::get('tanggal_mulai');
+			$file 						= Input::file('foto');
+			$extension 					= $file->getClientOriginalExtension();
+			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+			$karyawan->mime = $file->getClientMimeType();
+			$karyawan->original_photoname = $file->getClientOriginalName();
+			$karyawan->photoname = $file->getFilename().'.'.$extension;
 
 			$karyawan->save();
 

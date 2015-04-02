@@ -14,7 +14,7 @@
             </div>
 
             <div class="panel-body">
-                {!! Form::open(array('route' => 'addkaryawan_store', 'class' => 'form')) !!}
+                {!! Form::open(array('route' => 'addkaryawan_store', 'class' => 'form','files'=>true)) !!}
 
                 <div class="form-group">
                     {!! Form::label('Nama') !!}
@@ -48,8 +48,7 @@
 
                 <div class="form-group">
                     {!! Form::label('Foto') !!}
-                    {!! Form::text('foto', null, 
-                        array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
+                    {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
                 </div>
 
                 <div class="form-group">
