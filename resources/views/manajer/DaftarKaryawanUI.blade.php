@@ -25,7 +25,7 @@
 				            <td>Role</td>
 				            <td>Foto</td>
 				            <td>FotoMime</td>
-				            <td>FotoExt</td>
+				            <td>Foto Ori</td>
 				            <td>Telepon</td>
 				            <td>Alamat</td>
 				            <td>Tanggal Mulai</td>
@@ -39,10 +39,10 @@
 							<td>{{$karyawan->email}}</td>
 							<td>{{$karyawan->password}}</td>
 							<td>{{$karyawan->role}}</td>
-							<td>{{$karyawan->telepon}}</td>
+							<td><img src="{{route('getphoto', $karyawan->photoname)}}" alt="ALT NAME" class="img-responsive" /></td>
 							<td>{{$karyawan->mime}}</td>
 							<td>{{$karyawan->original_photoname}}</td>
-							<td>{{$karyawan->photoname}}</td>
+							<td>{{$karyawan->telepon}}</td>
 							<td>{{$karyawan->alamat}}</td>
 							<td>{{$karyawan->tanggal_mulai}}</td>
 							<td>

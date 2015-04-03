@@ -179,4 +179,11 @@ class ManajerKaryawanController extends Controller {
         return Redirect::to('manajerkaryawan');
     }
 
+    public function get($photoname){
+    	$karyawan= Karyawan::where('photoname', '=', $photoname)->firstOrFail();
+		$file = Storage::disk('local')->get($karyawan->photoname);
+ 
+		return (new Response($file, 200))
+              ->header('Content-Type', $karyawan->mime);
+    }
 }

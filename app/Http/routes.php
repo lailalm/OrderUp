@@ -66,6 +66,8 @@ Route::get('editmenu/{id}', ['as' => 'editmenu', 'uses' => 'ManajerMenuControlle
 
 Route::put('editmenu/{id}', ['as' => 'editmenu_update','uses'=> 'ManajerMenuController@update']);
 
+Route::get('manajerkaryawan/get/{photoname}', ['as' => 'getphoto', 'uses' => 'ManajerKaryawanController@get']);
+
 
 
 Route::controllers([
