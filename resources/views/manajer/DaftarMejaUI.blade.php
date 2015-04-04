@@ -19,7 +19,7 @@
 				<table class="table table-striped table-bordered">
 				    <thead>
 				        <tr>
-				            <td>ID Meja</td>
+				            <td>Nomor Meja</td>
 				            <td>Kode Masuk</td>
 				            <td>Deskripsi</td>
 				            <td>Action</td>
@@ -28,7 +28,7 @@
 				    <tbody>
 					@foreach ($daftar_meja as $meja)
 						<tr>
-							<td>{{$meja->id_meja}}</td>
+							<td>{{$meja->nomormeja}}</td>
 							<td>{{$meja->kodemasuk}}</td>
 							<td>{{$meja->deskripsi}}</td>
 							<td>

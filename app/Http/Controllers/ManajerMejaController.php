@@ -65,6 +65,7 @@ class ManajerMejaController extends Controller {
 
 		$rules = array(
 			"kodemasuk" => 'required',
+			"nomormeja"	=> 'required',
 			"deskripsi" => 'required'
 		);
 
@@ -76,6 +77,7 @@ class ManajerMejaController extends Controller {
 		} else{
 
 			$meja = new Meja;
+			$meja->nomormeja	= Input::get('nomormeja');
 			$meja->kodemasuk	= Input::get('kodemasuk');
 			$meja->deskripsi	= Input::get('deskripsi');
 			$meja->save();
@@ -137,6 +139,7 @@ class ManajerMejaController extends Controller {
 		} else{
 
 			$meja = Meja::find($id);
+			$meja->nomormeja	= Input::get('nomormeja');
 			$meja->kodemasuk	= Input::get('kodemasuk');
 			$meja->deskripsi	= Input::get('deskripsi');
 			$meja->save();

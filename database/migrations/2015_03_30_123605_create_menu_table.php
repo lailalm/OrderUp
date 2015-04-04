@@ -18,7 +18,9 @@ class CreateMenuTable extends Migration {
 			$table->string('name',15);
 			$table->integer('harga');
 			$table->enum('kategori', array('makanan','minuman'));
-			$table->string('gambar',32);
+			$table->string('photoname');
+			$table->string('mime');
+			$table->string('original_photoname');
 			$table->boolean('is_rekomendasi');
 			$table->date('end_date_rekomendasi');
 			$table->boolean('is_promosi');

@@ -15,7 +15,7 @@
 
 		<div class="panel-body">
 			<div class="form-group">
-            {!! Form::open(array('route' => 'addmenu_store', 'class' => 'form')) !!}
+            {!! Form::open(array('route' => 'addmenu_store', 'class' => 'form', 'files'=>true)) !!}
 
                 {!! Form::label('Nama') !!}
                 {!! Form::text('name', null, 
@@ -34,9 +34,8 @@
             </div>
 
             <div class="form-group">
-                {!! Form::label('Gambar') !!}
-                {!! Form::text('gambar', null, 
-                    array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
+                {!! Form::label('Foto') !!}
+                {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
             </div>
 
             <hr>
@@ -65,14 +64,14 @@
             <div class="form-group">
                 {!! Form::label('Diskon') !!}
                 {!! Form::text('diskon', null, 
-                    array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
+                    array('class'=>'form-control', 'placeholder'=>'')) !!}
             </div>
             <hr><br>
 
             <div class="form-group">
                 {!! Form::label('Durasi') !!}
                 {!! Form::text('durasi_penyelesaian', null, 
-                    array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
+                    array('class'=>'form-control', 'placeholder'=>'')) !!}
             </div>
 
             <div class="form-group">

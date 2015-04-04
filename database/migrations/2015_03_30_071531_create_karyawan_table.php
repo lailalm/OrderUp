@@ -17,7 +17,7 @@ class CreateKaryawanTable extends Migration {
 			$table->increments('id_karyawan');
 			$table->string('name');
 			$table->string('email')->unique();
-			$table->string('password', 60)->nullable();
+			$table->string('password', 60);
 			$table->string('role');
 			$table->string('telepon');
 			$table->string('photoname');

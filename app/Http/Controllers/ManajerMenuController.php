@@ -7,6 +7,9 @@ use Input;
 use Redirect;
 use Session;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 class ManajerMenuController extends Controller {
 
 	/*
@@ -67,13 +70,11 @@ class ManajerMenuController extends Controller {
 			"name" => 'required',
 			"harga" => 'required|numeric',
 			"kategori" => 'required',
-			"gambar" => 'required',
+			"foto" => 'required',
 			"is_rekomendasi" => 'required',
-			"end_date_rekomendasi" => 'required|date',
 			"is_promosi" => 'required',
-			"end_date_promosi" => 'required|date',
-			"diskon" => 'required|numeric',
-			"durasi_penyelesaian" => 'required|numeric',
+			"diskon" => 'numeric',
+			"durasi_penyelesaian" => 'numeric',
 			"status" => 'required'
 		);
 
@@ -89,7 +90,6 @@ class ManajerMenuController extends Controller {
 			$menu->name 				= Input::get('name');
 			$menu->harga 				= Input::get('harga');
 			$menu->kategori 			= Input::get('kategori');
-			$menu->gambar 				= Input::get('gambar');
 			$menu->is_rekomendasi		= Input::get('is_rekomendasi');
 			$menu->end_date_rekomendasi	= Input::get('end_date_rekomendasi');
 			$menu->is_promosi			= Input::get('is_promosi');
@@ -97,10 +97,14 @@ class ManajerMenuController extends Controller {
 			$menu->diskon				= Input::get('diskon');
 			$menu->durasi_penyelesaian	= Input::get('durasi_penyelesaian');
 			$menu->status				= Input::get('status');
+			$file 						= Input::file('foto');
+			$extension 					= $file->getClientOriginalExtension();
+			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+			$menu->mime = $file->getClientMimeType();
+			$menu->original_photoname = $file->getClientOriginalName();
+			$menu->photoname = $file->getFilename().'.'.$extension;
 
 			$menu->save();
-
-			//Session::flash('message', 'Successfully created nerd!');
 			return Redirect::to('manajermenu');
 		}
 
@@ -137,13 +141,10 @@ class ManajerMenuController extends Controller {
 			"name" => 'required',
 			"harga" => 'required|numeric',
 			"kategori" => 'required',
-			"gambar" => 'required',
 			"is_rekomendasi" => 'required',
-			"end_date_rekomendasi" => 'required|date',
 			"is_promosi" => 'required',
-			"end_date_promosi" => 'required|date',
-			"diskon" => 'required|numeric',
-			"durasi_penyelesaian" => 'required|numeric',
+			"diskon" => 'numeric',
+			"durasi_penyelesaian" => 'numeric',
 			"status" => 'required'
 		);
 
@@ -159,7 +160,6 @@ class ManajerMenuController extends Controller {
 			$menu->name 				= Input::get('name');
 			$menu->harga 				= Input::get('harga');
 			$menu->kategori 			= Input::get('kategori');
-			$menu->gambar 				= Input::get('gambar');
 			$menu->is_rekomendasi		= Input::get('is_rekomendasi');
 			$menu->end_date_rekomendasi	= Input::get('end_date_rekomendasi');
 			$menu->is_promosi			= Input::get('is_promosi');
@@ -167,10 +167,16 @@ class ManajerMenuController extends Controller {
 			$menu->diskon				= Input::get('diskon');
 			$menu->durasi_penyelesaian	= Input::get('durasi_penyelesaian');
 			$menu->status				= Input::get('status');
-
+			$file 						= Input::file('foto');
+			if(!is_null($file)){
+				$extension 				= $file->getClientOriginalExtension();
+				Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+				$menu->mime = $file->getClientMimeType();
+				$menu->original_photoname = $file->getClientOriginalName();
+				$menu->photoname = $file->getFilename().'.'.$extension;
+			}
 			$menu->save();
 
-			//Session::flash('message', 'Successfully created nerd!');
 			return Redirect::to('manajermenu');
 		}
     }

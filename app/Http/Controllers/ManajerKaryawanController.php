@@ -154,9 +154,14 @@ class ManajerKaryawanController extends Controller {
 			$karyawan->password 		= Input::get('password');
 			$karyawan->role 			= Input::get('role');
 			$karyawan->telepon 			= Input::get('telepon');
-			$karyawan->foto 			= Input::get('foto');
 			$karyawan->alamat 			= Input::get('alamat');
 			$karyawan->tanggal_mulai 	= Input::get('tanggal_mulai');
+			$file 						= Input::file('foto');
+			$extension 					= $file->getClientOriginalExtension();
+			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+			$karyawan->mime = $file->getClientMimeType();
+			$karyawan->original_photoname = $file->getClientOriginalName();
+			$karyawan->photoname = $file->getFilename().'.'.$extension;
 
 			$karyawan->save();
 
@@ -177,13 +182,5 @@ class ManajerKaryawanController extends Controller {
         $karyawan->delete();
 
         return Redirect::to('manajerkaryawan');
-    }
-
-    public function get($photoname){
-    	$karyawan= Karyawan::where('photoname', '=', $photoname)->firstOrFail();
-		$file = Storage::disk('local')->get($karyawan->photoname);
- 
-		return (new Response($file, 200))
-              ->header('Content-Type', $karyawan->mime);
     }
 }

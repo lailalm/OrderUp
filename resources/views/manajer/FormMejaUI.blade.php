@@ -17,6 +17,12 @@
                     {!! Form::open(array('route' => 'addmeja_store', 'class' => 'form')) !!}
 
                     <div class="form-group">
+                        {!! Form::label('Nomor Meja') !!}
+                        {!! Form::text('nomormeja', null, 
+                            array('required', 'class'=>'form-control', 'placeholder'=>'Masukkan Nomor Meja')) !!}
+                    </div>
+
+                    <div class="form-group">
                         {!! Form::label('Kode Masuk Meja') !!}
                         {!! Form::text('kodemasuk', null, 
                             array('required', 'class'=>'form-control', 'placeholder'=>'Masukkan Kode Masuk Meja')) !!}

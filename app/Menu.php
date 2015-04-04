@@ -25,6 +25,6 @@ class Menu extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'harga', 'kategori', 'gambar', 'isRekomendasi', 'end_date_rekomendasi', 'is_promosi', 'end_date_promosi', 'diskon', 'durasi_penyelesaian', 'status'];
+	protected $fillable = ['name', 'harga', 'kategori', 'photoname', 'mime', 'original_photoname', 'is_rekomendasi', 'end_date_rekomendasi', 'is_promosi', 'end_date_promosi', 'diskon', 'durasi_penyelesaian', 'status'];
 
 }
