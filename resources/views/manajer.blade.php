@@ -157,7 +157,8 @@
 					
 					<div class="form-group col-xs-12">
 						<label for="exampleInputDes">Deskripsi</label>
-						<input type="text" class="form-control" id="exampleInputHP" placeholder="Deskripsi menu">
+						 {!! Form::textarea('deskripsi', null, 
+                    	array('required', 'class'=>'form-control', 'id'=>'exampleInputHP', 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
 					</div>
 
 					<div class="clearfix visible-xs-block"></div>
@@ -175,56 +176,39 @@
 
 		            <div class="form-group">
 		                {!! Form::label('Foto') !!}
-		                {!! Form::file('foto', array('required', 'class'=>'form-control', 'id'=>'menu-pic')) !!}
+		                {!! Form::file('foto', array('required', 'class'=>'form-control file')) !!}
 		            </div>
 
-		            <hr>
-		            <div class="form-group">
-		                <h2>{!! Form::label('Rekomendasi?') !!}</h2>
-		                Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
-		                No {!! Form::radio('is_rekomendasi', 0, true) !!}
-		            </div>
+		            <div style="display:none;">
+						Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
+                		No {!! Form::radio('is_rekomendasi', 0, true) !!}
+         
+						{!! Form::input('date', 'end_date_rekomendasi') !!}
+         
+						Yes {!! Form::radio('is_promosi', 1, false) !!}
+                		No {!! Form::radio('is_promosi', 0, true) !!}
+            
+						{!! Form::input('date', 'end_date_promosi') !!}
 
-		            <div class="form-group">
-		                {!! Form::label('EDR') !!}
-		                {!! Form::input('date', 'end_date_rekomendasi') !!}
-		            </div>
-		            <hr>
-		            <div class="form-group">
-		                <h2>{!! Form::label('Promosi?') !!}</h2>
-		                Yes {!! Form::radio('is_promosi', 1, false) !!}
-		                No {!! Form::radio('is_promosi', 0, true) !!}
-		            </div>
+						{!! Form::text('diskon', null, 
+                    	array('class'=>'form-control', 'placeholder'=>'')) !!}
 
-		            <div class="form-group">
-		                {!! Form::label('EDP') !!}
-		                {!! Form::input('date', 'end_date_promosi') !!}
-		            </div>
+                    	{!! Form::text('durasi_penyelesaian', null, 
+                    	array('class'=>'form-control', 'placeholder'=>'')) !!}
 
-		            <div class="form-group">
-		                {!! Form::label('Diskon') !!}
-		                {!! Form::text('diskon', null, 
-		                    array('class'=>'form-control', 'placeholder'=>'')) !!}
-		            </div>
-		            <hr><br>
-
-		            <div class="form-group">
-		                {!! Form::label('Durasi') !!}
-		                {!! Form::text('durasi_penyelesaian', null, 
-		                    array('class'=>'form-control', 'placeholder'=>'')) !!}
-		            </div>
-
-		            <div class="form-group">
-		                <h3>{!! Form::label('Status') !!}</h3>
-		                Available {!! Form::radio('status', 1, true) !!}
-		                Not Available {!! Form::radio('status', 0, false) !!}
-		            </div>
-
-
-		            <div class="form-group">
-		                {!! Form::submit('Submit', array('class' => 'btn btn-info')) !!}
-		            </div>
-
+					 	Available {!! Form::radio('status', 1, true) !!}
+                		Not Available {!! Form::radio('status', 0, false) !!}
+					</div>	
+					<div class = "col-xs-3 col-xs-offset-3">
+						<button id="batal-button" class="btn btn-primary col-xs-12">
+							Batal
+						</button>
+					</div>
+					<div class = "col-xs-3">
+	               		{!! Form::submit('Simpan', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
+					</div>
+					<div class="clearfix visible-xs-block"></div>
+					<div class="clearfix visible-xs-block"></div>
 					{!! Form::close() !!}
 		      	</div>
 				
