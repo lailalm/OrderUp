@@ -39,7 +39,7 @@
 							<td>{{$karyawan->email}}</td>
 							<td>{{$karyawan->password}}</td>
 							<td>{{$karyawan->role}}</td>
-							<td><img src="{{route('getphoto', $karyawan->photoname)}}" alt="ALT NAME" class="img-responsive" /></td>
+							<td>{!! HTML::image('../storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '90%')) !!}</td>
 							<td>{{$karyawan->mime}}</td>
 							<td>{{$karyawan->original_photoname}}</td>
 							<td>{{$karyawan->telepon}}</td>
