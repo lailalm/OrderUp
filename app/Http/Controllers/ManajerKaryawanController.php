@@ -133,10 +133,8 @@ class ManajerKaryawanController extends Controller {
 		$rules = array(
 			"name" => 'required',
 			"email" => 'required|email',
-			"password" => 'required|min:8',
 			"role" => "required",
 			"telepon" => "required|numeric",
-			"foto" => "required",
 			"alamat" => "required",
 			"tanggal_mulai" => "required"
 		);
@@ -151,18 +149,22 @@ class ManajerKaryawanController extends Controller {
 			$karyawan = Karyawan::find($id);
 			$karyawan->name 			= Input::get('name');
 			$karyawan->email 			= Input::get('email');
-			$karyawan->password 		= Input::get('password');
+			$password					= Input::get('password');
+			if(!$password==""){
+				$karyawan->password 	= bcrypt(Input::get('password'));
+			}
 			$karyawan->role 			= Input::get('role');
 			$karyawan->telepon 			= Input::get('telepon');
 			$karyawan->alamat 			= Input::get('alamat');
 			$karyawan->tanggal_mulai 	= Input::get('tanggal_mulai');
 			$file 						= Input::file('foto');
-			$extension 					= $file->getClientOriginalExtension();
-			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
-			$karyawan->mime = $file->getClientMimeType();
-			$karyawan->original_photoname = $file->getClientOriginalName();
-			$karyawan->photoname = $file->getFilename().'.'.$extension;
-
+			if(!is_null($file)){
+				$extension 					= $file->getClientOriginalExtension();
+				Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+				$karyawan->mime = $file->getClientMimeType();
+				$karyawan->original_photoname = $file->getClientOriginalName();
+				$karyawan->photoname = $file->getFilename().'.'.$extension;
+			}
 			$karyawan->save();
 
 			//Session::flash('message', 'Successfully created nerd!');

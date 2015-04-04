@@ -14,7 +14,7 @@
             </div>
 
             <div class="panel-body">
-                {!! Form::model($karyawan, array('route' => array('editkaryawan_update', $karyawan->id_karyawan), 'method' => 'PUT')) !!}
+                {!! Form::model($karyawan, array('route' => array('editkaryawan_update', $karyawan->id_karyawan), 'method' => 'PUT','files'=>true)) !!}
 
                 <div class="form-group">
                     {!! Form::label('Nama') !!}
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     {!! Form::label('Password') !!}
                     {!! Form::password('password', null, 
-                        array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
+                        array('class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
 
@@ -48,8 +48,7 @@
 
                 <div class="form-group">
                     {!! Form::label('Foto') !!}
-                    {!! Form::text('foto', null, 
-                        array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
+                    {!! Form::file('foto', array('class'=>'form-control')) !!}
                 </div>
 
                 <div class="form-group">

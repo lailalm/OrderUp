@@ -14,7 +14,7 @@
             </div>
 
             <div class="panel-body">
-                {!! Form::model($menu, array('route' => array('editmenu_update', $menu->id_menu,'files'=>true), 'method' => 'PUT','files'=>true)) !!}
+                {!! Form::model($menu, array('route' => array('editmenu_update', $menu->id_menu), 'method' => 'PUT','files'=>true)) !!}
 
                 <div class="form-group">
                     {!! Form::label('Nama') !!}
@@ -36,6 +36,12 @@
                 <div class="form-group">
                     {!! Form::label('Foto') !!}
                     {!! Form::file('foto', array('class'=>'form-control')) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('Deskripsi') !!}
+                    {!! Form::textarea('deskripsi', null, 
+                        array('required', 'class'=>'form-control', 'placeholder'=>'Masukkan Deskripsi Meja')) !!}
                 </div>
 
                 <hr>
@@ -64,7 +70,7 @@
                 <div class="form-group">
                     {!! Form::label('Diskon') !!}
                     {!! Form::text('diskon', null, 
-                        array(class'=>'form-control', 'placeholder'=>'')) !!}
+                        array('class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
                 <hr><br>
 

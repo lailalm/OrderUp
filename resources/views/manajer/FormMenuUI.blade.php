@@ -38,6 +38,12 @@
                 {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
             </div>
 
+            <div class="form-group">
+                {!! Form::label('Deskripsi') !!}
+                {!! Form::textarea('deskripsi', null, 
+                    array('required', 'class'=>'form-control', 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
+            </div>
+
             <hr>
             <div class="form-group">
                 <h2>{!! Form::label('Rekomendasi?') !!}</h2>

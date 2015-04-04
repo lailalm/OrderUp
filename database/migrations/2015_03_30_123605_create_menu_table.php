@@ -28,7 +28,7 @@ class CreateMenuTable extends Migration {
 			$table->integer('diskon');
 			$table->integer('durasi_penyelesaian');
 			$table->boolean('status');
-
+			$table->text('deskripsi');
 		});
 	}
 
