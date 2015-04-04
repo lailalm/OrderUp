@@ -38,6 +38,12 @@
                     {!! Form::file('foto', array('class'=>'form-control')) !!}
                 </div>
 
+                <div class="form-group">
+                    {!! Form::label('Deskripsi') !!}
+                    {!! Form::textarea('deskripsi', null, 
+                        array('required', 'class'=>'form-control', 'placeholder'=>'Masukkan Deskripsi Meja')) !!}
+                </div>
+
                 <hr>
                 <div class="form-group">
                     <h2>{!! Form::label('Rekomendasi?') !!}</h2>
@@ -64,7 +70,7 @@
                 <div class="form-group">
                     {!! Form::label('Diskon') !!}
                     {!! Form::text('diskon', null, 
-                        array(class'=>'form-control', 'placeholder'=>'')) !!}
+                        array('class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
                 <hr><br>
 

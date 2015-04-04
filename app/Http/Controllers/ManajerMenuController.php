@@ -71,6 +71,7 @@ class ManajerMenuController extends Controller {
 			"harga" => 'required|numeric',
 			"kategori" => 'required',
 			"foto" => 'required',
+			"deskripsi"=> 'required',
 			"is_rekomendasi" => 'required',
 			"is_promosi" => 'required',
 			"diskon" => 'numeric',
@@ -97,6 +98,7 @@ class ManajerMenuController extends Controller {
 			$menu->diskon				= Input::get('diskon');
 			$menu->durasi_penyelesaian	= Input::get('durasi_penyelesaian');
 			$menu->status				= Input::get('status');
+			$menu->deskripsi			= Input::get('deskripsi');
 			$file 						= Input::file('foto');
 			$extension 					= $file->getClientOriginalExtension();
 			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
@@ -140,6 +142,7 @@ class ManajerMenuController extends Controller {
 		$rules = array(
 			"name" => 'required',
 			"harga" => 'required|numeric',
+			"deskripsi" => 'required',
 			"kategori" => 'required',
 			"is_rekomendasi" => 'required',
 			"is_promosi" => 'required',
@@ -167,6 +170,7 @@ class ManajerMenuController extends Controller {
 			$menu->diskon				= Input::get('diskon');
 			$menu->durasi_penyelesaian	= Input::get('durasi_penyelesaian');
 			$menu->status				= Input::get('status');
+			$menu->deskripsi			= Input::get('deskripsi');
 			$file 						= Input::file('foto');
 			if(!is_null($file)){
 				$extension 				= $file->getClientOriginalExtension();
