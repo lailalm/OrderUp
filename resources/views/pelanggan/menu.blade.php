@@ -1,7 +1,10 @@
 @extends('pelanggan')
 
 @section('content')	
-<div id = "content" class="clearfix">
+<div id = "content " class="clearfix">
+	<div class="pengisi-atas">
+		
+	</div>
 	<div id= "promo" class = "col-sm-8 col-sm-offset-2">
 		{!! HTML::image('assets/img/promosi-title.png', 'panggil', array( 'width' => '120px')) !!}              
 		<ul id="slippry-demo">
@@ -70,7 +73,7 @@
 	</div>
 </div>
 
-<div id= "footer" class="col-xs-10 col-xs-offset-1">
+<div id= "footer" class="col-xs-12">
     {!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
 </div>
 

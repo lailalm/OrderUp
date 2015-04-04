@@ -129,5 +129,114 @@
         </div>
         @yield('content')
 		
+
+
+		<!-- Modal Add Menu -->
+		<!--Create Menu Modal-->
+		<div class="modal fade" id="create-menu-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="col-xs-12" id="formEditKaryawan">
+		      		<div class="form-group col-xs-8">
+		            	{!! Form::open(array('route' => 'addmenu_store', 'class' => 'form', 'files'=>true)) !!}
+
+	                	<label for="exampleInputNama">Nama Menu</label>
+						{!! Form::text('name', null, array('required', 'class'=>'form-control', 'id'=>'exampleInputNama', 'placeholder'=>'Nama Menu')) !!}
+					</div>
+
+		            <div class="form-group col-xs-4">
+						<label for="exampleInputAlamat">Harga</label>
+						{!! Form::text('harga', null, 
+	            		array('required', 'class'=>'form-control', 'id'=>'exampleInputAlamat', 'placeholder'=>'Contoh : 1000')) !!}
+					</div>
+		            <div class="clearfix visible-xs-block"></div>
+					
+					<div class="form-group col-xs-12">
+						<label for="exampleInputDes">Deskripsi</label>
+						<input type="text" class="form-control" id="exampleInputHP" placeholder="Deskripsi menu">
+					</div>
+
+					<div class="clearfix visible-xs-block"></div>
+
+		            <div class="form-group col-xs-12">
+		            	<label for="exampleInputKat">Kategori Menu</label> <br>
+		                {!! Form::select('kategori', array('Menu Pembuka' => 'Menu Pembuka', 
+						 									'Menu Utama' => 'Menu Utama',
+						 									'Menu Sampingan' => 'Menu Sampingan',
+						 									'Menu Penutup' => 'Menu Penutup',
+						 									'Menu Minuman' => 'Menu Minuman'), null, 
+						 									['class' => 'selectpicker']) !!}
+							
+		            </div>
+
+		            <div class="form-group">
+		                {!! Form::label('Foto') !!}
+		                {!! Form::file('foto', array('required', 'class'=>'form-control', 'id'=>'menu-pic')) !!}
+		            </div>
+
+		            <hr>
+		            <div class="form-group">
+		                <h2>{!! Form::label('Rekomendasi?') !!}</h2>
+		                Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
+		                No {!! Form::radio('is_rekomendasi', 0, true) !!}
+		            </div>
+
+		            <div class="form-group">
+		                {!! Form::label('EDR') !!}
+		                {!! Form::input('date', 'end_date_rekomendasi') !!}
+		            </div>
+		            <hr>
+		            <div class="form-group">
+		                <h2>{!! Form::label('Promosi?') !!}</h2>
+		                Yes {!! Form::radio('is_promosi', 1, false) !!}
+		                No {!! Form::radio('is_promosi', 0, true) !!}
+		            </div>
+
+		            <div class="form-group">
+		                {!! Form::label('EDP') !!}
+		                {!! Form::input('date', 'end_date_promosi') !!}
+		            </div>
+
+		            <div class="form-group">
+		                {!! Form::label('Diskon') !!}
+		                {!! Form::text('diskon', null, 
+		                    array('class'=>'form-control', 'placeholder'=>'')) !!}
+		            </div>
+		            <hr><br>
+
+		            <div class="form-group">
+		                {!! Form::label('Durasi') !!}
+		                {!! Form::text('durasi_penyelesaian', null, 
+		                    array('class'=>'form-control', 'placeholder'=>'')) !!}
+		            </div>
+
+		            <div class="form-group">
+		                <h3>{!! Form::label('Status') !!}</h3>
+		                Available {!! Form::radio('status', 1, true) !!}
+		                Not Available {!! Form::radio('status', 0, false) !!}
+		            </div>
+
+
+		            <div class="form-group">
+		                {!! Form::submit('Submit', array('class' => 'btn btn-info')) !!}
+		            </div>
+
+					{!! Form::close() !!}
+		      	</div>
+				
+		            
+		      </div>
+		      <div class="modal-footer">
+		      	<div id="footer-modal-menu" class =" col-xs-12">
+					
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
 	</body>
 </html>

@@ -50,9 +50,7 @@ Route::get('addkaryawan', ['as' => 'addkaryawan','uses'=> 'ManajerKaryawanContro
 
 Route::post('addkaryawan', ['as' => 'addkaryawan_store','uses'=> 'ManajerKaryawanController@store']);
 
-Route::get('addmenu', ['as' => 'addmenu','uses'=> 'ManajerMenuController@create']);
 
-Route::post('addmenu', ['as' => 'addmenu_store','uses'=> 'ManajerMenuController@store']);
 
 Route::get('editmeja/{id}', ['as' => 'editmeja', 'uses' => 'ManajerMejaController@edit']);
 
@@ -82,8 +80,12 @@ Route::controllers([
 */
 Route::get('/customer', 'CustomerController@index');
 
+
 /*
 |-------------------------------------------------------------------------
 | Admin Area Routes
 |-------------------------------------------------------------------------
 */
+Route::get('addmenu', ['as' => 'addmenu','uses'=> 'ManajerMenuController@create']);
+
+Route::post('addmenu', ['as' => 'addmenu_store','uses'=> 'ManajerMenuController@store']);

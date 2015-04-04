@@ -84,6 +84,9 @@ body{
 }
 
 #nav{
+	position: fixed;
+	z-index: 2;
+	background-color: #d8532e;
 	width : 100%;
 	padding-top: 10px;
 	margin: 0;
@@ -176,7 +179,7 @@ body{
 }
 
 #promo {
-
+	z-index: 0;
 }
 
 @media(max-width: 767px) {
@@ -206,7 +209,7 @@ body{
 }
 
 #utama-title {
-	margin-top: 20px;
+	margin-top: 45px;
 }
 
 #menu1 {
@@ -246,9 +249,12 @@ body{
 }
 
 #footer {
-	margin:0px;
-	padding-top: 5px;
-	padding-bottom: 5px;
+	width:100%;
+	position: fixed;
+	z-index: 1;
+	background-color: #d8532e;
+	bottom:0;
+	left: 0;
 }
 
 .modal-header {
@@ -264,11 +270,17 @@ body{
 	font-size: 120%;
 }
 
-#harga-menu {
+#status-menu {
 	text-align: right;
 	color: green;
 	margin-top: 8px;
 	font-size: 100%;
+}
+
+.harga-menu {
+	text-align: left;
+	color: #bb2828;
+	font-size: 110%;
 }
 
 .btn-primary {
@@ -277,19 +289,61 @@ body{
 	background-color: #bb2828 !important;
 }
 
-@media(max-width: 767px) {
+/*@media(max-width: 767px) {
 .modal-dialog {
-	top: 25% !important;
-	bottom: 25% !important;
+	top: 15% !important;
+	bottom: 15% !important;
 }
 }
 
 .modal-dialog {
 	top: 10%;
-}
+}*/
 
 @media(max-width: 767px) {
 #content1 {
 	margin-bottom: 20px;
 }
+}
+
+/* Bagian Modal Pesan */
+.add_subs {
+	background-color: #e0e0e0;
+	color: #bb2828; 
+	font-weight: bold;
+}
+
+.space {
+	margin-top:10px;
+}
+
+.space-bottom {
+	margin-bottom: 10px;
+}
+
+.padding-left {
+	padding-left: 30px;
+}
+
+/* Bagina Lihat Pesanan */
+.white {
+	color: white;
+}
+
+.kotak-putih {
+	width: 100%;
+	background-color: white;
+	padding: 5px;
+}
+
+.row {
+	width: 100%;
+}
+
+.pengisi {
+	height: 20px;
+}
+
+.pengisi-atas {
+	height: 75px;
 }

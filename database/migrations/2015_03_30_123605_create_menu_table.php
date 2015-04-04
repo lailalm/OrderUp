@@ -15,9 +15,9 @@ class CreateMenuTable extends Migration {
 		Schema::create('menu', function(Blueprint $table)
 		{
 			$table->increments('id_menu');
-			$table->string('name',15);
+			$table->string('name',40);
 			$table->integer('harga');
-			$table->enum('kategori', array('makanan','minuman'));
+			$table->enum('kategori', array('Menu Pembuka','Menu Utama', 'Menu Sampingan', 'Menu Penutup', 'Menu Minuman'));
 			$table->string('photoname');
 			$table->string('mime');
 			$table->string('original_photoname');
