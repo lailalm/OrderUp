@@ -44,8 +44,9 @@ body{
 }
 
 #forgot-password{
-	margin-left:50px;
 	color:black;
+	font-size: 12px;
+	padding-top: 7.5px;
 }
 
 
@@ -299,10 +300,6 @@ body{
 }
 }
 
-.modal-dialog {
-	top: 10%;
-}
-
 @media(max-width: 767px) {
 #content1 {
 	margin-bottom: 20px;
@@ -343,6 +340,11 @@ body{
 	border-color: rgba(255,255,255,0.5);
 	padding: 5px 0px 5px 0px;
 	text-align: center;
+}
+
+#logo-nav {
+	background-color: black;
+	border-bottom-style: none;
 }
 
 .navbar-brand {
@@ -395,3 +397,118 @@ body{
 	color: white;
 	border-radius: 0px;
 }
+
+
+#remember-me input {
+	display: inline !important;
+	margin-left: 30px;
+}
+
+@media(max-width: 767px) {
+#remember-me input {
+	display: inline !important;
+	margin-left: 0px;
+}
+}
+
+@media(max-width: 767px) {
+#forgot-password {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+}
+
+#remember {
+	padding-left: 10px;
+	font-size: 12px;
+}
+
+#remember-me > a {
+	color: #bb2828;
+}
+
+#forgot-password > a {
+	color: #bb2828;
+}
+
+#picture {
+	margin: 10px 0px 10px 0px;
+}
+
+#batal-button {
+	background: #bb2828;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+#simpan-button {
+	background: #bb2828;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+
+#hapus-button {
+	background: #bb2828;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+#nama-menu {
+	margin-top: 10px;
+	font-size: 120%;
+}
+
+#status {
+	color: green;
+	text-align: right;
+	margin-top: 10px;
+}
+
+#penjelasan {
+	margin-top: 10px;
+	text-align: center;
+}
+
+#harga-menu {
+	color: #bb2828;
+	text-align: left;
+	font-size: 120%;
+	margin-top: 5px;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-bottom: 10px;
+}
+
+#footer-modal-menu {
+	margin-top: 10px;
+}
+
+#footer-modal-menu > a {
+	color: #bb2828;
+}
+
+#harga-menu-promosi {
+	color: #bb2828;
+	text-align: left;
+	font-size: 120%;
+	margin-top: 5px;
+}
+
+#masa-berlaku {
+	text-align: right !important;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-bottom: 5px;
+	font-size: 90%;
+}
+
+#delete-ques {
+	text-align: center !important;
+}
+
