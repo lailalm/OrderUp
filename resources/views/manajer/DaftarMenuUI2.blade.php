@@ -21,48 +21,17 @@
           <div class="clearfix visible-xs-block"></div>
           
           <div id= "isi" class ="col-xs-12 clearfix">
-          	<div id="menu1" class ="col-sm-4 col-xs-12"> 
-          		{!! HTML::image('assets/img/menu-utama.jpg', 'logo-order-up', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal')) !!}
-          		Menu Utama 1
-          	</div>
-          	<div class="clearfix visible-xs-block"></div>
+	          @foreach ($list_menu as $menu)
+	          	<div id="menu1" class ="col-sm-4 col-xs-12"> 
+	          		{!! HTML::image('assets/img/menu-utama.jpg', 'logo-order-up', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal')) !!}
+	          		{{$menu->name}}
+	          	</div>
+          		<div class="clearfix visible-xs-block"></div>
+
+	          @endforeach
 
           	
-          	<div id="menu2" class ="col-sm-4 col-xs-12"> 
-          		{!! HTML::image('assets/img/menu-utama.jpg', 'logo-order-up', array( 'width' => '100%')) !!}
-
-          		Menu Utama 2
-          	</div>
-          	<div class="clearfix visible-xs-block"></div>
           	
-          	<div id="menu3" class ="col-sm-4 col-xs-12"> 
-          		{!! HTML::image('assets/img/menu-utama.jpg', 'logo-order-up', array( 'width' => '100%')) !!}
-
-          		Menu Utama 3
-          	</div>
-          	<div class="clearfix visible-xs-block"></div>
-          	<div class="clearfix visible-sm-block"></div>
-          	
-          	<div id="menu4" class ="col-sm-4 col-xs-12"> 
-          		{!! HTML::image('assets/img/menu-utama.jpg', 'logo-order-up', array( 'width' => '100%')) !!}
-
-          		Menu Utama 4
-          	</div>
-          	
-          	<div id="menu5" class ="col-sm-4 col-xs-12"> 
-          		{!! HTML::image('assets/img/menu-utama.jpg', 'logo-order-up', array( 'width' => '100%')) !!}
-
-          		Menu Utama 5
-          	</div>
-          	<div class="clearfix visible-xs-block"></div>
-          	
-          	<div id="menu6" class ="col-sm-4 col-xs-12"> 
-          		{!! HTML::image('assets/img/menu-utama.jpg', 'logo-order-up', array( 'width' => '100%')) !!}
-
-          		Menu Utama 6
-          	</div>
-          	<div class="clearfix visible-xs-block"></div>
-          	<div class="clearfix visible-sm-block"></div>	
           </div>
           
           <div class="modal fade" id="menu-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -174,12 +174,14 @@
 							
 		            </div>
 
-		            <div class="form-group">
-		                {!! Form::label('Foto') !!}
-		                {!! Form::file('foto', array('required', 'class'=>'form-control file')) !!}
+		            <div class="form-group col-xs-12">
+		            	<label for="exampleInputGam">Gambar Menu</label>
+						{!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
 		            </div>
 
 		            <div style="display:none;">
+
+
 						Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
                 		No {!! Form::radio('is_rekomendasi', 0, true) !!}
          
