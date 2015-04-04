@@ -28,7 +28,7 @@
 	<body>
 			<div id = "main" class="col-sm-6 col-sm-offset-3"> 
 				<div id ="logo">
-					{!! HTML::image('assets/img/logo.png', 'logo-order-up', array( 'width' => '90%')) !!}
+					{!! HTML::image('storage/img/logo.png', 'logo-order-up', array( 'width' => '90%')) !!}
 				</div>
 				
 				<div id= "login" class ='col-sm-8 col-sm-offset-2'>
