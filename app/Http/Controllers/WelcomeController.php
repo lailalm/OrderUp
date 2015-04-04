@@ -40,7 +40,7 @@ class WelcomeController extends Controller {
 	 */
 	public function dummy()
 	{
-		return view('pelanggan/menu');
+		return view('manajer/DaftarMenuUI2');
 	}
 
 }
