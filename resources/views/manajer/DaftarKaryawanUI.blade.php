@@ -1,12 +1,119 @@
-@extends('app')
+@extends('manajer')
 
 @section('content')
+
+<div class="main col-md-10 col-md-offset-2">
+	<div class ="col-md-3 col-md-offset-9 col-xs-10 col-xs-offset-1">
+		<select class="selectpicker" data-header="Kategori Karyawan">
+		  	<option>Pelayan</option>
+		  	<option>Koki</option>
+		</select>
+		
+		<script>
+			$('.selectpicker').selectpicker();
+		</script>
+	</div>
+
+	<div class="clearfix visible-xs-block"></div>
+
+	<div id= "isi" class ="col-xs-12 clearfix">
+		@foreach ($daftar_karyawan as $karyawan)
+			<div id="menu1" class ="col-sm-3 col-xs-12" data-toggle="modal" data-target="#{{$karyawan->id_karyawan}}"> 
+				{!! HTML::image('../storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '100%')) !!}
+				{{$karyawan->name}}		
+			</div>
+	        <div class="clearfix visible-xs-block"></div>	
+		@endforeach
+        <div class="clearfix visible-sm-block"></div>	
+	</div>
+</div>
+
+
+@foreach ($daftar_karyawan as $karyawan)
+	
+	<!-- ini modal nampilin karyawan cuy -->
+	<div class="modal fade" id="{{$karyawan->id_karyawan}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+		    	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	</div>
+		      	<div class="modal-body">
+					<div class="row">
+						<div class="col-xs-6" id= "nama-menu">
+							{!! HTML::image('../storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '80%')) !!}
+						</div>
+						<div class="col-xs-6" >
+							<h3>{{$karyawan->name}}</h3>
+						</div>
+						<div class="col-xs-6">
+							<p>Alamat:{{$karyawan->alamat}}</p>
+							<p>HP    :{{$karyawan->telepon}}</p>
+							<p>Email :{{$karyawan->email}}</p>
+							<p>Mulai Bekerja :{{$karyawan->tanggal_mulai}}</p>
+						</div>
+		        	</div>
+		        	<div class="clearfix visible-xs-block"></div>
+		       	</div>
+		      	<div class="modal-footer">
+		      		<div id="footer-modal-menu" class =" col-xs-12">
+		      			<div id="footer-modal-menu" class ="col-xs-12">
+							<a href= "#" data-toggle="modal" data-target="#create-pelayan-modal"><div class = "col-xs-10">
+							Edit
+						</div></a>
+						<a href= "#" data-toggle="modal" data-target="#delete{{$karyawan->id_karyawan}}">
+						<div class = "col-xs-2">
+							Hapus
+						</div></a>
+						<div class="clearfix visible-xs-block"></div>
+						</div>
+						<div class="clearfix visible-xs-block"></div>
+						<div class="clearfix visible-xs-block"></div>
+					</div>
+		      	</div>
+		    </div>
+		</div>
+	</div>
+
+	<!-- kalau ini modal nampilin function delete cuy -->
+	<div class="modal fade" id="delete{{$karyawan->id_karyawan}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		    <div class="modal-content">
+		      	<div class="modal-header">
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      	</div>
+		      	<div class="modal-body">
+					<div id= "delete-ques" class ="col-xs-12">
+		      			Apakah Anda yakin ingin menghapus <b>{{$karyawan->name}}</b> sebagai {{$karyawan->role}}?
+		      		</div>
+		      	</div>
+		    <div class="modal-footer">
+		      	<div id="footer-modal-menu" class =" col-xs-12">
+					<div class = "col-xs-3 col-xs-offset-3">
+						<button id="batal-button" class="btn button col-xs-12">
+							Batal
+						</button>
+					</div>
+					<div class = "col-xs-3">
+						<button id="hapus-button" class="btn button col-xs-12">
+							Hapus
+						</button>
+					</div>
+					<div class="clearfix visible-xs-block"></div>
+					<div class="clearfix visible-xs-block"></div>
+				</div>
+		      </div>
+		    </div>
+		</div>
+		</div>
+@endforeach
+
 <div class="container">
-	<h4>ceritanya dibawah ini mau dinaikin ke atas</h4>
-	<a href="manajermenu">Menu</a>
-	<a href="manajerkaryawan">Karyawan</a>
-	<a href="manajermeja">Meja</a>
 	<div class="row">
+
+
+
+
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-default">
 				<div class="panel-heading">

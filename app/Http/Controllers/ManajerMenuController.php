@@ -70,7 +70,6 @@ class ManajerMenuController extends Controller {
 			"name" => 'required',
 			"harga" => 'required|numeric',
 			"kategori" => 'required',
-			"foto" => 'required',
 			"deskripsi"=> 'required',
 			"is_rekomendasi" => 'required',
 			"is_promosi" => 'required',
@@ -100,6 +99,7 @@ class ManajerMenuController extends Controller {
 			$menu->status				= Input::get('status');
 			$menu->deskripsi			= Input::get('deskripsi');
 			$file 						= Input::file('foto');
+			dd($file);
 			$extension 					= $file->getClientOriginalExtension();
 			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
 			$menu->mime = $file->getClientMimeType();
