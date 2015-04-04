@@ -176,7 +176,7 @@
 
 		            <div class="form-group">
 		                {!! Form::label('Foto') !!}
-		                {!! Form::file('foto', array('required', 'class'=>'form-control file')) !!}
+		                {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
 		            </div>
 
 		            <div style="display:none;">
