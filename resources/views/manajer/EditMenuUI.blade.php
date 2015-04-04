@@ -14,7 +14,7 @@
             </div>
 
             <div class="panel-body">
-                {!! Form::model($menu, array('route' => array('editmenu_update', $menu->id_menu,'files'=>true), 'method' => 'PUT','files'=>true)) !!}
+                {!! Form::model($menu, array('route' => array('editmenu_update', $menu->id_menu), 'method' => 'PUT','files'=>true)) !!}
 
                 <div class="form-group">
                     {!! Form::label('Nama') !!}
