@@ -1,4 +1,4 @@
-@extends('app')
+@extends('manajer')
 
 @section('content')
 
@@ -7,93 +7,86 @@
         <li></li>
     @endforeach
 </ul>
-<div class="col-md-10 col-md-offset-1">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h1> Form Penambahan Menu </h1>
-		</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-11 col-md-offset-1">
+            <div class="col-xs-12 panel" id="formEditKaryawan">
+                <h3>Tambah Menu</h3>
 
-		<div class="panel-body">
-			<div class="form-group">
-            {!! Form::open(array('route' => 'addmenu_store', 'class' => 'form', 'files'=>true)) !!}
+                <div class="form-group col-xs-8">
+                    {!! Form::open(array('route' => 'addmenu_store', 'class' => 'form', 'files'=>true)) !!}
 
-                {!! Form::label('Nama') !!}
-                {!! Form::text('name', null, 
-                    array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
-            </div>
+                    <label for="exampleInputNama">Nama Menu</label>
+                    {!! Form::text('name', null, array('required', 'class'=>'form-control', 'id'=>'exampleInputNama', 'placeholder'=>'Nama Menu')) !!}
+                </div>
 
-            <div class="form-group">
-                {!! Form::label('Harga') !!}
-                {!! Form::text('harga', null, 
-                    array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
-            </div>
+                <div class="form-group col-xs-4">
+                    <label for="exampleInputAlamat">Harga</label>
+                    {!! Form::text('harga', null, 
+                    array('required', 'class'=>'form-control', 'id'=>'exampleInputAlamat', 'placeholder'=>'Contoh : 1000')) !!}
+                </div>
+                <div class="clearfix visible-xs-block"></div>
+                
+                <div class="form-group col-xs-12">
+                    <label for="exampleInputDes">Deskripsi</label>
+                     {!! Form::textarea('deskripsi', null, 
+                        array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
+                </div>
 
-            <div class="form-group">
-                {!! Form::label('Kategori') !!}
-                {!! Form::select('kategori', array('Makanan' => 'Makanan', 'Minuman' => 'Minuman')) !!}
-            </div>
+                <div class="clearfix visible-xs-block"></div>
 
-            <div class="form-group">
-                {!! Form::label('Foto') !!}
-                {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
-            </div>
+                <div class="form-group col-xs-12">
+                    <label for="exampleInputKat">Kategori Menu</label> <br>
+                    {!! Form::select('kategori', array('Menu Pembuka' => 'Menu Pembuka', 
+                                                        'Menu Utama' => 'Menu Utama',
+                                                        'Menu Sampingan' => 'Menu Sampingan',
+                                                        'Menu Penutup' => 'Menu Penutup',
+                                                        'Menu Minuman' => 'Menu Minuman'), null, 
+                                                        ['class' => 'selectpicker']) !!}
+                        
+                </div>
 
-            <div class="form-group">
-                {!! Form::label('Deskripsi') !!}
-                {!! Form::textarea('deskripsi', null, 
-                    array('required', 'class'=>'form-control', 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
-            </div>
+                <div class="form-group col-xs-12">
+                    <label for="exampleInputGam">Gambar Menu</label>
+                    {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
+                </div>
 
-            <hr>
-            <div class="form-group">
-                <h2>{!! Form::label('Rekomendasi?') !!}</h2>
-                Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
-                No {!! Form::radio('is_rekomendasi', 0, true) !!}
-            </div>
+                <div style="display:none;">
 
-            <div class="form-group">
-                {!! Form::label('EDR') !!}
-                {!! Form::input('date', 'end_date_rekomendasi') !!}
-            </div>
-            <hr>
-            <div class="form-group">
-                <h2>{!! Form::label('Promosi?') !!}</h2>
-                Yes {!! Form::radio('is_promosi', 1, false) !!}
-                No {!! Form::radio('is_promosi', 0, true) !!}
-            </div>
 
-            <div class="form-group">
-                {!! Form::label('EDP') !!}
-                {!! Form::input('date', 'end_date_promosi') !!}
-            </div>
+                    Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
+                    No {!! Form::radio('is_rekomendasi', 0, true) !!}
+     
+                    {!! Form::input('date', 'end_date_rekomendasi') !!}
+     
+                    Yes {!! Form::radio('is_promosi', 1, false) !!}
+                    No {!! Form::radio('is_promosi', 0, true) !!}
+        
+                    {!! Form::input('date', 'end_date_promosi') !!}
 
-            <div class="form-group">
-                {!! Form::label('Diskon') !!}
-                {!! Form::text('diskon', null, 
+                    {!! Form::text('diskon', null, 
                     array('class'=>'form-control', 'placeholder'=>'')) !!}
-            </div>
-            <hr><br>
 
-            <div class="form-group">
-                {!! Form::label('Durasi') !!}
-                {!! Form::text('durasi_penyelesaian', null, 
+                    {!! Form::text('durasi_penyelesaian', null, 
                     array('class'=>'form-control', 'placeholder'=>'')) !!}
-            </div>
 
-            <div class="form-group">
-                <h3>{!! Form::label('Status') !!}</h3>
-                Available {!! Form::radio('status', 1, true) !!}
-                Not Available {!! Form::radio('status', 0, false) !!}
-            </div>
-
-
-            <div class="form-group">
-                {!! Form::submit('Submit', array('class' => 'btn btn-info')) !!}
-            </div>
-
-			{!! Form::close() !!}
-		</div>
-	</div>
+                    Available {!! Form::radio('status', 1, true) !!}
+                    Not Available {!! Form::radio('status', 0, false) !!}
+                </div>  
+                <div class = "col-xs-3 col-xs-offset-3">
+                    <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
+                        Batal
+                    </a>
+                </div>
+                <div class = "col-xs-3">
+                    {!! Form::submit('Simpan', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
+                </div>
+                <div class="clearfix visible-xs-block"></div>
+                <div class="clearfix visible-xs-block"></div>
+                {!! Form::close() !!}
+            </div>            
+        </div>   
+    </div>
 </div>
 
 

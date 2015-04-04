@@ -6,239 +6,123 @@
 		<div class="col-md-11 col-md-offset-1">
 			<div class ="col-md-3 col-md-offset-9 col-xs-10 col-xs-offset-1">
           	
-          	<select class="selectpicker" data-header="Kategori Menu">
-			  <option>Menu Promosi</option>
-			  <option>Menu Rekomendasi</option>
-			  <option>Menu Pembuka</option>
-			  <option>Menu Utama</option>
-			  <option>Menu Sampingan</option>
-			  <option>Menu Penutup</option>
-			  <option>Menu Minuman</option>
-			</select>
-			
-			<script>
-				$('.selectpicker').selectpicker();
-			</script>
-          	
-          </div>
-          <div id= "isi" class ="col-xs-12 clearfix">
-			@foreach ($list_menu as $menu)
-          	<div id="menu1" class ="col-sm-4 col-xs-12"> 
-          		{!! HTML::image('../storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
-          		{{$menu->name}}
-          	</div>
-      		<div class="clearfix visible-xs-block"></div>
+	          	<select class="selectpicker" data-header="Kategori Menu">
+				  <option>Menu Promosi</option>
+				  <option>Menu Rekomendasi</option>
+				  <option>Menu Pembuka</option>
+				  <option>Menu Utama</option>
+				  <option>Menu Sampingan</option>
+				  <option>Menu Penutup</option>
+				  <option>Menu Minuman</option>
+				</select>
+				
+				<script>
+					$('.selectpicker').selectpicker();
+				</script>
+	          	
+	          </div>
+	          <div id= "isi" class ="col-xs-12 clearfix">
+				@foreach ($list_menu as $menu)
+	          	<div id="menu1" class ="col-sm-4 col-xs-12 clear-fix"> 
+	          		{!! HTML::image('../storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
+	          		{{$menu->name}}
+	          	</div>
+	      		<div class="clearfix visible-xs-block"></div>
 
-      		<!-- MODAL DETAIL -->
-      		<div class="modal fade" id="menu-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  	<div class="modal-dialog">
-				    <div class="modal-content">
-				      	<div class="modal-header">
-				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				      	</div>
-				      	<div class="modal-body">
-				        	{!! HTML::image('../storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
-					    <div class="modal-body">
-			       
-				        <div id= "nama-menu" class= "col-xs-8">
-				        	<b>{{$menu->name}}</b>
-				        </div>
-				  
-			        	@if ($menu->status === 1)	
-				        	<div id= "status" class= "col-xs-4">
-				        		Tersedia
-				        	</div>
-						@else
-				        	<div id= "status" class= "col-xs-4">
-				        		Tidak Tersedia
-				        	</div>
-			        	@endif
-				        
-				        <div class="clearfix visible-xs-block"></div>
-				        
-				        <div id= "penjelasan" class= "col-xs-10 col-xs-offset-1">
-				        	{{$menu->deskripsi}}
-				        </div>
-				        
-				        <div id = "harga-menu" class = "col-xs-12">
-				        	<?php 
-				        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
-				        	?>
-				        </div>
-				        
-				      </div>
-				      <div class="modal-footer">
-				      	<div id="footer-modal-menu" class =" col-xs-12">
-							<a href= "#"><div class = "col-xs-5 col-xs-offset-3">
-								Rekomen
-							</div></a>
-					
-							<a href="#" data-dismiss="modal" data-toggle="modal" data-target="#edit-menu-modal{{$menu->id_menu}}"><div class = "col-xs-2">
-								Edit
-							</div></a>
-					
-							<a href="#" data-dismiss="modal" data-toggle="modal" data-target="#confirm-delete-modal{{$menu->id_menu}}"><div class = "col-xs-2">
-								Hapus
-							</div></a>
-							<div class="clearfix visible-xs-block"></div>
-						</div>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-			</div>
-			<!-- MODAL CONFIRM DELETE -->
-			<div class="modal fade" id="confirm-delete-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  		<div class="modal-dialog">
-			    	<div class="modal-content">
-			      		<div class="modal-header">
-			        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			      		</div>
-				      	<div class="modal-body">
-					      	<div id= "delete-ques" class ="col-xs-12">
-					      		Apakah Anda yakin ingin menghapus menu <b>{{$menu->name}}</b>?
+	      		<!-- MODAL DETAIL -->
+	      		<div class="modal fade" id="menu-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				  	<div class="modal-dialog">
+					    <div class="modal-content">
+					      	<div class="modal-header">
+					        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					      	</div>
-				      	</div>
-				      
-				      	<div class="modal-footer">
-				      		<div id="footer-modal-menu" class =" col-xs-12">
-								<div class = "col-xs-3 col-xs-offset-3">
-									<button data-dismiss="modal" id="batal-button" class="btn button col-xs-12">
-										Batal
-									</button>
-								</div>
-					
-								<div class = "col-xs-3">
-									<a href="{{ URL::to('deletemenu/' . $menu->id_menu) }}" id="hapus-button" class="btn button col-xs-12">
-										Hapus
-									</a>
-								</div>
-								<div class="clearfix visible-xs-block"></div>
+					      	<div class="modal-body">
+					        	{!! HTML::image('../storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
+						    <div class="modal-body">
+				       
+					        <div id= "nama-menu" class= "col-xs-8">
+					        	<b>{{$menu->name}}</b>
+					        </div>
+					  
+				        	@if ($menu->status === 1)	
+					        	<div id= "status" class= "col-xs-4">
+					        		Tersedia
+					        	</div>
+							@else
+					        	<div id= "status" class= "col-xs-4">
+					        		Tidak Tersedia
+					        	</div>
+				        	@endif
+					        
+					        <div class="clearfix visible-xs-block"></div>
+					        
+					        <div id= "penjelasan" class= "col-xs-10 col-xs-offset-1">
+					        	{{$menu->deskripsi}}
+					        </div>
+					        
+					        <div id = "harga-menu" class = "col-xs-12">
+					        	<?php 
+					        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
+					        	?>
+					        </div>
+					        
+					      </div>
+					      <div class="modal-footer">
+					      	<div id="footer-modal-menu" class =" col-xs-12">
+								<a href= "#"><div class = "col-xs-5 col-xs-offset-3">
+									Rekomen
+								</div></a>
+						
+								<a href="{{ URL::to('editmenu/'. $menu->id_menu) }}"><div class = "col-xs-2">
+									Edit
+								</div></a>
+						
+								<a href="#" data-dismiss="modal" data-toggle="modal" data-target="#confirm-delete-modal{{$menu->id_menu}}"><div class = "col-xs-2">
+									Hapus
+								</div></a>
 								<div class="clearfix visible-xs-block"></div>
 							</div>
-				      	</div>
-				    </div>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 				</div>
-			</div>
-
-			<!-- MODAL EDIT -->
-			<div class="modal fade" id="edit-menu-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  	<div class="modal-dialog">
-				    <div class="modal-content">
-				      	<div class="modal-header">
-				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				     	</div>
-				      	<div class="modal-body">
-				      		<div class="col-xs-12" id="formEditKaryawan">
-					      		<div class="form-group col-xs-8">
-					            	{!! Form::open(array('route' => 'addmenu_store', 'class' => 'form', 'files'=>true)) !!}
-
-				                	<label for="exampleInputNama">Nama Menu</label>
-									{!! Form::text('name', null, array('required', 'class'=>'form-control', 'id'=>'exampleInputNama', 'placeholder'=>'Nama Menu')) !!}
-								</div>
-
-					            <div class="form-group col-xs-4">
-									<label for="exampleInputAlamat">Harga</label>
-									{!! Form::text('harga', null, 
-				            		array('required', 'class'=>'form-control', 'id'=>'exampleInputAlamat', 'placeholder'=>'Contoh : 1000')) !!}
-								</div>
-				            	<div class="clearfix visible-xs-block"></div>
-							
-								<div class="form-group col-xs-12">
-									<label for="exampleInputDes">Deskripsi</label>
-									 {!! Form::textarea('deskripsi', null, 
-			                    	array('required', 'class'=>'form-control', 'id'=>'exampleInputHP', 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
-								</div>
-
-								<div class="clearfix visible-xs-block"></div>
-
-					            <div class="form-group col-xs-12">
-					            	<label for="exampleInputKat">Kategori Menu</label> <br>
-					                {!! Form::select('kategori', array('Menu Pembuka' => 'Menu Pembuka', 
-									 									'Menu Utama' => 'Menu Utama',
-									 									'Menu Sampingan' => 'Menu Sampingan',
-									 									'Menu Penutup' => 'Menu Penutup',
-									 									'Menu Minuman' => 'Menu Minuman'), null, 
-									 									['class' => 'selectpicker']) !!}
-										
-					            </div>
-
-					            <div class="form-group col-xs-12">
-					            	<label for="exampleInputGam">Gambar Menu</label>
-									{!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
-					            </div>
-
-					            <div style="display:none;">
-
-
-									Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
-			                		No {!! Form::radio('is_rekomendasi', 0, true) !!}
-			         
-									{!! Form::input('date', 'end_date_rekomendasi') !!}
-			         
-									Yes {!! Form::radio('is_promosi', 1, false) !!}
-			                		No {!! Form::radio('is_promosi', 0, true) !!}
-			            
-									{!! Form::input('date', 'end_date_promosi') !!}
-
-									{!! Form::text('diskon', null, 
-			                    	array('class'=>'form-control', 'placeholder'=>'')) !!}
-
-			                    	{!! Form::text('durasi_penyelesaian', null, 
-			                    	array('class'=>'form-control', 'placeholder'=>'')) !!}
-
-								 	Available {!! Form::radio('status', 1, true) !!}
-			                		Not Available {!! Form::radio('status', 0, false) !!}
-								</div>	
-								<div class = "col-xs-3 col-xs-offset-3">
-									<button id="batal-button" class="btn btn-primary col-xs-12">
-										Batal
-									</button>
-								</div>
-								<div class = "col-xs-3">
-				               		{!! Form::submit('Simpan', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
-								</div>
-								<div class="clearfix visible-xs-block"></div>
-								<div class="clearfix visible-xs-block"></div>
-								{!! Form::close() !!}
+				<!-- MODAL CONFIRM DELETE -->
+				<div class="modal fade" id="confirm-delete-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  		<div class="modal-dialog">
+				    	<div class="modal-content">
+				      		<div class="modal-header">
+				        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				      		</div>
-				      	</div>
-			      	</div>
-			    </div>
-			</div>
-			
-	    	@endforeach
-	    </div>
-
-				<div class="panel-body">
-
-				<table class="table table-striped table-bordered">
-				    
-				    <tbody>
-					@foreach ($list_menu as $menu)
-						<tr>
-							<td>{{$menu->name}}</td>
-							<td>{{$menu->harga}}</td>
-							<td>{{$menu->kategori}}</td>
-							<td>{{$menu->photoname}}</td>
-							<td>{{$menu->is_rekomendasi}}</td>
-							<td>{{$menu->end_date_rekomendasi}}</td>
-							<td>{{$menu->is_promosi}}</td>
-							<td>{{$menu->end_date_promosi}}</td>
-							<td>{{$menu->diskon}}</td>
-							<td>{{$menu->durasi_penyelesaian}}</td>
-							<td>{{$menu->status}}</td>
-							<td>
-								<a class="btn btn-small btn-info" href="{{ URL::to('editmenu/'. $menu->id_menu) }}">Edit</a>
-								<a class="btn btn-small btn-success" href="{{ URL::to('deletemenu/' . $menu->id_menu) }}">Delete</a>
-							</td>
-						</tr>
-					@endforeach
-					</tbody>
-				</table>
+					      	<div class="modal-body">
+						      	<div id= "delete-ques" class ="col-xs-12">
+						      		Apakah Anda yakin ingin menghapus menu <b>{{$menu->name}}</b>?
+						      	</div>
+					      	</div>
+					      
+					      	<div class="modal-footer">
+					      		<div id="footer-modal-menu" class =" col-xs-12">
+									<div class = "col-xs-3 col-xs-offset-3">
+										<button data-dismiss="modal" id="batal-button" class="btn button col-xs-12">
+											Batal
+										</button>
+									</div>
+						
+									<div class = "col-xs-3">
+										<a href="{{ URL::to('deletemenu/' . $menu->id_menu) }}" id="hapus-button" class="btn button col-xs-12">
+											Hapus
+										</a>
+									</div>
+									<div class="clearfix visible-xs-block"></div>
+									<div class="clearfix visible-xs-block"></div>
+								</div>
+					      	</div>
+					    </div>
+					</div>
 				</div>
-			</div>
-		</div>
+
+		    	@endforeach
+	    </div>
 	</div>
 </div>
 <script type="text/javascript">
