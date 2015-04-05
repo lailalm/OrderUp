@@ -1,6 +1,7 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
+use Redirect;
 use Illuminate\Contracts\Auth\Guard;
 
 class Authenticate {
@@ -44,8 +45,19 @@ class Authenticate {
 				return redirect()->guest('auth/login');
 			}
 		}
-
-		return $next($request);
+		//disi
+		if($this->auth->user()->role=="Manajer"){
+			$path=$request->getPathInfo();
+			if($path=="/manajermenu" || $path=="/manajermeja" || $path=="/manajerkaryawan" ||
+				$path=="/addmenu" || $path=="/addmeja" ||$path=="/addkaryawan" ||
+				strpos($path, 'editmenu') !== false || strpos($path, 'editmeja') !== false || strpos($path, 'editkaryawan') !== false){
+				return $next($request);
+			}
+			return Redirect::to('manajermenu');
+		} elseif ($this->auth->user()->role=="Koki") {
+			dd("kamu bukan manajer bung");
+		}
+		return redirect()->guest('auth/login');
 	}
 
 }
