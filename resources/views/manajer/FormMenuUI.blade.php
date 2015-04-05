@@ -47,8 +47,9 @@
                 </div>
 
                 <div class="form-group col-xs-12">
-                    <label for="exampleInputGam">Gambar Menu</label>
-                    {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
+                    <label for="Gamber Menu">Gambar Menu</label>
+                    <input id="menu-pic" type="file" class="file"
+                    {!! Form::file('foto', array('class'=>'form-control')) !!}
                 </div>
 
                 <div style="display:none;">
