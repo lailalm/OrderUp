@@ -512,3 +512,50 @@ body{
 	text-align: center !important;
 }
 
+.daftar-meja{
+	background-color:white;
+	height:110px;
+	border-bottom-style:solid;
+	border-bottom-width:2px;
+	border-bottom-color:black;
+	padding-top:4%;
+	padding-left:7%;
+}
+
+.judul-home{
+	font-size:25px;
+	color:white;
+	padding-left:1.3%;
+}
+
+.edit-meja{
+	text-align:right;
+}
+
+.style-kode-login{
+	font-size:15px;
+	font-weight:bold;
+	color:#bb2828;
+}
+
+.style-font-meja{
+	font-size:17px;
+	font-weight:bold;
+	color:black;
+}
+
+.konten-pelayan{
+	background-color:white;
+	height:200px;
+	border-bottom-style:solid;
+	border-bottom-width:2px;
+	border-bottom-color:black;
+	padding-top:2%;
+	padding-left:4%;
+}
+
+.nama-menu-status{
+	color:white;
+	text-align:left;
+	padding-top:3%;
+}

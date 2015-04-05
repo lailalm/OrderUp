@@ -14,8 +14,8 @@
 		
 		{!! HTML::style('assets/css/bootstrap.min.css') !!}
 		{!! HTML::style('assets/css/bootstrap-theme.min.cs') !!} 
-		{!! HTML::style('assets/css/styleKaryawan.css') !!}
 		{!! HTML::style('assets/css/style.css') !!}
+		{!! HTML::style('assets/css/styleKaryawan.css') !!}
 		{!! HTML::style('assets/css/sidebar.css') !!}
 		{!! HTML::style('assets/css/bootstrap-select.min.css') !!}
 		{!! HTML::style('assets/css/fileinput.min.css') !!}
@@ -105,9 +105,9 @@
 	            <li>
 					<div div class="collapse" id="collapseExample2">
 						<div class="well col-sm-12">
-	    					<a class = "submenu-link" href = "#"><div class="submenu col-sm-12">Lihat Daftar Meja</div></a>
+	    					<a class = "submenu-link" href = "{{ url('/manajermeja') }}"><div class="submenu col-sm-12">Lihat Daftar Meja</div></a>
 	    				 	<div class="clearfix visible-xs-block"></div>
-							<a class = "submenu-link" href = "#"><div class="submenu col-sm-12">Tambah Meja</div></a>
+							<a class = "submenu-link" href = "{{ url('/addmeja') }}"><div class="submenu col-sm-12">Tambah Meja</div></a>
 							<div class="clearfix visible-xs-block"></div>
 	  					</div>
 					</div>
@@ -126,7 +126,7 @@
 	            </div>
 	            <div class="clearfix visible-xs-block"></div>
 	            
-	          </ul>
+	        </ul>
 	        </div>
         </div>
         @yield('content')
