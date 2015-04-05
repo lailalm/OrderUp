@@ -61,7 +61,7 @@
 							<a href= "#" data-toggle="modal" data-target="#create-pelayan-modal"><div class = "col-xs-10">
 							Edit
 						</div></a>
-						<a href= "#" data-toggle="modal" data-target="#delete{{$karyawan->id_karyawan}}">
+						<a href= "#" data-toggle="modal" data-target="#delete{{$karyawan->id_karyawan}}" data-dismiss="modal">
 						<div class = "col-xs-2">
 							Hapus
 						</div></a>
@@ -95,9 +95,9 @@
 						</button>
 					</div>
 					<div class = "col-xs-3">
-						<button id="hapus-button" class="btn button col-xs-12">
+						<a id="hapus-button" class="btn button col-xs-12 " href="{{ URL::to('deletekaryawan/' . $karyawan->id_karyawan) }}">
 							Hapus
-						</button>
+						</a>
 					</div>
 					<div class="clearfix visible-xs-block"></div>
 					<div class="clearfix visible-xs-block"></div>

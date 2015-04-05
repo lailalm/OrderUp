@@ -21,6 +21,7 @@ class Authenticate {
 	public function __construct(Guard $auth)
 	{
 		$this->auth = $auth;
+		//dd($auth->user()->role);
 	}
 
 	/**

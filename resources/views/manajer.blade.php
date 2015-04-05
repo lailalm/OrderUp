@@ -115,9 +115,11 @@
 	            </div>
 	            <div class="clearfix visible-xs-block"></div>
 	            
+	            {{ Auth::user()->role }}
+
 	            <div class = "menu-nav cols-xs-12">
 	            <li>
-	              <a href="#contact">
+	              <a href="{{ url('/auth/logout') }}">
 	        		{!! HTML::image('assets/img/logout.png', 'karyawan', array( 'width' => '70px')) !!}
 	              </a>
 	            </li>
