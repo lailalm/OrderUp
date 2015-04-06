@@ -57,7 +57,7 @@ class Authenticate {
 		} elseif ($this->auth->user()->role=="Koki") {
 			dd("kamu bukan manajer bung");
 		}
-		return redirect()->guest('auth/login');
+		return $next($request);
 	}
 
 }
