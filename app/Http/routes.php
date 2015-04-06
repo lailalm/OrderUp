@@ -24,7 +24,7 @@ Route::get('/dummy', 'WelcomeController@dummy');
 |-------------------------------------------------------------------------
 */
 
-Route::get('home', 'ManajerMenuController@index');
+Route::get('admin', 'ManajerMenuController@index');
 
 Route::get('manajermenu','ManajerMenuController@index');
 
