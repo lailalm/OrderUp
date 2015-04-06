@@ -9,7 +9,7 @@
   	@foreach ($daftar_meja as $meja)
 	<div class ="daftar-meja col-sm-12 col-xs-12"> 
 			<div class="col-sm-3 col-xs-3">
-				<p class="style-font-meja">{{$meja->nomormeja}}</p>
+				<h4><b>{{$meja->nomormeja}}</b></h4>
 			</div>
 			
 			<div class="col-sm-3 colxs-3">

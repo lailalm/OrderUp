@@ -24,7 +24,7 @@
 	          <div id= "isi" class ="col-xs-12 clearfix">
 				@foreach ($list_menu as $menu)
 	          	<div id="menu1" class ="col-sm-4 col-xs-12 clear-fix"> 
-	          		{!! HTML::image('../storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
+	          		{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
 	          		{{$menu->name}}
 	          	</div>
 	      		<div class="clearfix visible-xs-block"></div>
@@ -37,7 +37,7 @@
 					        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					      	</div>
 					      	<div class="modal-body">
-					        	{!! HTML::image('../storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
+					        	{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
 						    <div class="modal-body">
 				       
 					        <div id= "nama-menu" class= "col-xs-8">

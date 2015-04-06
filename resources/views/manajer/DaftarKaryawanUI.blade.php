@@ -19,7 +19,7 @@
 	<div id= "isi" class ="col-xs-12 clearfix">
 		@foreach ($daftar_karyawan as $karyawan)
 			<div id="menu1" class ="col-sm-3 col-xs-12" data-toggle="modal" data-target="#{{$karyawan->id_karyawan}}"> 
-				{!! HTML::image('../storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '100%')) !!}
+				{!! HTML::image('storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '100%')) !!}
 				{{$karyawan->name}}		
 			</div>
 	        <div class="clearfix visible-xs-block"></div>	
@@ -41,7 +41,7 @@
 		      	<div class="modal-body">
 					<div class="row">
 						<div class="col-xs-6" id= "nama-menu">
-							{!! HTML::image('../storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '80%')) !!}
+							{!! HTML::image('storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '80%')) !!}
 						</div>
 						<div class="col-xs-6" >
 							<h3>{{$karyawan->name}}</h3>

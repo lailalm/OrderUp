@@ -14,7 +14,7 @@
                 <h3>Ubah Menu</h3>
                 {!! Form::model($menu, array('route' => array('editmenu_update', $menu->id_menu), 'method' => 'PUT','files'=>true)) !!}
                 <div class="form-group col-xs-6">
-                    {!! HTML::image('../storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%')) !!}
+                    {!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%')) !!}
                 </div>
                 <div class="form-group col-xs-6">
                     {!! Form::label('Nama') !!}

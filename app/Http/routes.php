@@ -24,8 +24,6 @@ Route::get('/dummy', 'WelcomeController@dummy');
 |-------------------------------------------------------------------------
 */
 
-Route::get('/', 'WelcomeController@index');
-
 Route::get('home', 'ManajerMenuController@index');
 
 Route::get('manajermenu','ManajerMenuController@index');
@@ -78,7 +76,7 @@ Route::controllers([
 | Main Website Customer Routes
 |-------------------------------------------------------------------------
 */
-Route::get('/customer', 'CustomerController@index');
+Route::get('/', 'CustomerController@index');
 
 
 /*
