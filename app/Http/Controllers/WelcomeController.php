@@ -18,10 +18,10 @@ class WelcomeController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
-		$this->middleware('guest');
-	}
+	// public function __construct()
+	// {
+	// 	$this->middleware('guest');
+	// }
 
 	/**
 	 * Show the application welcome screen to the user.
@@ -30,7 +30,7 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('welcome');
+		return view('dummy');
 	}
 
 	/**
@@ -40,7 +40,7 @@ class WelcomeController extends Controller {
 	 */
 	public function dummy()
 	{
-		return view('manajer/DaftarMenuUI2');
+		return view('dummy');
 	}
 
 	public function show($id)

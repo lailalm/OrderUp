@@ -566,6 +566,96 @@ body{
 	padding-left:4%;
 }
 
+.konten-koki{
+	background-color:white;
+	height: 100%;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+	border-bottom-color:black;
+	padding-top:2%;
+	padding-left:4%;
+	padding-bottom: 10px;
+}
+
+.nama-menu-status{
+	color:white;
+	text-align:left;
+	padding-top:3%;
+}
+
+.konten-status-menu {
+	margin-top: 10px;
+}
+
+#btn-wait {
+	background-color: #9f9f9f;
+	color: black;
+}
+
+#btn-process {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+}
+
+#btn-done {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+	width: 75px;
+}
+
+#btn-wait2 {
+	background-color: #9f9f9f;
+	color: black;
+}
+
+#btn-process2 {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+}
+
+#btn-done2 {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+	width: 75px;
+}
+
+#btn-not-tersedia {
+	background-color: #9f9f9f;
+	color: black;
+}
+
+#btn-tersedia {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+	width: 120px;
+}
+
+@media(max-width: 767px) {
+	#btn-status {
+		margin-top: 10px;
+	}
+	
+	.baris-pesan {
+		padding-right: 0px !important;
+	}
+}
+
+.baris-pesan {
+	margin-bottom: 10px !important;
+}
+
+#btn-status-menu {
+	margin-top: 25px !important;
+	margin-bottom: 10px;
+}
+
+
+/*TAMBAHAN LAILA*/
 .nama-menu-status{
 	color:white;
 	text-align:left;
