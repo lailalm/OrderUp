@@ -121,8 +121,6 @@ class ManajerMenuController extends Controller {
      */
 	public function edit($id)
     {
-    	// echo '<script type="text/javascript">','alert("Ceritanya nanti ngambil data ',$id,'");','</script>';
-        // get karyawan
         $menu = Menu::find($id);
 
         // show the Edit form and pass Karyawan

@@ -37,11 +37,15 @@
                 <div class="clearfix visible-xs-block"></div>
 
                
-                <div class = "col-xs-3">
-                    {!! Form::submit('Simpan', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
+                <div class = "col-xs-3 col-xs-offset-3">
+                        <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
+                            Batal
+                        </a>
+                    </div>
+                    <div class = "col-xs-3">
+                        {!! Form::submit('Simpan', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
+                    </div>
                 </div>
-                <div class="clearfix visible-xs-block"></div>
-                <div class="clearfix visible-xs-block"></div>
                 {!! Form::close() !!}
             </div>            
         </div>   

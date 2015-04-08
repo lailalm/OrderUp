@@ -95,17 +95,17 @@
                     </div>
                 </div>  
 
-
-                <div class = "col-xs-3 col-xs-offset-3">
-                    <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
-                        Batal
-                    </a>
+                <div class="form-group">
+                    <div class = "col-xs-3 col-xs-offset-3">
+                        <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
+                            Batal
+                        </a>
+                    </div>
+                    <div class = "col-xs-3">
+                        {!! Form::submit('Edit', array('class' => 'col-xs-12 btn btn-primary', 'id' => 'simpan-button')) !!}
+                    </div>
                 </div>
-                <div class = "col-xs-3">
-                    {!! Form::submit('Edit', array('class' => 'col-xs-12 btn btn-primary', 'id' => 'simpan-button')) !!}
-                </div>
-                <div class="clearfix visible-xs-block"></div>
-                <div class="clearfix visible-xs-block"></div>
+                
             </div>
         </div>  
     </div>

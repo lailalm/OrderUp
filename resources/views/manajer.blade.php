@@ -84,9 +84,9 @@
 	            <li>
 					<div div class="collapse" id="collapseExample1">
 						<div class="well col-sm-12">
-	    					<a class = "submenu-link" href = "#"><div class="submenu col-sm-12">Lihat Daftar Karyawan</div></a>
+	    					<a class = "submenu-link" href = "{{ url('/manajerkaryawan') }}"><div class="submenu col-sm-12">Lihat Daftar Karyawan</div></a>
 	    				 	<div class="clearfix visible-sm-block"></div>
-							<a class = "submenu-link" href = "#"><div class="submenu col-sm-12">Tambah Pelayan</div></a>
+							<a class = "submenu-link" href = "{{ url('/addkaryawan') }}"><div class="submenu col-sm-12">Tambah Pelayan</div></a>
 							<div class="clearfix visible-sm-block"></div>
 							<a class = "submenu-link" href = "#"><div class="submenu col-sm-12">Tambah Koki</div></a>
 							<div class="clearfix visible-sm-block"></div>
@@ -115,8 +115,6 @@
 	            </div>
 	            <div class="clearfix visible-xs-block"></div>
 	            
-	            {{ Auth::user()->role }}
-
 	            <div class = "menu-nav cols-xs-12">
 	            <li>
 	              <a href="{{ url('/auth/logout') }}">
@@ -129,6 +127,12 @@
 	        </ul>
 	        </div>
         </div>
+        <div class="container">
+        	<div class="col-md-offset-5 text-right judul-role">
+	        	Selamat datang, {{ Auth::user()->name }}! Anda masuk sebagai <b>{{ Auth::user()->role}}.</b>
+        	</div>
+        </div>
+        
         @yield('content')
 		
 	</body>

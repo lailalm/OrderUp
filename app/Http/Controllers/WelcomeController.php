@@ -43,4 +43,9 @@ class WelcomeController extends Controller {
 		return view('manajer/DaftarMenuUI2');
 	}
 
+	public function show($id)
+	{
+		return $id;
+	}
+
 }

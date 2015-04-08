@@ -53,8 +53,6 @@
                 </div>
 
                 <div style="display:none;">
-
-
                     Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
                     No {!! Form::radio('is_rekomendasi', 0, true) !!}
      

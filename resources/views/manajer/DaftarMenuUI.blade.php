@@ -4,25 +4,18 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-11 col-md-offset-1">
-			<div class ="col-md-3 col-md-offset-9 col-xs-10 col-xs-offset-1">
-          	
-	          	<select class="selectpicker" data-header="Kategori Menu">
-				  <option>Menu Promosi</option>
-				  <option>Menu Rekomendasi</option>
-				  <option>Menu Pembuka</option>
-				  <option>Menu Utama</option>
-				  <option>Menu Sampingan</option>
-				  <option>Menu Penutup</option>
-				  <option>Menu Minuman</option>
-				</select>
-				
-				<script>
-					$('.selectpicker').selectpicker();
-				</script>
-	          	
-	          </div>
-	          <div id= "isi" class ="col-xs-12 clearfix">
-				@foreach ($list_menu as $menu)
+			<h3 id="kategori" class="judul-home col-md-8">Menu Promosi</h3>
+          	<select class="selectpicker col-md-4 space" data-header="Kategori Menu" onchange="update();">
+			  <option>Menu Promosi</option>
+			  <option>Menu Rekomendasi</option>
+			  <option>Menu Pembuka</option>
+			  <option>Menu Sampingan</option>
+			  <option>Menu Penutup</option>
+			  <option>Menu Minuman</option>
+			</select>
+
+	        <div id= "isi" class ="col-xs-12 clearfix">
+			@foreach ($list_menu as $menu)
 	          	<div id="menu1" class ="col-sm-4 col-xs-12 clear-fix"> 
 	          		{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
 	          		{{$menu->name}}
@@ -132,5 +125,12 @@
 	        return  num + (i && !(i % 3) ? "." : "") + acc;
 	    }, "") + "," + p[1];
 	}
+
+	function update() {
+		var kategori = $('.selectpicker').selectpicker().val();
+		$('#kategori').text(kategori);
+	}
+	
 </script>
+
 @endsection
