@@ -2,8 +2,12 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Menu;
+use View;
+use Input;
+use Redirect;
 use Illuminate\Http\Request;
+use App\Pemesanan;
 
 class CustomerController extends Controller {
 
@@ -24,7 +28,7 @@ class CustomerController extends Controller {
 	 */
 	public function index()
 	{
-		return view('login-customer');
+		return view('pelanggan.menu');
 	}
 
 	/**
@@ -53,9 +57,11 @@ class CustomerController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function showMenuUtama()
 	{
-		//
+		$list_menu = Menu::get();
+		return View::make('pelanggan.menu_utama')
+			->with('list_menu', $list_menu);;
 	}
 
 	/**
@@ -64,9 +70,17 @@ class CustomerController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function addPemesanan()
 	{
-		//
+		$pesan = new Pemesanan;
+
+		$pesan->id_meja 		= 1;
+		$pesan->id_menu 		= Input::get('id_menu');
+		$pesan->jumlah 			= Input::get('porsi');
+		$pesan->keterangan 		= Input::get('deskripsi');
+
+		$pesan->save();
+		return Redirect::to('menuutama');
 	}
 
 	/**

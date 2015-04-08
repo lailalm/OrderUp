@@ -70,6 +70,8 @@ Route::get('editkaryawan/{id}', ['as' => 'editkaryawan', 'uses' => 'ManajerKarya
 
 Route::put('editkaryawan/{id}', ['as' => 'editkaryawan_update','uses'=> 'ManajerKaryawanController@update']);
 
+Route::get('manajerkaryawan/get/{photoname}', ['as' => 'getphoto', 'uses' => 'ManajerKaryawanController@get']);
+
 /* TO - DO : 
 	- Get Karyawan By Category/{category} koki/pelayan
 */
@@ -95,7 +97,7 @@ Route::put('editmeja/{id}', ['as' => 'editmeja_update','uses'=> 'ManajerMejaCont
 
 
 
-Route::get('manajerkaryawan/get/{photoname}', ['as' => 'getphoto', 'uses' => 'ManajerKaryawanController@get']);
+
 
 
 
@@ -110,6 +112,10 @@ Route::controllers([
 |-------------------------------------------------------------------------
 */
 Route::get('/', 'CustomerController@index');
+
+Route::get('menuutama', 'CustomerController@showMenuUtama');
+
+Route::post('addpemesanan', ['as' => 'addpemesanan','uses'=> 'CustomerController@addPemesanan']);
 
 
 /*

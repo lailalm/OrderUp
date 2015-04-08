@@ -42,7 +42,7 @@
 				</div>
 				
 				<div id="btn-kat3" class = "col-xs-4">
-					<a href= #>
+					<a href= "{{ URL::to('menuutama/') }}">
 	    				{!! HTML::image('assets/img/utama.png', 'Utama', array( 'width' => '70px')) !!}              
 					</a>
 				</div>
