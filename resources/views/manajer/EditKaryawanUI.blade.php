@@ -39,7 +39,6 @@
                         <select name="role" value="{{ $karyawan->role }}">
                             <option selected="true">{{ $karyawan->role }}</option>
                         </select>
-                        {!! Form::select('role', array('Koki' => 'Koki', 'Pelayan' => 'Pelayan')); !!}
                     </div>
 
                 </div>

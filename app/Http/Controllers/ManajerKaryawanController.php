@@ -60,7 +60,6 @@ class ManajerKaryawanController extends Controller {
 	public function store()
 	{
 		//validate
-
 		$rules = array(
 			"name" => 'required',
 			"email" => 'required|email',
@@ -76,8 +75,8 @@ class ManajerKaryawanController extends Controller {
 
 		if($validator->fails()) {
 			return Redirect::to('addkaryawan')
-				->withError($validator);
-		} else{
+				->withError('errors', $validator);
+		} else {
 
 			$karyawan = new Karyawan;
 			
@@ -89,6 +88,7 @@ class ManajerKaryawanController extends Controller {
 			$karyawan->alamat 			= Input::get('alamat');
 			$karyawan->tanggal_mulai 	= Input::get('tanggal_mulai');
 			$file 						= Input::file('foto');
+
 			$extension 					= $file->getClientOriginalExtension();
 			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
 			$karyawan->mime = $file->getClientMimeType();
@@ -111,8 +111,6 @@ class ManajerKaryawanController extends Controller {
      */
 	public function edit($id)
     {
-    	// echo '<script type="text/javascript">','alert("Ceritanya nanti ngambil data ',$id,'");','</script>';
-        // get karyawan
         $karyawan = Karyawan::find($id);
 
         // show the Edit form and pass Karyawan
@@ -144,7 +142,7 @@ class ManajerKaryawanController extends Controller {
 		if($validator->fails()) {
 			return Redirect::to('editkaryawan/'.$id)
 				->withError($validator);
-		} else{
+		} else {
 
 			$karyawan = Karyawan::find($id);
 			$karyawan->name 			= Input::get('name');

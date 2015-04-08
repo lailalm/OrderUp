@@ -27,7 +27,7 @@
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
-                <div style="display:none;">
+                <div style="display:;">
                      <div class="form-group">
                         {!! Form::label('Password') !!}
                         <input name="password" type="password" id="pass" value="123123123"> 
