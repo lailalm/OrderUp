@@ -25,12 +25,47 @@ class KokiController extends Controller {
 
 	}
 
-	public function getstatusmenu()
+	public function getstatusmenu($kategori)
 	{
-		$list_menu = Menu::get();
 
-		return View::make('koki.StatusMenuUI')
-			->with('list_menu', $list_menu);
+		if($kategori=="utama"){
+			return View::make('koki.StatusMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="pembuka"){
+			return View::make('koki.StatusMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="sampingan"){
+			return View::make('koki.StatusMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="penutup"){
+			return View::make('koki.StatusMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="minuman"){
+			return View::make('koki.StatusMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="rekomendasi"){
+			return View::make('koki.StatusMenuUI')
+			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="promosi"){
+			return View::make('koki.StatusMenuUI')
+			->with('list_menu', Menu::where('is_promosi','1')->get())
+			->with('kategori', $kategori);;
+		}
+		else{
+
+		}
 	}
 
 	/**

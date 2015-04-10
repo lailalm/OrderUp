@@ -108,7 +108,7 @@ Route::controllers([
 */
 Route::get('daftarpesanan', 'KokiController@index');
 
-Route::get('statusmenu', 'KokiController@getstatusmenu');
+Route::get('statusmenu/{kategori}', 'KokiController@getstatusmenu');
 
 Route::get('makeavailable/{id}', 'KokiController@makeAvailable');
 

@@ -3,17 +3,26 @@
 @section('content')
  <div class="main col-md-10 col-md-offset-2">
 	<div class="clearfix visible-xs-block"></div>
- 	<label class="judul-home col-md-8 col-xs-1 space">Status Menu</label>
-  	<div class ="col-md-3 col-xs-9 space">
-	  	<select class="selectpicker" data-header="Kategori Menu">
-		  <option>Menu Promosi</option>
-		  <option>Menu Rekomendasi</option>
-		  <option>Menu Pembuka</option>
-		  <option>Menu Utama</option>
-		  <option>Menu Sampingan</option>
-		  <option>Menu Penutup</option>
-		  <option>Menu Minuman</option>
-		</select>
+ 	<div id="kategori" class="judul-home col-md-8">
+			Status Menu {{ $kategori }}
+			</div>
+			<select 
+				class="selectpicker col-md-4 space" 
+				onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+				<option value="utama" {{ $kategori === 'utama' ? 'selected' : '' }}> Menu Utama</option>
+				<option value="promosi" {{ $kategori == 'promosi' ? 'selected' : ''}}> Menu Promosi</option>
+				<option value="rekomendasi" {{ $kategori == 'rekomendasi' ? 'selected' : ''}}> Menu Rekomendasi</option>
+				<option value="pembuka" {{ $kategori == 'pembuka' ? 'selected' : ''}}> Menu Pembuka</option>
+				<option value="sampingan" {{ $kategori == 'sampingan' ? 'selected' : ''}}> Menu Sampingan</option>
+				<option value="minuman" {{ $kategori == 'minuman' ? 'selected' : ''}}> Menu Minuman</option>
+			</select>
+			<div id= "isi" class ="col-xs-12 clearfix">
+
+			@if (count($list_menu) <= 0)
+				<h5 class="judul-role">
+					Belum ada menu {{ $kategori }} terdaftar.
+				</h5>	
+			@endif
 	  	
 	</div>
 	<div class="clearfix visible-xs-block"></div>
