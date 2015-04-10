@@ -65,7 +65,7 @@
 					<li>
 					<div div class="collapse" id="collapseExample">
 						<div class="well col-sm-12">
-	    					<a class = "submenu-link" href = "{{ url('/manajermenu') }}"><div class="submenu col-sm-12">Lihat Menu</div></a>
+	    					<a class = "submenu-link" href = "{{ url('/manajermenu/utama') }}"><div class="submenu col-sm-12">Lihat Menu</div></a>
 	    				 	<div class="clearfix visible-xs-block"></div>
 							<a class = "submenu-link" href = "{{ url('/addmenu') }}" ><div class="submenu col-sm-12">Tambah Menu</div></a>
 							<div class="clearfix visible-xs-block"></div>

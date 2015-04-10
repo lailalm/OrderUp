@@ -4,16 +4,27 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-11 col-md-offset-1">
-			<div id="kategori" class="judul-home col-md-8">Menu Utama</div>
-          
-			{!! Form::select('sel_kat', array('Menu Utama' => 'Menu Utama', 
-                                                        'Menu Pembuka' => 'Menu Pembuka',
-                                                        'Menu Sampingan' => 'Menu Sampingan',
-                                                        'Menu Penutup' => 'Menu Penutup',
-                                                        'Menu Minuman' => 'Menu Minuman'), null, 
-                                                        ['class' => 'selectpicker col-md-4 space', 'data-header' => 'Kategori Menu', 'onchange' => 'update();']) !!}
-	        <div id= "isi" class ="col-xs-12 clearfix">
+			<div id="kategori" class="judul-home col-md-8">
+			Menu {{ $kategori }}
+			</div>
+			<select 
+				class="selectpicker col-md-4 space" 
+				onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+				<option value="utama" {{ $kategori === 'utama' ? 'selected' : '' }}> Menu Utama</option>
+				<option value="promosi" {{ $kategori == 'promosi' ? 'selected' : ''}}> Menu Promosi</option>
+				<option value="rekomendasi" {{ $kategori == 'rekomendasi' ? 'selected' : ''}}> Menu Rekomendasi</option>
+				<option value="pembuka" {{ $kategori == 'pembuka' ? 'selected' : ''}}> Menu Pembuka</option>
+				<option value="sampingan" {{ $kategori == 'sampingan' ? 'selected' : ''}}> Menu Sampingan</option>
+				<option value="minuman" {{ $kategori == 'minuman' ? 'selected' : ''}}> Menu Minuman</option>
+			</select>
+			<div id= "isi" class ="col-xs-12 clearfix">
 	        
+			@if (count($list_menu) <= 0)
+				<h5 class="judul-role">
+					Belum ada menu {{ $kategori }} terdaftar.
+				</h5>	
+			@endif
+
 			@foreach ($list_menu as $menu)
 				
 	          	<div id="menu1" class ="col-sm-4 col-xs-12 clear-fix"> 
@@ -23,11 +34,11 @@
 	      		<div class="clearfix visible-xs-block"></div>
 
 	      		<!-- MODAL DETAIL -->
-	      		<div class="modal fade" id="menu-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	      		<div class="modal fade" id="menu-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="selected">
 				  	<div class="modal-dialog">
 					    <div class="modal-content">
 					      	<div class="modal-header">
-					        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="selected">&times;</span></button>
 					      	</div>
 					      	<div class="modal-body">
 					        	{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
@@ -81,11 +92,11 @@
 					</div>
 				</div>
 				<!-- MODAL CONFIRM DELETE -->
-				<div class="modal fade" id="confirm-delete-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal fade" id="confirm-delete-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="selected">
 			  		<div class="modal-dialog">
 				    	<div class="modal-content">
 				      		<div class="modal-header">
-				        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="selected">&times;</span></button>
 				      		</div>
 					      	<div class="modal-body">
 						      	<div id= "delete-ques" class ="col-xs-12">
