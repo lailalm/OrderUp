@@ -1,5 +1,8 @@
 <?php namespace App\Http\Controllers;
 
+require 'vendor/autoload.php';
+use Intervention\Image\ImageManagerStatic as Image;
+
 use App\Karyawan;
 use View;
 use Validator;
@@ -10,18 +13,10 @@ use Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
+//Image::configure(array('driver' => 'imagick'));
+
 class ManajerKaryawanController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders your application's "dashboard" for users that
-	| are authenticated. Of course, you are free to change or remove the
-	| controller as you wish. It is just here to get your app started!
-	|
-	*/
 
 	/**
 	 * Create a new controller instance.
@@ -91,10 +86,20 @@ class ManajerKaryawanController extends Controller {
 
 			$extension 					= $file->getClientOriginalExtension();
 			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+			Image::configure(array('driver' => 'imagick'));
+			$photo=Image::make('storage/app/'.$file->getFilename());
+			$height=$photo->height();
+			$width=$photo->width();
+			if($height<$width){
+				$photo->crop($height,$height);
+			}else{
+
+				$photo->crop($width,$width);
+			}
+			$img->save('storage/app/'.$file->getFilename());
 			$karyawan->mime = $file->getClientMimeType();
 			$karyawan->original_photoname = $file->getClientOriginalName();
 			$karyawan->photoname = $file->getFilename().'.'.$extension;
-
 			$karyawan->save();
 
 			return Redirect::to('manajerkaryawan');
