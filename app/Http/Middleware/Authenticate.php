@@ -48,9 +48,8 @@ class Authenticate {
 		//disi
 		if($this->auth->user()->role=="Manajer"){
 			$path=$request->getPathInfo();
-			if($path=="/manajermenu" || $path=="/manajermeja" || $path=="/manajerkaryawan" ||
-				$path=="/addmenu" || $path=="/addmeja" ||$path=="/addkaryawan" ||
-				strpos($path, 'editmenu') !== false || strpos($path, 'editmeja') !== false || strpos($path, 'editkaryawan') !== false){
+			if($path=="/manajermeja" || $path=="/manajerkaryawan" || $path=="/addmenu" || $path=="/addmeja" ||$path=="/addkaryawan" ||
+				strpos($path, 'editmenu') !== false || strpos($path, 'editmeja') !== false || strpos($path, 'editkaryawan') !== false || strpos($path, 'manajermenu')){
 				return $next($request);
 			}
 			return Redirect::to('manajermenu');

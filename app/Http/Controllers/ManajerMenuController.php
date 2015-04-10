@@ -38,13 +38,32 @@ class ManajerMenuController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($kategori)
 	{
-		
-		$list_menu=Menu::get();
+		if($kategori=="utama"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Utama')->get());;
+		}
+		else if($kategori=="pembuka"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get());;
+		}
+		else if($kategori=="sampingan"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get());;
+		}
+		else if($kategori=="penutup"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Penutup')->get());;
+		}
+		else if($kategori=="minuman"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Minuman')->get());;
+		}
+		else{
 
-		return View::make('manajer.DaftarMenuUI')
-			->with('list_menu', $list_menu);;
+		}
+		
 	}
 
 	/**
