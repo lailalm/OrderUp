@@ -146,6 +146,11 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 
+		/*
+		 * Image Intervention...
+		 */
+		'Intervention\Image\ImageServiceProvider'
+
 	],
 
 	/*
@@ -175,6 +180,7 @@ return [
 		'Event'     => 'Illuminate\Support\Facades\Event',
 		'File'      => 'Illuminate\Support\Facades\File',
 		'Hash'      => 'Illuminate\Support\Facades\Hash',
+		'Image' 	=> 'Intervention\Image\Facades\Image',
 		'Input'     => 'Illuminate\Support\Facades\Input',
 		'Inspiring' => 'Illuminate\Foundation\Inspiring',
 		'Lang'      => 'Illuminate\Support\Facades\Lang',
