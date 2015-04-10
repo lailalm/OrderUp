@@ -35,7 +35,7 @@
 			        	Status
 			        </div>
 
-			        @if ($menu->status === 1)	
+			        @if ($menu->status == 1)	
 			        	<div id= "status" class= "col-xs-4">
 			        		Tersedia
 			        	</div>

@@ -50,10 +50,10 @@
 			        <div class="col-xs-12 text-center">
 						<div id = "btn-status-menu" class="btn-group" data-toggle="buttons">
 						 	<label id="btn-not-tersedia" class="btn">
-								<input type="radio" name="options" id="wait" autocomplete="off">Tidak Tersedia
+								<input type="radio" name="options" id="wait" autocomplete="off" onselect="{{ URL::to('makeunavailable/'. $menu->id_menu) }}">Tidak Tersedia
 						 	</label>
 						  	<label id="btn-tersedia" class="btn">
-								<input type="radio" name="options" id="done" autocomplete="off">Tersedia
+								<input type="radio" name="options" id="done" autocomplete="off" onselect="{{ URL::to('makeavailable/'. $menu->id_menu) }}">Tersedia
 						  	</label>
 						</div>
 						<div class="clearfix visible-xs-block"></div>

@@ -74,7 +74,7 @@ class CustomerController extends Controller {
 	{
 		$pesan = new Pemesanan;
 
-		$pesan->id_meja 		= 1;
+		$pesan->id_meja 		= 3;
 		$pesan->id_menu 		= Input::get('id_menu');
 		$pesan->jumlah 			= Input::get('porsi');
 		$pesan->keterangan 		= Input::get('deskripsi');
