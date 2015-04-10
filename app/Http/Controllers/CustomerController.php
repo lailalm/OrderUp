@@ -34,42 +34,42 @@ class CustomerController extends Controller {
 	public function indexByCat($kategori)
 	{
 		if($kategori=="utama"){
-			return View::make('manajer.DaftarMenuUI')
+			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
 			->with('kategori', $kategori);;
 		}
 		else if($kategori=="pembuka"){
-			return View::make('manajer.DaftarMenuUI')
+			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
 			->with('kategori', $kategori);;
 		}
 		else if($kategori=="sampingan"){
-			return View::make('manajer.DaftarMenuUI')
+			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
 			->with('kategori', $kategori);;
 		}
 		else if($kategori=="penutup"){
-			return View::make('manajer.DaftarMenuUI')
+			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
 			->with('kategori', $kategori);;
 		}
 		else if($kategori=="minuman"){
-			return View::make('manajer.DaftarMenuUI')
+			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
 			->with('kategori', $kategori);;
 		}
 		else if($kategori=="rekomendasi"){
-			return View::make('manajer.DaftarMenuUI')
+			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
 			->with('kategori', $kategori);;
 		}
 		else if($kategori=="promosi"){
-			return View::make('manajer.DaftarMenuUI')
+			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('is_promosi','1')->get())
 			->with('kategori', $kategori);;
 		}
 		else{
-			return View::make('manajer.DaftarMenuUI')
+			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
 			->with('kategori', 'utama');;
 		}
@@ -94,17 +94,49 @@ class CustomerController extends Controller {
 		//
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+	
 	public function showMenuUtama()
 	{
-		$list_menu = Menu::get();
-		return View::make('pelanggan.menu_utama')
-			->with('list_menu', $list_menu);;
+		if($kategori=="utama"){
+			return View::make('pelanggan.menu_utama')
+			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="pembuka"){
+			return View::make('pelanggan.menu_utama')
+			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="sampingan"){
+			return View::make('pelanggan.menu_utama')
+			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="penutup"){
+			return View::make('pelanggan.menu_utama')
+			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="minuman"){
+			return View::make('pelanggan.menu_utama')
+			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="rekomendasi"){
+			return View::make('pelanggan.menu_utama')
+			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="promosi"){
+			return View::make('pelanggan.menu_utama')
+			->with('list_menu', Menu::where('is_promosi','1')->get())
+			->with('kategori', $kategori);;
+		}
+		else{
+			return View::make('pelanggan.menu_utama')
+			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
+			->with('kategori', 'utama');;
+		}
 	}
 
 	/**

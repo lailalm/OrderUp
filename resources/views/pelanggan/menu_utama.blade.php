@@ -3,7 +3,7 @@
 @section('content')		
 <div id = "content" class="clearfix">
 	<div id="utama-title" class="col-xs-10 ">
-		<h4 class="utama-title white"> Menu Utama</h4>
+		<h4 class="utama-title white"> Menu {{  ucfirst($kategori) }}</h4>
 	</div>	
 	<div id="content-menu" class="col-sm-10 col-sm-offset-1">	
 		@foreach ($list_menu as $menu)	
@@ -116,7 +116,9 @@
 	
 
 <div id= "footer" class="col-xs-12">
-    {!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
+	<a href="{{ url('/') }}">
+    	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
+    </a>
 </div>
 
 <script type="text/javascript">

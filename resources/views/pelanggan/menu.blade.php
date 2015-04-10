@@ -10,7 +10,7 @@
 		<ul id="slippry-demo">
 		@foreach ($menu_promosi as $menu)
 			<li>
-			    <a href=#>
+			    <a href="{{ url('menuutama/promosi')}}">
 			    	{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array('width' => '200px', 'height' => '500px')) !!}
 			    </a>
 			</li>
@@ -63,10 +63,6 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-<div id= "footer" class="col-xs-12">
-    {!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
 </div>
 
 @endsection
