@@ -1,20 +1,18 @@
-
-@font-face {
-	font-family: opensans;
-	src: url('../font/OpenSans-Regular.ttf');
-}
-
 body{
 	background-image: url('../img/bg.png');
 	background-size: cover;
 	font-family: opensans !important;
 }
 
+@font-face {
+	font-family: opensans;
+	src: url('../font/OpenSans-Regular.ttf');
+}
 
 #main{
 	position: absolute;
 	top: 50%;
-	margin-top:-225px;	
+	margin-top:-215px;	
 }
 
 #text-content{
@@ -27,7 +25,7 @@ body{
 	text-align: center;
 }
 
-#kode-in{
+#email-in{
 	width:75%;
 	padding: 7px;
 	-webkit-border-radius: 5px;
@@ -35,6 +33,22 @@ body{
 	border-radius: 5px;
 	border: 0px solid transparent;
 }
+
+#password{
+	width:75%;
+	padding: 7px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 0px solid transparent;
+}
+
+#forgot-password{
+	color:black;
+	font-size: 12px;
+	padding-top: 7.5px;
+}
+
 
 #btn-in {
 	background: #bb2828;
@@ -45,13 +59,19 @@ body{
 }
 
 #login {
-	padding: 20px;
+	margin-top:40px;
+	padding:20px;
 	background: rgba(255,255,255,0.4);
 }
 
 #login input {
 	display: block;
 	margin: 10px auto;
+}
+
+#daftarKaryawan{
+	padding-left:3.7%;
+	color:white;
 }
 
 
@@ -84,9 +104,6 @@ body{
 }
 
 #nav{
-	position: fixed;
-	z-index: 2;
-	background-color: #d8532e;
 	width : 100%;
 	padding-top: 10px;
 	margin: 0;
@@ -178,10 +195,6 @@ body{
 	margin: 10px auto;
 }
 
-#promo {
-	z-index: 0;
-}
-
 @media(max-width: 767px) {
 #kategori1 {
 	border-bottom-style: solid;
@@ -209,7 +222,7 @@ body{
 }
 
 #utama-title {
-	margin-top: 45px;
+	margin-top: 20px;
 }
 
 #menu1 {
@@ -249,12 +262,9 @@ body{
 }
 
 #footer {
-	width:100%;
-	position: fixed;
-	z-index: 1;
-	background-color: #d8532e;
-	bottom:0;
-	left: 0;
+	margin:0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 .modal-header {
@@ -267,20 +277,14 @@ body{
 
 #penjelasan-menu {
 	margin-top: 5px;
-	font-size: 100%;
+	font-size: 120%;
 }
 
-#status-menu {
+#harga-menu {
 	text-align: right;
 	color: green;
-	margin-top: 12px;
+	margin-top: 8px;
 	font-size: 100%;
-}
-
-.harga-menu {
-	text-align: left;
-	color: #bb2828;
-	font-size: 120%;
 }
 
 .btn-primary {
@@ -289,16 +293,12 @@ body{
 	background-color: #bb2828 !important;
 }
 
-/*@media(max-width: 767px) {
+@media(max-width: 767px) {
 .modal-dialog {
-	top: 15% !important;
-	bottom: 15% !important;
+	top: 25% !important;
+	bottom: 25% !important;
 }
 }
-
-.modal-dialog {
-	top: 10%;
-}*/
 
 @media(max-width: 767px) {
 #content1 {
@@ -306,118 +306,405 @@ body{
 }
 }
 
-/* Bagian Modal Pesan */
-.add_subs {
-	background-color: #e0e0e0;
-	color: #bb2828; 
-	font-weight: bold;
-}
-
-.space {
-	margin-top:10px;
-}
-
-.space-bottom {
-	margin-bottom: 10px;
-}
-
-.padding-left {
-	padding-left: 30px;
-}
-
-/* Bagina Lihat Pesanan */
-.white {
-	color: white;
-}
-
-.kotak-putih {
-	width: 100%;
-	background-color: white;
-	padding: 5px;
-}
-
-.row {
-	width: 100%;
-}
-
-.pengisi {
-	height: 20px;
-}
-
-.pengisi-atas {
-	height: 75px;
-}
-
-#nama-menu {
-	font-size: 120%;
+#btnIn {
 	margin-top: 10px;
 }
 
-#btn-cancel {
+#btnLupa {
 	margin-top: 20px;
-	margin-bottom: 10px;
 }
 
-#btn-kembali {
+#text-content {
+	margin-top: 20px;
+}
+
+.nav > li > a {
+	margin-top: 10 px;
+	margin: auto;
 	text-align: center;
-	margin-bottom: 10px;
+	padding: 0px !important;
 }
 
-#harga-satu {
-	margin-top: 13px;
+#sidebar {
+	background-color: #bb2828;
 }
 
-#total {
-	margin-top: 11px;
+.sidebar {
+	border: none !important;
+}
+
+.menu-nav {
+	margin-bottom: 10px !important;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: rgba(255,255,255,0.5);
+	padding: 5px 0px 5px 0px;
+	text-align: center;
+}
+
+#logo-nav {
+	background-color: black;
+	border-bottom-style: none;
+}
+
+.navbar-brand {
+	margin: 0px auto !important;
+}
+
+.well {
+	background-color: transparent !important;
+	background-image: none;
+	margin-top: 5px;
+}
+
+.submenu {
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: #DCDCDC;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
+	color: white;
+	font-size: 80%;
+}
+
+@media(max-width: 767px) {
+	.submenu {
+		text-align: center;
+	}
+	
+	a:hover {
+		color: transparent;
+	}
+}
+
+.submenu-link > .submenu:hover {
+	background-color: rgba(255,255,255, 0.5) !important;
+	color: #bb2828 !important;
+}
+
+.dropdown-menu > li > a:hover {
+	background-color: #bb2828 !important;
+	background-image: none !important;
+	color: white;
+}
+
+#isi {
+	margin-top: 10px;
+}
+
+.popover-title {
+	background-color: #bb2828 !important;
+	color: white;
+	border-radius: 0px;
+}
+
+
+#remember-me input {
+	display: inline !important;
+	margin-left: 30px;
+}
+
+@media(max-width: 767px) {
+#remember-me input {
+	display: inline !important;
+	margin-left: 0px;
+}
+}
+
+@media(max-width: 767px) {
+#forgot-password {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+}
+
+#remember {
+	padding-left: 10px;
+	font-size: 12px;
+}
+
+#remember-me > a {
 	color: #bb2828;
 }
 
-#status-pesan {
+#forgot-password > a {
+	color: #bb2828;
+}
+
+#picture {
+	margin: 10px 0px 10px 0px;
+}
+
+#batal-button {
+	background: #bb2828;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+#simpan-button {
+	background: #bb2828;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+
+#hapus-button {
+	background: #bb2828;
+	color: white;
+	margin-top: 20px;
+	margin-bottom: 5px;
+}
+
+#nama-menu {
+	margin-top: 10px;
+	font-size: 120%;
+}
+
+#status {
+	color: green;
+	text-align: right;
 	margin-top: 10px;
 }
 
-#total-beli {
+#penjelasan {
+	margin-top: 10px;
+	text-align: center;
+}
+
+#harga-menu {
+	color: #bb2828;
+	text-align: left;
+	font-size: 120%;
+	margin-top: 5px;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-bottom: 10px;
+}
+
+#footer-modal-menu {
+	margin-top: 10px;
+}
+
+#footer-modal-menu > a {
+	color: #bb2828;
+}
+
+#harga-menu-promosi {
+	color: #bb2828;
+	text-align: left;
+	font-size: 120%;
+	margin-top: 5px;
+}
+
+#masa-berlaku {
+	text-align: right !important;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-bottom: 5px;
+	font-size: 90%;
+}
+
+#delete-ques {
+	text-align: center !important;
+}
+
+.daftar-meja{
+	background-color:white;
+	height:110px;
+	border-bottom-style:solid;
+	border-bottom-width:2px;
+	border-bottom-color:black;
+	padding-top:4%;
+	padding-left:7%;
+}
+
+.judul-home{
+	font-size:150%;
+	color:white;
+	padding-left:1.3%;
+}
+
+@media(max-width: 767px){
+.judul-home{
+	font-size:150%;
+	color:white;
+	padding-left:1.3%;
+	margin-left: 50%;
+}
+}
+
+.edit-meja{
+	text-align:right;
+}
+
+.style-kode-login{
+	font-size:15px;
+	font-weight:bold;
+	color:#bb2828;
+}
+
+.style-font-meja{
+	font-size:17px;
+	font-weight:bold;
+	color:black;
+}
+
+.konten-pelayan{
+	background-color:white;
+	height:200px;
+	border-bottom-style:solid;
+	border-bottom-width:2px;
+	border-bottom-color:black;
+	padding-top:2%;
+	padding-left:4%;
+}
+
+.konten-koki{
+	background-color:white;
+	height: 100%;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+	border-bottom-color:black;
+	padding-top:2%;
+	padding-left:4%;
+	padding-bottom: 10px;
+}
+
+.nama-menu-status{
+	color:white;
+	text-align:left;
+	padding-top:3%;
+}
+
+.konten-status-menu {
+	margin-top: 10px;
+}
+
+#btn-wait {
+	background-color: #9f9f9f;
+	color: black;
+}
+
+#btn-process {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+}
+
+#btn-done {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+	width: 75px;
+}
+
+#btn-wait2 {
+	background-color: #9f9f9f;
+	color: black;
+}
+
+#btn-process2 {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+}
+
+#btn-done2 {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+	width: 75px;
+}
+
+#btn-not-tersedia {
+	background-color: #9f9f9f;
+	color: black;
+}
+
+#btn-tersedia {
+	background-color: #9f9f9f;
+	color: black;
+	margin-left: 1px;
+	width: 120px;
+}
+
+@media(max-width: 767px) {
+	#btn-status {
+		margin-top: 10px;
+	}
+	
+	.baris-pesan {
+		padding-right: 0px !important;
+	}
+}
+
+.baris-pesan {
+	margin-bottom: 10px !important;
+}
+
+#btn-status-menu {
+	margin-top: 25px !important;
+	margin-bottom: 10px;
+}
+
+#panggilan {
+	padding: 10px;
+	font-size: 120%;
+}
+
+#cara-bayar {
+	color: #bb2828 !important;
+	font-size: 120%;
+}
+
+#bayar-tunai {
+	text-align: center;
+	font-size: 120%;
+	margin-top: 5px;
+}
+
+#btn-done-panggil {
+	margin-top: 15px;
 	background-color: #bb2828;
 	color: white;
-	text-align: center;
-	margin-top: 2px;
+}
+
+#nama-meja {
 	font-size: 120%;
-	padding: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
+	padding-bottom: 5px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: black;
 }
 
-#pembayaran-main {
-	background-color: rgba(0,0,0,0.4);
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	text-align: center;
-	margin-top: 30px;
-	padding: 0px;
+#keterangan-pemanggilan {
+	margin-top: 10px;
 }
 
-#pembayaran-main > div{
+/*TAMBAHAN LAILA*/
+.nama-menu-status{
+	color:white;
+	text-align:left;
+	padding-top:3%;
 	height: auto;
 	margin: 0 auto;
 	padding: 0px;
 }
 
-#btn-bayar1 {
-	margin: 10px auto;
-	border-right-style: solid;
-	border-width: 1px;
-	border-color: rgba(255,255,255,0.5);
+.space {
+	margin-top: 20px;
 }
 
-#btn-bayar2 {
-	margin: 10px auto;
-	border-right-style: solid;
-	border-width: 1px;
-	border-color: rgba(255,255,255,0.5);
+.space-bottom {
+	margin-bottom: 20px;
 }
 
-#btn-bayar3 {
-	margin: 10px auto;
+.judul-role {
+	font-size: 14px;
+	color: white;
 }
+
