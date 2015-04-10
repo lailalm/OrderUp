@@ -42,23 +42,38 @@ class ManajerMenuController extends Controller {
 	{
 		if($kategori=="utama"){
 			return View::make('manajer.DaftarMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Utama')->get());;
+			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
+			->with('kategori', $kategori);;
 		}
 		else if($kategori=="pembuka"){
 			return View::make('manajer.DaftarMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get());;
+			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
+			->with('kategori', $kategori);;
 		}
 		else if($kategori=="sampingan"){
 			return View::make('manajer.DaftarMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get());;
+			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
+			->with('kategori', $kategori);;
 		}
 		else if($kategori=="penutup"){
 			return View::make('manajer.DaftarMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Penutup')->get());;
+			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
+			->with('kategori', $kategori);;
 		}
 		else if($kategori=="minuman"){
 			return View::make('manajer.DaftarMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Minuman')->get());;
+			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="rekomendasi"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="promosi"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('is_promosi','1')->get())
+			->with('kategori', $kategori);;
 		}
 		else{
 
