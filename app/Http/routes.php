@@ -32,9 +32,7 @@ Route::get('admin', 'ManajerMenuController@index');
 |-------------------------------------------------------------------------
 */
 
-Route::get('manajermenu','ManajerMenuController@index');
 
-Route::get('manajermenu/{id}','ManajerMenuController@formMenu');
 
 Route::get('addmenu', ['as' => 'addmenu','uses'=> 'ManajerMenuController@create']);
 
@@ -44,6 +42,7 @@ Route::get('editmenu/{id}', ['as' => 'editmenu', 'uses' => 'ManajerMenuControlle
 
 Route::put('editmenu/{id}', ['as' => 'editmenu_update','uses'=> 'ManajerMenuController@update']);
 
+Route::get('manajermenu/{kategori}', 'ManajerMenuController@index');
 /* TO - DO : 
 	- Get Menu By Category/{category}
 	- Make Recommendation/{id}
@@ -114,6 +113,8 @@ Route::controllers([
 Route::get('/', 'CustomerController@index');
 
 Route::get('menuutama', 'CustomerController@showMenuUtama');
+
+
 
 Route::post('addpemesanan', ['as' => 'addpemesanan','uses'=> 'CustomerController@addPemesanan']);
 

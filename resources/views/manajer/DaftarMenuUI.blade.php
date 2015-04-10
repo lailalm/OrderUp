@@ -4,18 +4,18 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-11 col-md-offset-1">
-			<h3 id="kategori" class="judul-home col-md-8">Menu Promosi</h3>
-          	<select class="selectpicker col-md-4 space" data-header="Kategori Menu" onchange="update();">
-			  <option>Menu Promosi</option>
-			  <option>Menu Rekomendasi</option>
-			  <option>Menu Pembuka</option>
-			  <option>Menu Sampingan</option>
-			  <option>Menu Penutup</option>
-			  <option>Menu Minuman</option>
-			</select>
-
+			<div id="kategori" class="judul-home col-md-8">Menu Utama</div>
+          
+			{!! Form::select('sel_kat', array('Menu Utama' => 'Menu Utama', 
+                                                        'Menu Pembuka' => 'Menu Pembuka',
+                                                        'Menu Sampingan' => 'Menu Sampingan',
+                                                        'Menu Penutup' => 'Menu Penutup',
+                                                        'Menu Minuman' => 'Menu Minuman'), null, 
+                                                        ['class' => 'selectpicker col-md-4 space', 'data-header' => 'Kategori Menu', 'onchange' => 'update();']) !!}
 	        <div id= "isi" class ="col-xs-12 clearfix">
+	        
 			@foreach ($list_menu as $menu)
+				
 	          	<div id="menu1" class ="col-sm-4 col-xs-12 clear-fix"> 
 	          		{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
 	          		{{$menu->name}}
@@ -113,7 +113,7 @@
 					    </div>
 					</div>
 				</div>
-
+			
 		    	@endforeach
 	    </div>
 	</div>
@@ -126,11 +126,6 @@
 	    }, "") + "," + p[1];
 	}
 
-	function update() {
-		var kategori = $('.selectpicker').selectpicker().val();
-		$('#kategori').text(kategori);
-	}
-	
 </script>
 
 @endsection
