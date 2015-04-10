@@ -7,11 +7,12 @@
         <li></li>
     @endforeach
 </ul>
+
 <div class="container">
     <div class="row">
         <div class="col-md-11 col-md-offset-1">
             <div class="col-xs-12 panel" id="formEditKaryawan">
-                <h3>Tambah Menu</h3>
+                <h3>Tambah Menu {{ $promosi? "Promosi" : "" }}</h3>
 
                 <div class="form-group col-xs-8">
                     {!! Form::open(array('route' => 'addmenu_store', 'class' => 'form', 'files'=>true)) !!}
@@ -33,6 +34,54 @@
                         array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
                 </div>
 
+                 @if ($promosi)
+                    <div class="form-group col-xs-12">
+                        <label for="exampleInputDes">Tanggal Terakhir Promosi </label>
+                        <br>
+                        {!! Form::input('date', 'end_date_promosi') !!}
+                    </div>
+                    <div style="display:none;">
+                        Yes {!! Form::radio('is_promosi', 1, true) !!}
+                        No {!! Form::radio('is_promosi', 0, false) !!}
+
+                        Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
+                        No {!! Form::radio('is_rekomendasi', 0, true) !!}
+         
+                        {!! Form::input('date', 'end_date_rekomendasi') !!}
+
+                        {!! Form::text('diskon', null, 
+                        array('class'=>'form-control', 'placeholder'=>'')) !!}
+
+                        {!! Form::text('durasi_penyelesaian', null, 
+                        array('class'=>'form-control', 'placeholder'=>'')) !!}
+
+                        Available {!! Form::radio('status', 1, true) !!}
+                        Not Available {!! Form::radio('status', 0, false) !!}
+ 
+                    </div>
+                @else
+                    <div style="display:none;">
+                        Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
+                        No {!! Form::radio('is_rekomendasi', 0, true) !!}
+         
+                        {!! Form::input('date', 'end_date_rekomendasi') !!}
+                        
+                        Yes {!! Form::radio('is_promosi', 1, false) !!}
+                        No {!! Form::radio('is_promosi', 0, true) !!}
+            
+                        {!! Form::input('date', 'end_date_promosi') !!}
+
+                        {!! Form::text('diskon', null, 
+                        array('class'=>'form-control', 'placeholder'=>'')) !!}
+
+                        {!! Form::text('durasi_penyelesaian', null, 
+                        array('class'=>'form-control', 'placeholder'=>'')) !!}
+
+                        Available {!! Form::radio('status', 1, true) !!}
+                        Not Available {!! Form::radio('status', 0, false) !!}
+                    </div>  
+                @endif
+
                 <div class="clearfix visible-xs-block"></div>
 
                 <div class="form-group col-xs-12">
@@ -52,26 +101,8 @@
                     {!! Form::file('foto', array('class'=>'form-control')) !!}
                 </div>
 
-                <div style="display:none;">
-                    Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
-                    No {!! Form::radio('is_rekomendasi', 0, true) !!}
-     
-                    {!! Form::input('date', 'end_date_rekomendasi') !!}
-     
-                    Yes {!! Form::radio('is_promosi', 1, false) !!}
-                    No {!! Form::radio('is_promosi', 0, true) !!}
-        
-                    {!! Form::input('date', 'end_date_promosi') !!}
 
-                    {!! Form::text('diskon', null, 
-                    array('class'=>'form-control', 'placeholder'=>'')) !!}
 
-                    {!! Form::text('durasi_penyelesaian', null, 
-                    array('class'=>'form-control', 'placeholder'=>'')) !!}
-
-                    Available {!! Form::radio('status', 1, true) !!}
-                    Not Available {!! Form::radio('status', 0, false) !!}
-                </div>  
                 <div class = "col-xs-3 col-xs-offset-3">
                     <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
                         Batal

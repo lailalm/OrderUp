@@ -52,6 +52,45 @@
                         array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
                 </div>
 
+            @if ($menu->is_promosi)
+                <div style="display:none;">
+                    <div class="form-group">
+                        <h2>{!! Form::label('Rekomendasi?') !!}</h2>
+                        Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
+                        No {!! Form::radio('is_rekomendasi', 0, true) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('EDR') !!}
+                        {!! Form::input('date', 'end_date_rekomendasi') !!}
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <h2>{!! Form::label('Promosi?') !!}</h2>
+                        Yes {!! Form::radio('is_promosi', 1, true) !!}
+                        No {!! Form::radio('is_promosi', 0, false) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('Diskon') !!}
+                        {!! Form::text('diskon', null, 
+                            array('class'=>'form-control', 'placeholder'=>'')) !!}
+                    </div>
+                    <hr><br>
+
+                    <div class="form-group">
+                        {!! Form::label('Durasi') !!}
+                        {!! Form::text('durasi_penyelesaian', null, 
+                            array('class'=>'form-control', 'placeholder'=>'')) !!}
+                    </div>
+
+                    <div class="form-group">
+                        <h3>{!! Form::label('Status') !!}</h3>
+                        Available {!! Form::radio('status', 1, true) !!}
+                        Not Available {!! Form::radio('status', 0, false) !!}
+                    </div>
+                </div>
+            @else
                 <div style="display:none;">
                     <div class="form-group">
                         <h2>{!! Form::label('Rekomendasi?') !!}</h2>
@@ -94,6 +133,7 @@
                         Not Available {!! Form::radio('status', 0, false) !!}
                     </div>
                 </div>  
+            @endif
 
                 <div class="form-group">
                     <div class = "col-xs-3 col-xs-offset-3">

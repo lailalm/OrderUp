@@ -36,6 +36,8 @@ Route::get('admin', 'ManajerMenuController@index');
 
 Route::get('addmenu', ['as' => 'addmenu','uses'=> 'ManajerMenuController@create']);
 
+Route::get('addmenupromosi', ['as' => 'addmenu','uses'=> 'ManajerMenuController@createPromosi']);
+
 Route::post('addmenu', ['as' => 'addmenu_store','uses'=> 'ManajerMenuController@store']);
 
 Route::get('editmenu/{id}', ['as' => 'editmenu', 'uses' => 'ManajerMenuController@edit']);
@@ -43,6 +45,8 @@ Route::get('editmenu/{id}', ['as' => 'editmenu', 'uses' => 'ManajerMenuControlle
 Route::put('editmenu/{id}', ['as' => 'editmenu_update','uses'=> 'ManajerMenuController@update']);
 
 Route::get('manajermenu/{kategori}', 'ManajerMenuController@index');
+
+Route::get('manajermenu', 'ManajerMenuController@dasar');
 /* TO - DO : 
 	- Get Menu By Category/{category}
 	- Make Recommendation/{id}
