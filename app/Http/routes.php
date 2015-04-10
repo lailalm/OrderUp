@@ -113,9 +113,10 @@ Route::get('statusmenu', 'KokiController@getstatusmenu');
 
 /*
 |-------------------------------------------------------------------------
-| Koki Area Routes
+| Pelayan Area Routes
 |-------------------------------------------------------------------------
 */
+Route::get('daftarpesanan', 'KokiController@index');
 
 
 /*
