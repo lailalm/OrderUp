@@ -49,9 +49,14 @@ class Authenticate {
 		if($this->auth->user()->role=="Manajer"){
 			$path=$request->getPathInfo();
 			if ($path=="/manajermeja" || $path=="/manajerkaryawan" || 
-				$path=="/addmenu" || $path=="/addmenupromosi" || $path=="/addmeja" || $path=="/addkaryawan" || 
+				$path=="/addmenu" || $path=="/addmenupromosi" || 
+				$path=="/addmeja" || $path=="/addkaryawan" || 
 				$path=="/addpelayan" || $path=="/addkoki" || 
-				strpos($path, 'editmenu') !== false || strpos($path, 'editmeja') !== false || strpos($path, 'editkaryawan') !== false || strpos($path, 'manajermenu') ||
+				strpos($path, 'editmenu') !== false || strpos($path, 'editmeja') !== false || 
+				strpos($path, 'editkaryawan') !== false ||
+				strpos($path, 'deletemeja') || strpos($path, 'deletemenu') || 
+				strpos($path, 'deletekaryawan') ||
+				strpos($path, 'manajermenu') ||
 				strpos($path, 'manajerkaryawan') ) {
 				return $next($request);
 			}

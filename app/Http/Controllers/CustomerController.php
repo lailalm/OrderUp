@@ -1,13 +1,15 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Menu;
+use App\Pemesanan;
 use View;
+use Validator;
 use Input;
 use Redirect;
-use Illuminate\Http\Request;
-use App\Pemesanan;
+use Session;
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class CustomerController extends Controller {
 
@@ -21,16 +23,57 @@ class CustomerController extends Controller {
 	// 	$this->middleware('auth');
 	// }
 	
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+	
 	public function index()
 	{
-		return view('pelanggan.menu');
+		$menu_promosi = Menu::where('is_promosi','1')->get();
+		return view('pelanggan.menu')
+			->with('menu_promosi', $menu_promosi);
 	}
 
+	public function indexByCat($kategori)
+	{
+		if($kategori=="utama"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="pembuka"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="sampingan"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="penutup"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="minuman"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="rekomendasi"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
+			->with('kategori', $kategori);;
+		}
+		else if($kategori=="promosi"){
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('is_promosi','1')->get())
+			->with('kategori', $kategori);;
+		}
+		else{
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
+			->with('kategori', 'utama');;
+		}
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *
@@ -74,7 +117,7 @@ class CustomerController extends Controller {
 	{
 		$pesan = new Pemesanan;
 
-		$pesan->id_meja 		= 3;
+		$pesan->id_meja 		= 1;
 		$pesan->id_menu 		= Input::get('id_menu');
 		$pesan->jumlah 			= Input::get('porsi');
 		$pesan->keterangan 		= Input::get('deskripsi');

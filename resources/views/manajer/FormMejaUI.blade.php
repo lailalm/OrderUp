@@ -21,9 +21,13 @@
                 </div>
                 <div class="form-group col-xs-8">
                     {!! Form::label('Kode Masuk Meja') !!}
-                    {!! Form::text('kodemasuk', null, 
-                        array('required', 'class'=>'form-control', 'placeholder'=>'Masukkan Kode Masuk Meja')) !!}
+                    <div style="display:none;">
+                         {!! Form::text('kodemasuk', null, 
+                        array('required', 'id' => 'kode', 'class'=>'form-control', 'placeholder'=>'Generate Kode Masuk Meja')) !!}
+                    </div>
+                    <input type="text" id="kode2" disabled class="form-control">
                 </div>
+                <!-- <button class="btn btn-primary col-xs-1 space" onclick="generate();"> Generate</button> -->
 
                 <div class="clearfix visible-xs-block"></div>
                 
@@ -46,5 +50,22 @@
         </div>   
     </div>
 </div>
+
+
+<script type="text/javascript">
+    function generate()
+    {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for( var i = 0; i < 8; i++ )
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        $('#kode').val(text);
+        $('#kode2').val(text);
+    }
+
+    generate();
+</script>
 
 @endsection

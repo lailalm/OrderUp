@@ -1,4 +1,4 @@
-@extends('koki')
+@extends('pelayan')
 
 @section('content')
 <div class="main col-md-9 col-md-offset-2">
