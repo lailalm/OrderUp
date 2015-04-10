@@ -114,6 +114,10 @@ Route::get('daftarpesanan', 'KokiController@index');
 
 Route::get('statusmenu', 'KokiController@getstatusmenu');
 
+Route::get('makeavailable/{id}', 'KokiController@makeAvailable');
+
+Route::get('makeunavailable/{id}', 'KokiController@makeUnavailable');
+
 /*
 |-------------------------------------------------------------------------
 | Pelayan Area Routes

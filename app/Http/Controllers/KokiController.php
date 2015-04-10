@@ -5,6 +5,8 @@ use Validator;
 use Input;
 use Redirect;
 use Session;
+use App\Menu;
+use App\Pemesanan;
 
 class KokiController extends Controller {
 
@@ -15,13 +17,46 @@ class KokiController extends Controller {
 	 */
 	public function index()
 	{
-		return View::make('koki.DaftarPesananUI');
+
+		$pemesanan = Pemesanan::orderBy('id_pemesanan', 'DESC')->get();
+
+		return View::make('koki.DaftarPesananUI')
+			->with('pemesanan', $pemesanan);
 
 	}
 
 	public function getstatusmenu()
 	{
-		return View::make('koki.StatusMenuUI');
+		$list_menu = Menu::get();
+
+		return View::make('koki.StatusMenuUI')
+			->with('list_menu', $list_menu);
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function makeAvailable($id)
+	{
+		$menu = Menu::find($id);
+		$menu->status = 1;
+		$menu->save();
+		return Redirect::to('statusmenu');
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function makeUnavailable($id)
+	{
+		$menu = Menu::find($id);
+		$menu->status = 0;
+		$menu->save();
+		return Redirect::to('statusmenu');
 	}
 
 	/**
