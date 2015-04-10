@@ -16,7 +16,7 @@
 | Dummy Routes
 |-------------------------------------------------------------------------
 */
-Route::get('/dummy', 'WelcomeController@dummy');
+Route::get('dummy', 'WelcomeController@dummy');
 
 /*
 |-------------------------------------------------------------------------
@@ -94,16 +94,28 @@ Route::get('editmeja/{id}', ['as' => 'editmeja', 'uses' => 'ManajerMejaControlle
 Route::put('editmeja/{id}', ['as' => 'editmeja_update','uses'=> 'ManajerMejaController@update']);
 
 
-
-
-
-
-
-
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+
+
+/*
+|-------------------------------------------------------------------------
+| Koki Area Routes
+|-------------------------------------------------------------------------
+*/
+Route::get('daftarpesanan', 'KokiController@index');
+
+Route::get('statusmenu', 'KokiController@getstatusmenu');
+
+/*
+|-------------------------------------------------------------------------
+| Koki Area Routes
+|-------------------------------------------------------------------------
+*/
+
 
 /*
 |-------------------------------------------------------------------------
