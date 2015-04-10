@@ -20,28 +20,31 @@
   	
   	<div id= "isi" class ="col-xs-12 clearfix">
   		<!-- FOREACH DI SINI -->
-	  	<div id="menu1" class ="col-sm-4 col-xs-12"> 
-	  		<img src= "assets/img/menu-utama.jpg" data-toggle="modal" data-target="#status-menu-modal" width= 100%>
-	  		Menu Utama 1
-	  	</div>
+	  	@foreach ($list_menu as $menu)	
+
+		<div id="$menu->id_menu" class ="col-sm-4 col-xs-12 clear-fix" data-toggle="modal" data-target="#menu-modal"> 
+      		{!! HTML::image('storage/app/'.$menu->photoname, 'panggil', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
+      		{{$menu->name}}
+      	</div>
+  				
   		<div class="clearfix visible-xs-block"></div>
 
   		<!--Ganti Status Modal-->
-		<div class="modal fade" id="status-menu-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" id="menu-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  	<div class="modal-dialog">
 		    	<div class="modal-content">
 			      	<div class="modal-header">
 			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			      	</div>
 			    <div class="modal-body">   
-		        	<img src= "assets/img/menu-utama.jpg" width= 100%>
-		        	<div id= "nama-menu" class= "col-xs-12">
-		        		<b>Fettuccine Carbonara</b>
-		        	</div>
+		        	{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}             
+			        <div id= "penjelasan-menu" class= "col-xs-8">
+			        	<b>{{$menu->name}}</b>
+			        </div>
 		        	<div class="clearfix visible-xs-block"></div>
 		        
 			        <div id= "penjelasan" class= "col-xs-10 col-xs-offset-1">
-			        	Pasta homemade dengan daging asap dan saus krim gurih, ditaburi dengan keju parmesan.
+			        	{{$menu->deskripsi}}
 			        </div>
 			        
 			        <div class="col-xs-12 text-center">
@@ -64,7 +67,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- ENDFOREACH -->
+	@endforeach
 </div>
 
 <script>

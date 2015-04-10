@@ -5,6 +5,7 @@ use Validator;
 use Input;
 use Redirect;
 use Session;
+use App\Menu;
 
 class KokiController extends Controller {
 
@@ -21,7 +22,10 @@ class KokiController extends Controller {
 
 	public function getstatusmenu()
 	{
-		return View::make('koki.StatusMenuUI');
+		$list_menu = Menu::get();
+
+		return View::make('koki.StatusMenuUI')
+			->with('list_menu', $list_menu);
 	}
 
 	/**

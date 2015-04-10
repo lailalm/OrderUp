@@ -58,7 +58,7 @@
 	            
 	            <div data-parent="#accordion" class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 					<li>
-					  <a href="{{ url('/koki/daftar_pesanan')}}">
+					  <a href="{{ url('/daftarpesanan')}}">
 	        			{!! HTML::image('assets/img/daftar-pesanan.png', 'menu', array( 'width' => '70px')) !!}
 					  </a>
 					</li>
