@@ -15,7 +15,7 @@ class KokiController extends Controller {
 	 */
 	public function index()
 	{
-		return View::make('koki.DaftarPesanUI');
+		return View::make('koki.DaftarPesananUI');
 
 	}
 
