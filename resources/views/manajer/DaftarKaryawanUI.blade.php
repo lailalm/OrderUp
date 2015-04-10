@@ -1,19 +1,30 @@
 @extends('manajer')
 
 @section('content')
-
 <div class="container">
 	<div class="row">
 		<div class="col-md-11 col-md-offset-1">
-			<h3 id="kategori" class="judul-home col-md-8">Daftar Pelayan</h3>
-			<select class="selectpicker col-md-4 space" data-header="Kategori Karyawan">
-			  	<option>Pelayan</option>
-			  	<option>Koki</option>
+			<h3 id="kategori" class="judul-home col-md-8">Daftar {{ ucfirst($role) }}</h3>
+			<select 
+				class="selectpicker col-md-4 space" 
+				onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);"
+				>
+			  	<option
+			  		value="pelayan" 
+			  		{{ $role === 'pelayan' ? 'selected' : '' }}>Pelayan</option>
+			  	<option value="koki" 
+			  		{{ $role === 'koki' ? 'selected' : '' }}>Koki</option>
 			</select>
-		
-
+	
 
 			<div id= "isi" class ="col-xs-12 clearfix">
+
+			@if (count($daftar_karyawan) <= 0)
+				<h5 class="judul-role">
+					Belum ada data {{ $role }} terdaftar.
+				</h5>	
+			@endif
+
 			@foreach ($daftar_karyawan as $karyawan)
 				<div id="menu1" class ="col-sm-3 col-xs-12" data-toggle="modal" data-target="#{{$karyawan->id_karyawan}}"> 
 					{!! HTML::image('storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '100%')) !!}

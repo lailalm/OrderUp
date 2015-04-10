@@ -86,9 +86,9 @@
 						<div class="well col-sm-12">
 	    					<a class = "submenu-link" href = "{{ url('/manajerkaryawan') }}"><div class="submenu col-sm-12">Lihat Daftar Karyawan</div></a>
 	    				 	<div class="clearfix visible-sm-block"></div>
-							<a class = "submenu-link" href = "{{ url('/addkaryawan') }}"><div class="submenu col-sm-12">Tambah Pelayan</div></a>
+							<a class = "submenu-link" href = "{{ url('/addpelayan') }}"><div class="submenu col-sm-12">Tambah Pelayan</div></a>
 							<div class="clearfix visible-sm-block"></div>
-							<a class = "submenu-link" href = "#"><div class="submenu col-sm-12">Tambah Koki</div></a>
+							<a class = "submenu-link" href = "{{ url('/addkoki')}}"><div class="submenu col-sm-12">Tambah Koki</div></a>
 							<div class="clearfix visible-sm-block"></div>
 	  					</div>
 					</div>

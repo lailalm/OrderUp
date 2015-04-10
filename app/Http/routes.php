@@ -32,8 +32,6 @@ Route::get('admin', 'ManajerMenuController@index');
 |-------------------------------------------------------------------------
 */
 
-
-
 Route::get('addmenu', ['as' => 'addmenu','uses'=> 'ManajerMenuController@create']);
 
 Route::get('addmenupromosi', ['as' => 'addmenu','uses'=> 'ManajerMenuController@createPromosi']);
@@ -61,9 +59,13 @@ Route::get('manajermenu', 'ManajerMenuController@dasar');
 
 Route::get('manajerkaryawan','ManajerKaryawanController@index');
 
-Route::get('addkaryawan', ['as' => 'addkaryawan','uses'=> 'ManajerKaryawanController@create']);
+Route::get('manajerkaryawan/{role}', 'ManajerKaryawanController@indexByRole');
 
 Route::post('addkaryawan', ['as' => 'addkaryawan_store','uses'=> 'ManajerKaryawanController@store']);
+
+Route::get('addpelayan', ['as' => 'addkaryawan','uses'=> 'ManajerKaryawanController@createPelayan']);
+
+Route::get('addkoki', ['as' => 'addkaryawan','uses'=> 'ManajerKaryawanController@createKoki']);
 
 Route::get('deletekaryawan/{id}','ManajerKaryawanController@destroy');
 
@@ -134,8 +136,6 @@ Route::get('daftarpesanan', 'KokiController@index');
 Route::get('/', 'CustomerController@index');
 
 Route::get('menuutama', 'CustomerController@showMenuUtama');
-
-
 
 Route::post('addpemesanan', ['as' => 'addpemesanan','uses'=> 'CustomerController@addPemesanan']);
 

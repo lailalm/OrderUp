@@ -18,38 +18,42 @@ use Illuminate\Support\Facades\File;
 class ManajerKaryawanController extends Controller {
 
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
 	public function __construct()
 	{
 		$this->middleware('auth');
 	}
 
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
+
 	public function index()
+	{
+		return redirect('manajerkaryawan/koki');
+	}
+
+	public function indexByRole($role)
 	{
 		$list_karyawan=Karyawan::get();
 
 		return View::make('manajer.DaftarKaryawanUI')
-			->with('daftar_karyawan', $list_karyawan);
-		
+			->with('daftar_karyawan', Karyawan::where('role', 'LIKE', $role)->get())
+			->with('role', $role);;
 	}
-
-	/**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
+	
 	public function create()
 	{
 		return View::make('manajer.FormKaryawanUI');
+	}
+
+	public function createKoki()
+	{
+		return View::make('manajer.FormKaryawanUI')
+			->with('role', 'Koki');
+	}
+
+
+	public function createPelayan()
+	{
+		return View::make('manajer.FormKaryawanUI')
+			->with('role', 'Pelayan');
 	}
 
 	public function store()
@@ -68,8 +72,8 @@ class ManajerKaryawanController extends Controller {
 
 		$validator = Validator::make(Input::all(), $rules);
 
-		if($validator->fails()) {
-			return Redirect::to('addkaryawan')
+		if ($validator->fails()) {
+			return Redirect::to('addkoki')
 				->withError('errors', $validator);
 		} else {
 
@@ -85,24 +89,29 @@ class ManajerKaryawanController extends Controller {
 			$file 						= Input::file('foto');
 
 			$extension 					= $file->getClientOriginalExtension();
-			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
-			Image::configure(array('driver' => 'imagick'));
-			$photo=Image::make('storage/app/'.$file->getFilename());
-			$height=$photo->height();
-			$width=$photo->width();
-			if($height<$width){
-				$photo->crop($height,$height);
-			}else{
 
-				$photo->crop($width,$width);
-			}
-			$img->save('storage/app/'.$file->getFilename());
+			// Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+			// Image::configure(array('driver' => 'imagick'));
+			// $photo=Image::make('storage/app/'.$file->getFilename());
+			// $height=$photo->height();
+			// $width=$photo->width();
+			// if ($height<$width){
+				// $photo->crop($height,$height);
+			// } else{
+
+				// $photo->crop($width,$width);
+			// }
+			$extension 					= $file->getClientOriginalExtension();
+			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
 			$karyawan->mime = $file->getClientMimeType();
 			$karyawan->original_photoname = $file->getClientOriginalName();
 			$karyawan->photoname = $file->getFilename().'.'.$extension;
 			$karyawan->save();
 
-			return Redirect::to('manajerkaryawan');
+			if ($karyawan->role == "Pelayan")
+				return Redirect::to('manajerkaryawan/pelayan');
+			else
+				return Redirect::to('manajerkaryawan/koki');
 		}
 
 	}
@@ -161,6 +170,7 @@ class ManajerKaryawanController extends Controller {
 			$karyawan->alamat 			= Input::get('alamat');
 			$karyawan->tanggal_mulai 	= Input::get('tanggal_mulai');
 			$file 						= Input::file('foto');
+			
 			if(!is_null($file)){
 				$extension 					= $file->getClientOriginalExtension();
 				Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
@@ -171,7 +181,11 @@ class ManajerKaryawanController extends Controller {
 			$karyawan->save();
 
 			//Session::flash('message', 'Successfully created nerd!');
-			return Redirect::to('manajerkaryawan');
+			
+			if ($karyawan->role == "Pelayan")
+				return Redirect::to('manajerkaryawan/pelayan');
+			else
+				return Redirect::to('manajerkaryawan/koki');
 		}
     }
 

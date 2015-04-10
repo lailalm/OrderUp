@@ -11,8 +11,9 @@
     <div class="row">
         <div class="col-md-11 col-md-offset-1">
             <div class="col-xs-12 panel" id="formEditKaryawan">
-                <h3>Ubah Menu</h3>
                 {!! Form::model($menu, array('route' => array('editmenu_update', $menu->id_menu), 'method' => 'PUT','files'=>true)) !!}
+                
+                <h3>Ubah Menu {{ $menu->is_promosi? "Promosi" : ""}}</h3>
                 <div class="form-group col-xs-6">
                     {!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%')) !!}
                 </div>
@@ -53,6 +54,11 @@
                 </div>
 
             @if ($menu->is_promosi)
+                <div class="form-group col-xs-12">
+                    {!! Form::label('Tanggal Berakhir Promosi') !!}
+                    {!! Form::input('date', 'end_date_promosi') !!}
+                </div>
+
                 <div style="display:none;">
                     <div class="form-group">
                         <h2>{!! Form::label('Rekomendasi?') !!}</h2>
