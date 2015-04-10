@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-11 col-md-offset-1">
             <div class="col-xs-12 panel" id="formEditKaryawan">
-                <h3>Tambah Koki</h3>
+                <h3>Tambah {{ ucfirst($role) }}</h3>
                 
                 {!! Form::open(array('route' => 'addkaryawan_store', 'class' => 'form','files'=>true)) !!}
 
@@ -28,19 +28,20 @@
                 </div>
 
                 <div style="display:;">
-                     <div class="form-group">
+                    <div class="form-group">
                         {!! Form::label('Password') !!}
                         <input name="password" type="password" id="pass" value="123123123"> 
                     </div>
 
+                    <div class="form-group">
+                        {!! Form::label('Role') !!}
+                        <select name="role" value="{{ $role }}">
+                            <option selected="true">{{ $role }}</option>
+                        </select>
+                    </div>
 
                 </div>
 
-                    <div class="form-group">
-                        {!! Form::label('Role') !!}
-                        
-                        {!! Form::select('role', array('Koki' => 'Koki', 'Pelayan' => 'Pelayan')); !!}
-                    </div>
                 <div class="form-group col-xs-8">
                     {!! Form::label('Alamat') !!}
                     {!! Form::text('alamat', null, 

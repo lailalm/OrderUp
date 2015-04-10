@@ -33,11 +33,7 @@ class ManajerMenuController extends Controller {
 		$this->middleware('auth');
 	}
 
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
+	
 	public function index($kategori)
 	{
 		if($kategori=="utama"){
@@ -76,26 +72,32 @@ class ManajerMenuController extends Controller {
 			->with('kategori', $kategori);;
 		}
 		else{
-
+			return View::make('manajer.DaftarMenuUI')
+			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
+			->with('kategori', 'utama');;
 		}
 		
 	}
 
-	/**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-	public function create()
+	public function dasar()
 	{
-		return View::make('manajer.FormMenuUI');
+		return redirect('manajermenu/utama');
 	}
 
-	/**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
+	
+	public function create()
+	{
+		return View::make('manajer.FormMenuUI')
+			->with('promosi', false);;
+	}
+
+	public function createPromosi()
+	{
+		return View::make('manajer.FormMenuUI')
+			->with('promosi', true);;
+	}
+
+
 	public function store()
 	{
 		//validate
@@ -142,7 +144,7 @@ class ManajerMenuController extends Controller {
 			
 
 			$menu->save();
-			return Redirect::to('manajermenu');
+			return Redirect::to('manajermenu/utama');
 		}
 
 	}

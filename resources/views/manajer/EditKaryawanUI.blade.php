@@ -15,6 +15,9 @@
                 <h3>Edit {{$karyawan->role}} #{{$karyawan->name}}</h3>
 
                 {!! Form::model($karyawan, array('route' => array('editkaryawan_update', $karyawan->id_karyawan), 'method' => 'PUT','files'=>true)) !!}
+                <div class="form-group col-xs-4">
+                    {!! HTML::image('storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '100%')) !!}
+                </div>
                 <div class="form-group col-xs-8">
                     {!! Form::label('Nama') !!}
                     {!! Form::text('name', null, 
@@ -66,8 +69,9 @@
                     {!! Form::label('Tanggal Mulai') !!}
                     {!! Form::input('date', 'tanggal_mulai') !!}
                 </div>
-                <div class="form-group">
-                    <div class = "col-xs-3 col-xs-offset-3">
+
+                <div class="form-group space space-bottom">
+                    <div class = "col-xs-3">
                         <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
                             Batal
                         </a>
@@ -76,7 +80,6 @@
                         {!! Form::submit('Edit', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
                     </div>
                 </div>
-
                 {!! Form::close() !!}
             </div>
         </div>

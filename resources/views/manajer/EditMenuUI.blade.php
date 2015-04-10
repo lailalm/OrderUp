@@ -11,8 +11,9 @@
     <div class="row">
         <div class="col-md-11 col-md-offset-1">
             <div class="col-xs-12 panel" id="formEditKaryawan">
-                <h3>Ubah Menu</h3>
                 {!! Form::model($menu, array('route' => array('editmenu_update', $menu->id_menu), 'method' => 'PUT','files'=>true)) !!}
+                
+                <h3>Ubah Menu {{ $menu->is_promosi? "Promosi" : ""}}</h3>
                 <div class="form-group col-xs-6">
                     {!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%')) !!}
                 </div>
@@ -52,6 +53,50 @@
                         array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
                 </div>
 
+            @if ($menu->is_promosi)
+                <div class="form-group col-xs-12">
+                    {!! Form::label('Tanggal Berakhir Promosi') !!}
+                    {!! Form::input('date', 'end_date_promosi') !!}
+                </div>
+
+                <div style="display:none;">
+                    <div class="form-group">
+                        <h2>{!! Form::label('Rekomendasi?') !!}</h2>
+                        Yes {!! Form::radio('is_rekomendasi', 1, false) !!}
+                        No {!! Form::radio('is_rekomendasi', 0, true) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('EDR') !!}
+                        {!! Form::input('date', 'end_date_rekomendasi') !!}
+                    </div>
+                    <hr>
+                    <div class="form-group">
+                        <h2>{!! Form::label('Promosi?') !!}</h2>
+                        Yes {!! Form::radio('is_promosi', 1, true) !!}
+                        No {!! Form::radio('is_promosi', 0, false) !!}
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('Diskon') !!}
+                        {!! Form::text('diskon', null, 
+                            array('class'=>'form-control', 'placeholder'=>'')) !!}
+                    </div>
+                    <hr><br>
+
+                    <div class="form-group">
+                        {!! Form::label('Durasi') !!}
+                        {!! Form::text('durasi_penyelesaian', null, 
+                            array('class'=>'form-control', 'placeholder'=>'')) !!}
+                    </div>
+
+                    <div class="form-group">
+                        <h3>{!! Form::label('Status') !!}</h3>
+                        Available {!! Form::radio('status', 1, true) !!}
+                        Not Available {!! Form::radio('status', 0, false) !!}
+                    </div>
+                </div>
+            @else
                 <div style="display:none;">
                     <div class="form-group">
                         <h2>{!! Form::label('Rekomendasi?') !!}</h2>
@@ -94,6 +139,7 @@
                         Not Available {!! Form::radio('status', 0, false) !!}
                     </div>
                 </div>  
+            @endif
 
                 <div class="form-group">
                     <div class = "col-xs-3 col-xs-offset-3">
