@@ -72,9 +72,9 @@ class ManajerMejaController extends Controller {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {
-			return Redirect::to('manajer.FormMejaUI')
+			return redirect('addmeja')
 				->withError($validator);
-		} else{
+		} else {
 
 			$meja = new Meja;
 			$meja->nomormeja	= Input::get('nomormeja');
@@ -83,7 +83,7 @@ class ManajerMejaController extends Controller {
 			$meja->save();
 
 			//Session::flash('message', 'Successfully created nerd!');
-			return Redirect::to('manajermeja');
+			return redirect('manajermeja');
 		}
 
 	}
@@ -112,7 +112,7 @@ class ManajerMejaController extends Controller {
         $mejas = Meja::find($id);
 
         // show the Edit form and pass Meja
-        return View::make('manajer.EditMejaUI')
+        return View::make('manajer/EditMejaUI')
         	->with('meja', $mejas);
     }
 
@@ -134,7 +134,7 @@ class ManajerMejaController extends Controller {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {
-			return Redirect::to('manajer.FormMejaUI')
+			return redirect('addmeja')
 				->withError($validator);
 		} else{
 
@@ -145,7 +145,7 @@ class ManajerMejaController extends Controller {
 			$meja->save();
 
 			//Session::flash('message', 'Successfully created nerd!');
-			return Redirect::to('manajermeja');
+			return redirect('manajermeja');
 		}
     }
 
@@ -160,7 +160,8 @@ class ManajerMejaController extends Controller {
         $meja = Meja::find($id);
         $meja->delete();
 
-        return Redirect::to('manajermeja');
+		return redirect('manajermeja');
+
     }
 
 }
