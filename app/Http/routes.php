@@ -139,6 +139,8 @@ Route::get('menuutama/{kategori}', 'CustomerController@indexByCat');
 
 Route::post('addpemesanan', ['as' => 'addpemesanan','uses'=> 'CustomerController@addPemesanan']);
 
+Route::get('listpesanan', 'CustomerController@getMyPesanan');
+
 
 /*
 |-------------------------------------------------------------------------

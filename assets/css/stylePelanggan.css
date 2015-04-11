@@ -289,6 +289,11 @@ body{
 	background-color: #bb2828 !important;
 }
 
+.btn-success {
+	background-image: none !important;
+	border-color: #00695c !important;
+	background-color: #00695c  !important;
+}
 /*@media(max-width: 767px) {
 .modal-dialog {
 	top: 15% !important;

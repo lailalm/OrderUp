@@ -47,7 +47,7 @@
 							<input type="button" class="btn col-xs-1 col-xs-offset-2 add_subs" value=" - ">
 							
 							<div class="col-xs-6">
-								<input class="form-control" type="text" required>
+								<input class="form-control" type="text" value="{{ $pesanan->jumlah }}"required>
 							</div>
 							<input type="button" class="col-xs-1 btn add_subs" value=" + ">
 								<div id="btn-cancel" class="col-xs-10 col-xs-offset-1 space">

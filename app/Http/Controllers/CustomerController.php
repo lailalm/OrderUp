@@ -74,21 +74,19 @@ class CustomerController extends Controller {
 			->with('kategori', 'utama');;
 		}
 	}
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+	
+	public function getMyPesanan()
+	{
+		return View::make('pelanggan.listPesananUI')
+			->with('list_pesanan', Pemesanan::where('id_meja','1')->get());;
+	}
+
 	public function create()
 	{
 		//
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+	
 	public function store()
 	{
 		//
@@ -139,12 +137,7 @@ class CustomerController extends Controller {
 		}
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+	
 	public function addPemesanan()
 	{
 		$pesan = new Pemesanan;
@@ -156,6 +149,19 @@ class CustomerController extends Controller {
 
 		$pesan->save();
 		return Redirect::to('menuutama');
+	}
+
+	public function cancelPemesanan($id, $batal)
+	{
+		$pesan = Pemesanan::find($id);
+		$current_jumlah = $pesan->jumlah;
+		if ($batal >= $current_jumlah)
+			return Redirect::to('listpesanan');
+		else {
+			$menu->jumlah = $current_jumlah - $batal;
+			$menu->save();
+			return Redirect::to('listpesanan');
+		}
 	}
 
 	/**
