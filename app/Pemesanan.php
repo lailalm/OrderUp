@@ -10,6 +10,7 @@ class Pemesanan extends Model implements AuthenticatableContract, CanResetPasswo
 
 	use Authenticatable, CanResetPassword;
 	public $timestamps = false;
+	public $primaryKey = 'id_pemesanan';
 	/**
 	 * The database table used by the model.
 	 *

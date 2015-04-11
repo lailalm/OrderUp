@@ -151,15 +151,21 @@ class CustomerController extends Controller {
 		return Redirect::to('menu/'.Input::get('kategori'));
 	}
 
-	public function cancelPemesanan($id, $batal)
+	public function cancelPemesanan()
 	{
-		$pesan = Pemesanan::find($id);
+		$batal = Input::get('countcancel');
+		$id_pemesanan = Input::get('id_pemesanan');
+		$pesan = Pemesanan::find(Input::get('id_pemesanan'));
 		$current_jumlah = $pesan->jumlah;
-		if ($batal >= $current_jumlah)
+		if ( $batal >= $current_jumlah){
+			if($batal==$current_jumlah){
+				Pemesanan::where('id_pemesanan', $id_pemesanan)->delete();
+			}
 			return Redirect::to('listpesanan');
+		}
 		else {
-			$menu->jumlah = $current_jumlah - $batal;
-			$menu->save();
+			$pesan->jumlah = $current_jumlah - $batal;
+			$pesan->save();
 			return Redirect::to('listpesanan');
 		}
 	}

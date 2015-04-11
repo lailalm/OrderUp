@@ -141,6 +141,8 @@ Route::post('addpemesanan', ['as' => 'addpemesanan', 'uses' => 'CustomerControll
 
 Route::get('listpesanan', 'CustomerController@getMyPesanan');
 
+Route::post('hapuspesanan', ['as' => 'hapuspesanan', 'uses' => 'CustomerController@cancelPemesanan']);
+
 
 /*
 |-------------------------------------------------------------------------

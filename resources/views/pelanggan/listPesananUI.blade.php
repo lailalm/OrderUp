@@ -4,6 +4,12 @@
 <div id = "content" class="clearfix">
 	<div class="pengisi-atas"></div>
 	<h4 class="white text-center">Daftar Pesanan</h4>
+
+			@if (count($list_pesanan) <= 0)
+				<h5 class="judul-role">
+					Belum ada pesanan. Silahkan memesan.
+				</h5>	
+			@endif
 		@foreach($list_pesanan as $pesanan)
 		<div class="kotak-putih space">
 			<div class="row">
@@ -40,22 +46,25 @@
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					</div>
 					<div class="modal-body">
-						<form class="form-inline text-center center-block space-bottom">
+					
+						{!! Form::open(array('route' => 'hapuspesanan' , 'class' => 'form-inline text-center center-block space-bottom')) !!}	
 							<div class= "col-xs-12 clearfix space-bottom">
 								Berapa porsi menu <b>{!! App\Menu::find($pesanan->id_menu)->name !!}</b> yang Anda ingin batalkan?
 							</div>
 							<input type="button" class="btn col-xs-1 col-xs-offset-2 add_subs" value=" - ">
 							
 							<div class="col-xs-6">
-								<input class="form-control" type="text" value="{{ $pesanan->jumlah }}"required>
+								<input name="countcancel" class="form-control" type="text" value="{{ $pesanan->jumlah }}"required>
 							</div>
 							<input type="button" class="col-xs-1 btn add_subs" value=" + ">
 								<div id="btn-cancel" class="col-xs-10 col-xs-offset-1 space">
 									<button data-dismiss="modal" class="btn btn-primary col-xs-5"> Cancel</button>
-									<button class="btn btn-primary col-xs-5 col-xs-offset-2"> Batalkan</button>
+							{!! Form::hidden('id_pemesanan', $pesanan->id_pemesanan) !!}
+							{!! Form::submit('Batalkan', array('class' => 'btn btn-primary col-xs-5 col-xs-offset-2')) !!}	
+
 								</div>
 							</input>
-						</form>	
+						{!! Form::close() !!}
 						<br>
 					</div>
 					<div class="modal-footer row"></div>
