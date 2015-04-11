@@ -53,8 +53,8 @@
 		            <div class="collapse navbar-collapse" id="bar">
 		                <ul class="nav navbar-nav">
 		                    <li><a href="{{ url('/listpesanan')}}">Lihat Daftar Pesanan</a></li>
-		                    <li><a href="/">Pembayaran</a></li>
-		                    <li><a href="/">Cara Penggunaan</a></li>
+		                    <li><a href="{{ url('/pembayaran')}}">Pembayaran</a></li>
+		                    <li><a href="{{ url('/tutorial')}}">Cara Penggunaan</a></li>
 		                </ul>
 		            </div>
 		        </div>

@@ -1,6 +1,9 @@
 @extends('pelanggan')
 
 @section('content')
+<?php
+	$total = 0;
+?>
 <div id = "content" class="clearfix">
 	<div class="pengisi-atas"></div>
 	<h4 class="white text-center">Pembayaran</h4>
@@ -26,7 +29,8 @@
 			</div>
 			<div id="total" class="col-xs-4 text-center no-padding">
 				<h5 id=>
-					<?php 
+					<?php
+						$total = $total +  App\Menu::find($pesanan->id_menu)->harga * $pesanan->jumlah;
 		        		echo "Rp " .str_replace(",",".",number_format(App\Menu::find($pesanan->id_menu)->harga * $pesanan->jumlah, 0)).",-"
 		        	?>
 				</h5> <!--total = harga x porsi-->
@@ -41,7 +45,9 @@
 				<h4><b>Total</b></h4>
 			</div>
 			<div id="total-beli" class="col-xs-4 clearfix">
-				Rp 105.000 <!--total dari semuanya-->
+				<?php
+					echo "Rp " .str_replace(",",".",number_format($total, 0)).",-";
+				?><!--total dari semuanya-->
 			</div>
 		</div>
 	</div>
@@ -68,12 +74,14 @@
 					{!! HTML::image('assets/img/kredit.png', 'panggil', array( 'width' => '70px')) !!}    
 				</a>          
 			</div>
+
 			<div class="clearfix visible-xs-block">
 				
 			</div>
 		</div>
 	</div>
 </div>
+<div class="pengisi-atas"></div>
 
 <!-- Modal Konfirm Batal -->
 <div class="modal fade" id="tunai-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -101,12 +109,13 @@
       <div class="modal-footer row">
         	
       </div>
+
     </div>
   </div>
 </div>
 		
 <div id= "footer" class="col-xs-12">
-	<a href="{{ URL::previous() }}">
+	<a href="{{ url('/')}}">
     	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
     </a>
 </div>
