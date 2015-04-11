@@ -148,7 +148,7 @@ class CustomerController extends Controller {
 		$pesan->keterangan 		= Input::get('deskripsi');
 
 		$pesan->save();
-		return Redirect::to('menuutama');
+		return Redirect::to('menu/'.Input::get('kategori'));
 	}
 
 	public function cancelPemesanan($id, $batal)

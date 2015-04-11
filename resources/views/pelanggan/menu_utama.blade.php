@@ -19,7 +19,7 @@
 		<!-- Modal Detail -->
 		<div class="modal fade" id="menu-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				{!! Form::open(array('route' => 'addpemesanan', 'class' => 'form-inline text-center center-block')) !!}
+				
 			    <div class="modal-content">
 			      	<div class="modal-header">
 			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -67,7 +67,7 @@
 					</div>
 					<div class="modal-body">
 						<input id="satuan{{$menu->id_menu}}" style="display:none;" value="{{ $menu->harga }}">
-							
+						{!! Form::open(array('route' => 'addpemesanan', 'class' => 'form-inline text-center center-block')) !!}	
 						<div class= "col-xs-12 clearfix space-bottom text-center">
 							Berapa porsi yang Anda ingin pesan?
 						</div>
@@ -84,6 +84,7 @@
                         array('class'=>'form-control','rows'=>5, 'placeholder'=>'Deskripsi Pemesanan (Optional)')) !!}
                			
                    		{!!Form::hidden('id_menu', $menu->id_menu) !!}
+                   		{!!Form::hidden('kategori', $kategori) !!}
 	                    <div class="col-xs-10 col-xs-offset-1">
 							<div class="col-xs-12 harga-menu space">
 								Total 

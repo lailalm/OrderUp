@@ -135,9 +135,9 @@ Route::get('daftarpesanan', 'KokiController@index');
 */
 Route::get('/', 'CustomerController@index');
 
-Route::get('menuutama/{kategori}', 'CustomerController@indexByCat');
+Route::get('menu/{kategori}', 'CustomerController@indexByCat');
 
-Route::post('addpemesanan', ['as' => 'addpemesanan','uses'=> 'CustomerController@addPemesanan']);
+Route::post('addpemesanan', ['as' => 'addpemesanan', 'uses' => 'CustomerController@addPemesanan']);
 
 Route::get('listpesanan', 'CustomerController@getMyPesanan');
 
