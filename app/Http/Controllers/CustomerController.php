@@ -126,7 +126,7 @@ class CustomerController extends Controller {
 			$pesan->status = "Paid";
 			$pesan->save();
 		}
-		return Redirect::to('/');
+		return Redirect::to('logout');
 	}
 
 	public function kredit()
