@@ -79,16 +79,18 @@ class CustomerController extends Controller {
 	
 	public function getMyPesanan()
 	{
-		// tambahin where status != paid
+		$list_pesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->
+					where('status','!=','Paid')->get();
 		return View::make('pelanggan.listPesananUI')
-			->with('list_pesanan', Pemesanan::where('id_meja','1')->get());;
+			->with('list_pesanan', $list_pesanan);;
 	}
 
 	public function getMyPayment()
 	{
-		// tambahin where status != paid
+		$list_pesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->
+					where('status','!=','Paid')->get();
 		return View::make('pelanggan.pembayaranUI')
-			->with('list_pesanan', Pemesanan::where('id_meja','1')->get());;
+			->with('list_pesanan', $list_pesanan);;
 	}
 
 
@@ -120,6 +122,36 @@ class CustomerController extends Controller {
 		return Redirect::to('/');
 	}
 
+	public function kredit()
+	{
+		$pemanggilan = new Pemanggilan;
+		$pemanggilan->id_meja = '1';
+		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu kredit';
+		$pemanggilan->status_pemanggilan =0;
+		$pemanggilan->save();
+
+		foreach(Pemesanan::get() as $pesan){
+			$pesan->status = "Paid";
+			$pesan->save();
+		}
+		return Redirect::to('logout/');
+
+	}
+
+	public function debit(){
+		$pemanggilan = new Pemanggilan;
+		$pemanggilan->id_meja = '1';
+		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu debit';
+		$pemanggilan->status_pemanggilan =0;
+		$pemanggilan->save();
+
+		foreach(Pemesanan::get() as $pesan){
+			$pesan->status = "Paid";
+			$pesan->save();
+		}
+		return Redirect::to('logout/');
+
+	}
 	
 	public function showMenuUtama()
 	{

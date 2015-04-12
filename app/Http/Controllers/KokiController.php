@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use View;
+use Auth;
 use Validator;
 use Input;
 use Redirect;
@@ -20,8 +21,14 @@ class KokiController extends Controller {
 		$pemesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->
 					where('status','!=','Paid')->get();
 
-		return View::make('koki.DaftarPesananUI')
+		if(Auth::user()->role=="Koki"){
+			return View::make('koki.DaftarPesananUI')
 			->with('pemesanan', $pemesanan);
+		}
+		else{
+			return View::make('pelayan.DaftarPesananUI')
+			->with('pemesanan', $pemesanan);
+		}
 
 	}
 
