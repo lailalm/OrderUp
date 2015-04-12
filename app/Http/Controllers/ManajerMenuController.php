@@ -142,7 +142,7 @@ class ManajerMenuController extends Controller {
 			$menu->original_photoname = $file->getClientOriginalName();
 			$menu->photoname = $file->getFilename().'.'.$extension;
 			
-
+			
 			$menu->save();
 			return Redirect::to('manajermenu/utama');
 		}
