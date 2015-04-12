@@ -46,7 +46,8 @@
 		                	</a>
 		                </div>
 		            	<div id = "right" class="nav navbar-nav navbar-right">     
-		            		{!! HTML::image('assets/img/panggil.png', 'panggil', array( 'width' => '60px', 'data-toggle' => 'modal', 'data-target' => '#menu-modalxxx')) !!}              
+		            		{!! HTML::image('assets/img/panggil.png', 'panggil', array( 'width' => '60px', 'data-toggle' => 'modal', 'data-target' => '#menu-modal-panggil')) !!}              
+
 		                </div>
 		            </div>
 		
@@ -64,7 +65,9 @@
 		@yield('content')
 		
 		<!-- MODAL DETAIL -->
-  		<div class="modal fade" id="menu-modalxxx" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="selected">
+
+  		<div class="modal fade" id="menu-modal-panggil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="selected">
+
 		  	<div class="modal-dialog">
 			    <div class="modal-content">
 			      	<div class="modal-header">
@@ -82,6 +85,7 @@
                     			array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan kebutuhan Anda (opsional)')) !!}
            				 </div>
 				        <div class = "col-xs-3">
+				        	{!!Form::hidden('id_meja', '1') !!}
                 			{!! Form::submit('Simpan', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
                 			{!! Form::close() !!}
             			</div>

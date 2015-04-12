@@ -45,11 +45,9 @@ Route::put('editmenu/{id}', ['as' => 'editmenu_update','uses'=> 'ManajerMenuCont
 Route::get('manajermenu/{kategori}', 'ManajerMenuController@index');
 
 Route::get('manajermenu', 'ManajerMenuController@dasar');
-/* TO - DO : 
-	- Get Menu By Category/{category}
-	- Make Recommendation/{id}
-	- Make 
-*/
+
+Route::get('manajermenu/{rekomendasi}/{id}', 'ManajerMenuController@rekomendasi');
+
 
 /*
 |-------------------------------------------------------------------------
@@ -151,4 +149,6 @@ Route::get('tutorial', 'CustomerController@showTutorial');
 
 Route::get('logout', 'CustomerController@logout');
 
-Route::get('addpemanggilan', ['as' => 'addpemanggilan', 'uses' => 'CustomerController@addPemanggilan']);
+Route::post('addpemanggilan', ['as' => 'addpemanggilan', 'uses' => 'CustomerController@addPemanggilan']);
+
+Route::post('bayar', ['as' => 'bayar', 'uses'=> 'CustomerController@bayar']);

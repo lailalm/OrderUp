@@ -73,9 +73,17 @@
 					      </div>
 					      <div class="modal-footer">
 					      	<div id="footer-modal-menu" class =" col-xs-12">
-								<a href= "#"><div class = "col-xs-5 col-xs-offset-3">
-									Rekomen
-								</div></a>
+								@if($menu->is_rekomendasi == 0)
+									<a href= "rekomendasi/{{$menu->id_menu}}"><div class = "col-xs-5 col-xs-offset-3">
+									Rekomendasi
+									</div></a>
+								
+								@else
+									<a href= "deleterekomendasi/{{$menu->id_menu}}"><div class = "col-xs-5 col-xs-offset-3">
+									Hapus Rekomendasi
+									</div></a>
+								@endif
+								
 						
 								<a href="{{ URL::to('editmenu/'. $menu->id_menu) }}"><div class = "col-xs-2">
 									Edit
