@@ -3,6 +3,7 @@
 use App\Menu;
 use App\Pemesanan;
 use App\Pemanggilan;
+use App\Meja;
 use View;
 use Validator;
 use Input;
@@ -91,10 +92,11 @@ class CustomerController extends Controller {
 	}
 
 
-	public function addPemanggilan($id)
+	public function addPemanggilan()
 	{
+
 		$pemanggilan = new Pemanggilan;
-		$pemanggilan->id_meja 				= Meja::find($id)->nomormeja;
+		$pemanggilan->id_meja 				= Input::get('id_meja');
 		$pemanggilan->pesan 				= Input::get('deskripsi');
 		$pemanggilan->status_pemanggilan 	= 0;
 
@@ -103,7 +105,7 @@ class CustomerController extends Controller {
 	}
 
 	
-	public function store()
+	public function bayar()
 	{
 		//
 	}

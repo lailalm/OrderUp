@@ -91,18 +91,18 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
-      	<form class="form-inline text-center center-block space-bottom" action="logOut.html">
 	      	 <div class= "col-xs-12 clearfix space-bottom">
         		Masukkan nominal uang yang akan Anda gunakan
         	</div>
         	<div class="col-xs-8 col-xs-offset-2">
-	        	<input class="form-control" type="text" placeholder="Contoh: 100000" required>
+        		{!! Form::open(array('route' => 'bayar')) !!}
+	        	{!! Form::text('nominal', null, array('class' => 'form-control', 'placeholder' => 'Contoh: 100000', 'required')) !!}
         	</div>
         	<div id="btn-cancel" class="col-xs-10 col-xs-offset-1 space">
 				<button data-dismiss="modal" class="btn btn-primary col-xs-5">Batal</button>
-				<button class="btn btn-primary col-xs-5 col-xs-offset-2">Bayar</button>
+				{!! Form::submit('Bayar', array('class'=>'btn btn-primary col-xs-5 col-xs-offset-2')) !!}
+				{!! Form::close()!!}
 			</div>
-       	</form>
        	
         <br>
       </div>
