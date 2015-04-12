@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Meja;
+use App\Karyawan;
 use View;
 use Validator;
 use Input;
@@ -82,6 +83,13 @@ class ManajerMejaController extends Controller {
 			$meja->deskripsi	= Input::get('deskripsi');
 			$meja->save();
 
+			$karyawan = new Karyawan;
+			$karyawan->name = $meja->id_meja;
+			$karyawan->email = $meja->kodemasuk;
+			$karyawan->password = bcrypt($meja->kodemasuk);
+			$karyawan->role= "Meja";
+			$karyawan->save();
+
 			//Session::flash('message', 'Successfully created nerd!');
 			return redirect('manajermeja');
 		}
@@ -143,6 +151,12 @@ class ManajerMejaController extends Controller {
 			$meja->kodemasuk	= Input::get('kodemasuk');
 			$meja->deskripsi	= Input::get('deskripsi');
 			$meja->save();
+
+			$karyawan = Karyawan::where('name',$id)->get()[0];
+			$karyawan->name = $meja->id_meja;
+			$karyawan->email = $meja->kodemasuk;
+			$karyawan->password = bcrypt($meja->kodemasuk);
+			$karyawan->save();
 
 			//Session::flash('message', 'Successfully created nerd!');
 			return redirect('manajermeja');
