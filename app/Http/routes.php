@@ -20,7 +20,7 @@ Route::get('dummy', 'WelcomeController@dummy');
 
 /*
 |-------------------------------------------------------------------------
-| Manajer Routes
+| Pihak Karyawan Routes
 |-------------------------------------------------------------------------
 */
 
@@ -147,3 +147,4 @@ Route::get('pembayaran', 'CustomerController@getMyPayment');
 
 Route::get('tutorial', 'CustomerController@showTutorial');
 
+Route::get('logout', 'CustomerController@logout');

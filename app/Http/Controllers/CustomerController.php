@@ -183,6 +183,11 @@ class CustomerController extends Controller {
 		}
 	}
 
+	public function logout()
+	{
+		return view('pelanggan.logoutUI');
+	}
+
 	/**
 	 * Update the specified resource in storage.
 	 *
