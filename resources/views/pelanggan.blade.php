@@ -58,41 +58,39 @@
 		                </ul>
 		            </div>
 		        </div>
-
-		        <!-- MODAL DETAIL -->
-	      		<div class="modal fade" id="menu-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="selected">
-				  	<div class="modal-dialog">
-					    <div class="modal-content">
-					      	<div class="modal-header">
-					        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="selected">&times;</span></button>
-					      	</div>
-
-					      	<div class="modal-body">
-					       		{!! Form::open(array('route' => 'addpemanggilan', 'class' => 'form')) !!}
-						        <div id= "nama-menu" class= "col-xs-8">
-						        	<b>Butuh Apa?</b>
-						        </div>
-						  
-					        	 <div class="form-group col-xs-12">
-	                     			{!! Form::textarea('deskripsi', null, 
-	                        			array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
-	               				 </div>
-						        <div class = "col-xs-3">
-	                    			{!! Form::submit('Simpan', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
-	                    			{!! Form::close() !!}
-	                			</div>
-	                		</div>
-					    </div>
-					</div>
-				</div>
-		</div>
-				</div>
-
 		    </nav>
 		</div>
 		
 		@yield('content')
 		
+		<!-- MODAL DETAIL -->
+  		<div class="modal fade" id="menu-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="selected">
+		  	<div class="modal-dialog">
+			    <div class="modal-content">
+			      	<div class="modal-header">
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="selected">&times;</span></button>
+			      	</div>
+
+			      	<div class="modal-body">
+			       		{!! Form::open(array('route' => 'addpemanggilan', 'class' => 'form')) !!}
+				        <div id= "nama-menu" class= "col-xs-8 space-bottom">
+				        	<b>Apa yang Anda butuhkan?</b> 
+				        </div>
+				  
+			        	 <div class="form-group col-xs-12">
+                 			{!! Form::textarea('deskripsi', null, 
+                    			array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan kebutuhan Anda (opsional)')) !!}
+           				 </div>
+				        <div class = "col-xs-3">
+                			{!! Form::submit('Simpan', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
+                			{!! Form::close() !!}
+            			</div>
+            		</div>
+            		<div class="modal-footer">
+            		</div>
+			    </div>
+			</div>
+		</div>
 
 		<script>
 			$(document).ready(
