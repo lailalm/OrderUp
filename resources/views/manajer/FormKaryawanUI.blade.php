@@ -27,7 +27,7 @@
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
-                <div style="display:;">
+                <div style="display:none;">
                     <div class="form-group">
                         {!! Form::label('Password') !!}
                         <input name="password" type="password" id="pass" value="123123123"> 
@@ -78,4 +78,19 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function generate()
+    {
+        var text = "";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        for( var i = 0; i < 8; i++ )
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        $('#pass').val(text);
+    }
+
+    generate();
+</script>
 @endsection
