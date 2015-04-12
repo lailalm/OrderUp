@@ -64,13 +64,13 @@
 			</div>
 			
 			<div id="btn-bayar2" class = "col-xs-4">
-				<a href= logOut.html>
+				<a href= {{ url('/logout' )}}>
 					{!! HTML::image('assets/img/debit.png', 'panggil', array( 'width' => '70px')) !!}              
 				</a>
 			</div>
 			
 			<div id="btn-bayar3" class = "col-xs-4">
-				<a href=logOut.html>
+				<a href="{{ url('/logout' )}}">
 					{!! HTML::image('assets/img/kredit.png', 'panggil', array( 'width' => '70px')) !!}    
 				</a>          
 			</div>

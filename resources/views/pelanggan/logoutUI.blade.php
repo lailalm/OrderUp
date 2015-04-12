@@ -27,7 +27,7 @@
 				</div>
 				
 				<div id= "text-content" class = 'container-fluid'>
-					<p> Harap menunggu sejenak.
+					<p> Harap menunggu.
 					</p>
 					<p>
 					Pelayan kami akan segera mengantarkan <em>bill</em> ke meja Anda.
