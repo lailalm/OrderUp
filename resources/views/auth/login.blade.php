@@ -30,6 +30,7 @@
 		<div id = "main" class="col-sm-6 col-sm-offset-3"> 
 			@if (count($errors) > 0)
 				<div class="alert alert-danger">
+    				<a href="#" class="close" data-dismiss="alert">&times;</a>
 					<strong>Whoops!</strong> There were some problems with your input.<br><br>
 					<ul>
 						@foreach ($errors->all() as $error)

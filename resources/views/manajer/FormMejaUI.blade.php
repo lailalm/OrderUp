@@ -9,7 +9,7 @@
 </ul>
 <div class="container">
     <div class="row">
-        <div class="col-md-11 col-md-offset-1">
+        <div class="col-md-10 col-md-offset-2">
             <div class="col-xs-12 panel" id="formEditKaryawan">
                 <h3>Tambah Meja</h3>
 
@@ -58,7 +58,7 @@
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-        for( var i = 0; i < 8; i++ )
+        for( var i = 0; i < 5; i++ )
             text += possible.charAt(Math.floor(Math.random() * possible.length));
 
         $('#kode').val(text);

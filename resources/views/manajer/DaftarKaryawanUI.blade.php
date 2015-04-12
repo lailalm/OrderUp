@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-		<div class="col-md-11 col-md-offset-1">
+		<div class="col-md-10 col-md-offset-2">
 			<h3 id="kategori" class="judul-home col-md-8">Daftar {{ ucfirst($role) }}</h3>
 			<select 
 				class="selectpicker col-md-4 space" 
