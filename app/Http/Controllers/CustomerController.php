@@ -77,9 +77,18 @@ class CustomerController extends Controller {
 	
 	public function getMyPesanan()
 	{
+		// tambahin where status != paid
 		return View::make('pelanggan.listPesananUI')
 			->with('list_pesanan', Pemesanan::where('id_meja','1')->get());;
 	}
+
+	public function getMyPayment()
+	{
+		// tambahin where status != paid
+		return View::make('pelanggan.pembayaranUI')
+			->with('list_pesanan', Pemesanan::where('id_meja','1')->get());;
+	}
+
 
 	public function create()
 	{
@@ -130,14 +139,18 @@ class CustomerController extends Controller {
 			->with('list_menu', Menu::where('is_promosi','1')->get())
 			->with('kategori', $kategori);;
 		}
-		else{
+		else {
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
 			->with('kategori', 'utama');;
 		}
 	}
 
-	
+	public function showTutorial()
+	{
+		return View::make('pelanggan.caraPenggunaanUI');
+	}
+
 	public function addPemesanan()
 	{
 		$pesan = new Pemesanan;
@@ -158,9 +171,9 @@ class CustomerController extends Controller {
 		$pesan = Pemesanan::find(Input::get('id_pemesanan'));
 		$current_jumlah = $pesan->jumlah;
 		if ( $batal >= $current_jumlah){
-			if($batal==$current_jumlah){
+			// if($batal==$current_jumlah){
 				Pemesanan::where('id_pemesanan', $id_pemesanan)->delete();
-			}
+			// }
 			return Redirect::to('listpesanan');
 		}
 		else {

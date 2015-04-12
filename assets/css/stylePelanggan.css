@@ -352,3 +352,90 @@ body{
 .pengisi-atas {
 	height: 75px;
 }
+
+
+#harga-satu {
+	margin-top: 13px;
+}
+
+#total {
+	margin-top: 11px;
+	color: #bb2828;
+}
+
+#status-pesan {
+	margin-top: 10px;
+}
+
+#total-beli {
+	background-color: #bb2828;
+	color: white;
+	text-align: center;
+	margin-top: 2px;
+	font-size: 120%;
+	padding: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#pembayaran-main {
+	background-color: rgba(0,0,0,0.4);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: 30px;
+	padding: 0px;
+}
+
+#pembayaran-main > div{
+	height: auto;
+	margin: 0 auto;
+	padding: 0px;
+}
+
+#btn-bayar1 {
+	margin: 10px auto;
+	border-right-style: solid;
+	border-width: 1px;
+	border-color: rgba(255,255,255,0.5);
+}
+
+#btn-bayar2 {
+	margin: 10px auto;
+	border-right-style: solid;
+	border-width: 1px;
+	border-color: rgba(255,255,255,0.5);
+}
+
+#btn-bayar3 {
+	margin: 10px auto;
+}
+
+.isi-tutor {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+@media(max-width: 767px) {
+	.foto-tutor {
+		width: 130px !important;
+	}
+	
+	.judul-tutor {
+		font-size: 90%;
+	}
+}
+
+.foto-tutor {
+	padding-right: 8px;
+	padding-left: 8px;
+}
+
+.judul-tutor {
+	margin-bottom: 10px;
+	margin-left: 10px;
+	text-align:left;
+}

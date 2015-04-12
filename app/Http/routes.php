@@ -145,10 +145,7 @@ Route::get('listpesanan', 'CustomerController@getMyPesanan');
 
 Route::post('hapuspesanan', ['as' => 'hapuspesanan', 'uses' => 'CustomerController@cancelPemesanan']);
 
+Route::get('pembayaran', 'CustomerController@getMyPayment');
 
-/*
-|-------------------------------------------------------------------------
-| Admin Area Routes
-|-------------------------------------------------------------------------
-*/
+Route::get('tutorial', 'CustomerController@showTutorial');
 

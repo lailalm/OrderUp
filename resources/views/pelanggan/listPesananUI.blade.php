@@ -5,17 +5,18 @@
 	<div class="pengisi-atas"></div>
 	<h4 class="white text-center">Daftar Pesanan</h4>
 
-			@if (count($list_pesanan) <= 0)
-				<h5 class="judul-role">
-					Belum ada pesanan. Silahkan memesan.
-				</h5>	
-			@endif
+		@if (count($list_pesanan) <= 0)
+			<h5 class="judul-role">
+				Belum ada pesanan. Silahkan memesan terlebih dahulu.
+			</h5>	
+		@endif
+
 		@foreach($list_pesanan as $pesanan)
 		<div class="kotak-putih space">
 			<div class="row">
 				<div class="col-xs-5 padding-left">
 					<h5>{!! App\Menu::find($pesanan->id_menu)->name !!}</h5>
-					<h6>{{ $pesanan->jumlah }}</h6>
+					<h6>{{ $pesanan->jumlah }} porsi</h6>
 				</div>
 				<div id="status-pesan" class="col-xs-4 clearfix">
 					<h5><em>{{ $pesanan->status }}</em></h5>
@@ -97,6 +98,7 @@
 			</div>
 		</div>
 		@endforeach
+		<div class="pengisi-atas"></div>
 	</div>
 </div>
 
