@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Auth;
 use App\Menu;
 use App\Pemesanan;
 use App\Pemanggilan;
@@ -20,10 +21,10 @@ class CustomerController extends Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
+	// public function __construct()
+	// {
+	// 	$this->middleware('auth');
+	// }
 	
 	
 	public function index()
@@ -79,16 +80,22 @@ class CustomerController extends Controller {
 	
 	public function getMyPesanan()
 	{
-		$list_pesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->
-					where('status','!=','Paid')->get();
+		$idm = Auth::user()->name;
+		$list_pesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')
+					->where('status','!=','Paid')
+					->where('id_meja', $idm)
+					->get();
 		return View::make('pelanggan.listPesananUI')
 			->with('list_pesanan', $list_pesanan);;
 	}
 
 	public function getMyPayment()
 	{
-		$list_pesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->
-					where('status','!=','Paid')->get();
+		$idm = Auth::user()->name;
+		$list_pesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')
+						->where('status','!=','Paid')
+						->where('id_meja', $idm)
+						->get();
 		return View::make('pelanggan.pembayaranUI')
 			->with('list_pesanan', $list_pesanan);;
 	}
@@ -98,7 +105,7 @@ class CustomerController extends Controller {
 	{
 
 		$pemanggilan = new Pemanggilan;
-		$pemanggilan->id_meja 				= Input::get('id_meja');
+		$pemanggilan->id_meja 				= Auth::user()->name;
 		$pemanggilan->pesan 				= Input::get('deskripsi');
 		$pemanggilan->status_pemanggilan 	= 0;
 
@@ -110,7 +117,7 @@ class CustomerController extends Controller {
 	public function bayar()
 	{
 		$pemanggilan = new Pemanggilan;
-		$pemanggilan->id_meja = '1';
+		$pemanggilan->id_meja = Auth::user()->name;
 		$pemanggilan->pesan = 'Membayar pemesanan dengan uang tunai '.Input::get('nominal');
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
@@ -125,7 +132,7 @@ class CustomerController extends Controller {
 	public function kredit()
 	{
 		$pemanggilan = new Pemanggilan;
-		$pemanggilan->id_meja = '1';
+		$pemanggilan->id_meja = Auth::user()->name;
 		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu kredit';
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
@@ -140,7 +147,7 @@ class CustomerController extends Controller {
 
 	public function debit(){
 		$pemanggilan = new Pemanggilan;
-		$pemanggilan->id_meja = '1';
+		$pemanggilan->id_meja = Auth::user()->name;
 		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu debit';
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
@@ -206,7 +213,7 @@ class CustomerController extends Controller {
 	{
 		$pesan = new Pemesanan;
 
-		$pesan->id_meja 		= 1;
+		$pesan->id_meja 		= Auth::user()->name;
 		$pesan->id_menu 		= Input::get('id_menu');
 		$pesan->jumlah 			= Input::get('porsi');
 		$pesan->keterangan 		= Input::get('deskripsi');

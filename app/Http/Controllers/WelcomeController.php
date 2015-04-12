@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use Redirect;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -41,6 +43,11 @@ class WelcomeController extends Controller {
 	public function dummy()
 	{
 		return view('dummy');
+	}
+
+	public function home()
+	{
+		return Redirect::to('/');
 	}
 
 	public function show($id)

@@ -43,12 +43,6 @@
 				{!! HTML::image('assets/img/logo.png', 'logo-order-up', array( 'width' => '90%')) !!}
 			</div>
 			
-			<div id= "text-content" class='container-fluid'>
-				<h4>Selamat Datang</h4>
-				<hr width = 80%>
-				Silahkan masukkan kode log in yang sudah diberikan oleh pelayan kami
-			</div>
-
 			<div id= "login" class ='col-sm-8 col-sm-offset-2 clearfix'>
 				<form id= "formIn" class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -68,7 +62,7 @@
 				</div>
 				<div class="clearfix visible-xs-block"></div>
 
-				<div id= btnIn class = "col-xs-12"><button type="submit" id= "btn-in" class= "btn">Log In</button></div>
+				<div id="btnIn" class = "col-xs-12"><button type="submit" id= "btn-in" class= "btn">Log In</button></div>
 			</form>
 			</div>
 		</div>

@@ -62,10 +62,47 @@ class Authenticate {
 				return $next($request);
 			}
 			return Redirect::to('manajermenu');
-		} elseif ($this->auth->user()->role=="Koki") {
-			return $next($request);
 		} 
-		return $next($request);
+		elseif ($this->auth->user()->role=="Koki") {
+			$path=$request->getPathInfo();
+			if ($path=="daftarpesanan" || 
+				strpos($path, 'statusmenu') ||
+				strpos($path, 'makeavailable') ||
+				strpos($path, 'makeunavailable') ||
+				strpos($path, 'changestatus')
+				 ) 
+			{
+				return $next($request);
+			}
+			return Redirect::to('daftarpesanan');
+		} elseif ($this->auth->user()->role=="Pelayan") {
+			$path=$request->getPathInfo();
+			if ($path=="listpemanggilan" ||
+				strpos($path, 'removepemanggilan') ) 
+			{
+				return $next($request);
+			}
+			return Redirect::to('daftarpesanan');
+		} 
+		elseif ($this->auth->user()->role=="Meja") 
+		{
+			$path=$request->getPathInfo();
+			if ($path=="addpemesanan" ||
+				$path=="listpesanan" ||
+				$path=="hapuspesanan" ||
+				$path=="pembayaran" ||
+				$path=="tutorial" ||
+				$path=="logout" ||
+				$path=="addpemanggilan" ||
+				$path=="bayar" ||
+				$path=="kredit" ||
+				$path=="debit" ||
+				strpos($path, 'menu') ) 
+			{
+				return $next($request);
+			}
+			return Redirect::to('/');
+		}
+		return $next($request);	
 	}
-
 }
