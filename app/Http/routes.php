@@ -125,7 +125,10 @@ Route::get('changestatus/{status}/{id}', 'KokiController@changeStatus');
 | Pelayan Area Routes
 |-------------------------------------------------------------------------
 */
-Route::get('daftarpesanan', 'KokiController@index');
+
+Route::get('listpemanggilan', 'PelayanController@getPemanggilan');
+
+Route::post('removepemanggilan', ['as' => 'removepemanggilan', 'uses' => 'PelayanController@removePemanggilan']);
 
 
 /*
@@ -152,3 +155,7 @@ Route::get('logout', 'CustomerController@logout');
 Route::post('addpemanggilan', ['as' => 'addpemanggilan', 'uses' => 'CustomerController@addPemanggilan']);
 
 Route::post('bayar', ['as' => 'bayar', 'uses'=> 'CustomerController@bayar']);
+
+Route::get('kredit', 'CustomerController@kredit');
+
+Route::get('debit', 'CustomerController@debit');

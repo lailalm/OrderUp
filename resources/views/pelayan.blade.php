@@ -67,8 +67,8 @@
 	            
 	            <div data-parent="#accordion" class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
 		            <li>
-		            	<a href="{{ url('/statusmenu')}}">
-		        			{!! HTML::image('assets/img/panggil.png', 'karyawan', array( 'width' => '70px')) !!}
+		            	<a href="{{ url('/listpemanggilan')}}">
+		        			{!! HTML::image('assets/img/panggilan.png', 'karyawan', array( 'width' => '70px')) !!}
 		        		<a href="#">
 		            </li>
 	            </div>

@@ -9,6 +9,8 @@ use Session;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class ManajerMenuController extends Controller {
 
@@ -22,7 +24,7 @@ class ManajerMenuController extends Controller {
 	| controller as you wish. It is just here to get your app started!
 	|
 	*/
-
+	use AuthenticatesAndRegistersUsers;
 	/**
 	 * Create a new controller instance.
 	 *
