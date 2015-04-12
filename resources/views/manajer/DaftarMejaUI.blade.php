@@ -9,11 +9,12 @@
 
 <div class="container">
 	<div class="row">
-		<div class="main col-md-11 col-md-offset-1">
+		<div class="main col-md-10 col-md-offset-2">
 		  	<div class="clearfix visible-xs-block"></div>
-			<h3 id="kategori" class="judul-home col-md-9">Daftar Meja</h3>
 		  	
 		  	<div id= "isi" class ="col-xs-12 clearfix">
+			<h3 id="kategori" class="judul-home col-md-9">Daftar Meja</h3>
+
 		  	@foreach ($daftar_meja as $meja)
 			<div class ="daftar-meja col-sm-12 col-xs-12"> 
 					<div class="col-sm-3 col-xs-3">

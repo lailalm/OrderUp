@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-11 col-md-offset-1">
+        <div class="col-md-10 col-md-offset-2">
             <div class="col-xs-12 panel" id="formEditKaryawan">
                 <h3>Tambah Menu {{ $promosi? "Promosi" : "" }}</h3>
 
