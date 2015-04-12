@@ -71,24 +71,4 @@
 	
 
 </div>
-
-<script>
-	$('#btn-wait2').click(function(){  
-	  $(this).css('background-color', '#bb2828');
-	  $('#btn-process2').css('background-color', '#9f9f9f');
-	  $('#btn-done2').css('background-color', '#9f9f9f');
-	});
-	
-	$('#btn-process2').click(function(){  
-	  $('#btn-wait2').css('background-color', '#9f9f9f');
-	  $(this).css('background-color', '#fce809');
-	  $('#btn-done2').css('background-color', '#9f9f9f');
-	});
-	
-	$('#btn-done2').click(function(){  
-	  $('#btn-wait2').css('background-color', '#9f9f9f');
-	  $('#btn-process2').css('background-color', '#9f9f9f');
-	  $(this).css('background-color', 'green');
-	});
-	</script>
 @endsection
