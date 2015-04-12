@@ -107,7 +107,17 @@ class CustomerController extends Controller {
 	
 	public function bayar()
 	{
-		//
+		$pemanggilan = new Pemanggilan;
+		$pemanggilan->id_meja = '1';
+		$pemanggilan->pesan = 'Membayar pemesanan dengan uang tunai '.Input::get('nominal');
+		$pemanggilan->status_pemanggilan =0;
+		$pemanggilan->save();
+
+		foreach(Pemesanan::get() as $pesan){
+			$pesan->status = "Paid";
+			$pesan->save();
+		}
+		
 	}
 
 	
