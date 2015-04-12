@@ -45,6 +45,7 @@ class Authenticate {
 				return redirect()->guest('auth/login');
 			}
 		}
+
 		//disi
 		if($this->auth->user()->role=="Manajer"){
 			$path=$request->getPathInfo();
@@ -62,8 +63,8 @@ class Authenticate {
 			}
 			return Redirect::to('manajermenu');
 		} elseif ($this->auth->user()->role=="Koki") {
-			dd("kamu bukan manajer bung");
-		}
+			return $next($request);
+		} 
 		return $next($request);
 	}
 
