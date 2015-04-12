@@ -17,8 +17,8 @@ class KokiController extends Controller {
 	 */
 	public function index()
 	{
-
-		$pemesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->get();
+		$pemesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->
+					where('status','!=','Paid')->get();
 
 		return View::make('koki.DaftarPesananUI')
 			->with('pemesanan', $pemesanan);
