@@ -117,7 +117,7 @@ class CustomerController extends Controller {
 			$pesan->status = "Paid";
 			$pesan->save();
 		}
-		
+		return Redirect::to('/');
 	}
 
 	

@@ -47,6 +47,7 @@
 		                </div>
 		            	<div id = "right" class="nav navbar-nav navbar-right">     
 		            		{!! HTML::image('assets/img/panggil.png', 'panggil', array( 'width' => '60px', 'data-toggle' => 'modal', 'data-target' => '#menu-modal-panggil')) !!}              
+
 		                </div>
 		            </div>
 		
@@ -64,7 +65,9 @@
 		@yield('content')
 		
 		<!-- MODAL DETAIL -->
+
   		<div class="modal fade" id="menu-modal-panggil" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="selected">
+
 		  	<div class="modal-dialog">
 			    <div class="modal-content">
 			      	<div class="modal-header">

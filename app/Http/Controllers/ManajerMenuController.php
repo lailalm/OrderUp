@@ -79,6 +79,23 @@ class ManajerMenuController extends Controller {
 		
 	}
 
+	public function rekomendasi($rekomendasi, $id){
+		
+		$menu = Menu::find($id);
+		if($rekomendasi == "rekomendasi"){
+			$menu->is_rekomendasi = '1';
+		}
+		else if ($rekomendasi == "deleterekomendasi"){
+			$menu->is_rekomendasi = '0';
+		}
+		else{
+
+		}
+		$menu->save();
+
+		return redirect('manajermenu/utama');	
+	}
+
 	public function dasar()
 	{
 		return redirect('manajermenu/utama');
@@ -142,7 +159,7 @@ class ManajerMenuController extends Controller {
 			$menu->original_photoname = $file->getClientOriginalName();
 			$menu->photoname = $file->getFilename().'.'.$extension;
 			
-
+			
 			$menu->save();
 			return Redirect::to('manajermenu/utama');
 		}

@@ -63,42 +63,81 @@ class KokiController extends Controller {
 			->with('list_menu', Menu::where('is_promosi','1')->get())
 			->with('kategori', $kategori);;
 		}
-		else{
+		else {
 
 		}
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+
 	public function makeAvailable($id)
 	{
 		$menu = Menu::find($id);
 		$menu->status = 1;
 		$menu->save();
-		return Redirect::to('statusmenu');
+		$kategori = $menu->kategori;
+		
+		if($kategori=="Menu Utama"){
+			$rute = "utama";
+		}
+		else if($kategori=="Menu Pembuka"){
+			$rute = "pembuka";
+		}
+		else if($kategori=="Menu Sampingan"){
+			$rute = "sampingan";
+		}
+		else if($kategori=="Menu Penutup"){
+			$rute = "Penutup";
+		}
+		else if($kategori=="Menu Minuman"){
+			$rute = "minum";
+		}
+		else if($kategori=="Menu Rekomendasi"){
+			$rute = "rekomendasi";			
+		}
+		else if($kategori=="Menu Promosi"){
+			$rute = "promosi";
+		}
+		else {
+
+		}
+		return Redirect::to('statusmenu/'.$rute);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
+	
 	public function makeUnavailable($id)
 	{
 		$menu = Menu::find($id);
 		$menu->status = 0;
 		$menu->save();
-		return Redirect::to('statusmenu');
+		$kategori = $menu->kategori;
+		
+		if($kategori=="Menu Utama"){
+			$rute = "utama";
+		}
+		else if($kategori=="Menu Pembuka"){
+			$rute = "pembuka";
+		}
+		else if($kategori=="Menu Sampingan"){
+			$rute = "sampingan";
+		}
+		else if($kategori=="Menu Penutup"){
+			$rute = "Penutup";
+		}
+		else if($kategori=="Menu Minuman"){
+			$rute = "minum";
+		}
+		else if($kategori=="Menu Rekomendasi"){
+			$rute = "rekomendasi";			
+		}
+		else if($kategori=="Menu Promosi"){
+			$rute = "promosi";
+		}
+		else {
+
+		}
+		return Redirect::to('statusmenu/'.$rute);
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
 	public function create()
 	{
 		//
@@ -124,55 +163,30 @@ class KokiController extends Controller {
 		return Redirect::to('daftarpesanan');
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
+	
 	public function store()
 	{
 		//
 	}
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function show($id)
 	{
 		//
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function edit($id)
 	{
 		//
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+	
 	public function update($id)
 	{
 		//
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
+
 	public function destroy($id)
 	{
 		//
