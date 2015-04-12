@@ -150,3 +150,5 @@ Route::get('pembayaran', 'CustomerController@getMyPayment');
 Route::get('tutorial', 'CustomerController@showTutorial');
 
 Route::get('logout', 'CustomerController@logout');
+
+Route::get('addpemanggilan', ['as' => 'addpemanggilan', 'uses' => 'CustomerController@addPemanggilan']);

@@ -50,7 +50,7 @@ class Authenticate {
 			$path=$request->getPathInfo();
 			if ($path=="/manajermeja" || $path=="/manajerkaryawan" || 
 				$path=="/addmenu" || $path=="/addmenupromosi" || 
-				$path=="/addmeja" || $path=="/addkaryawan" || 
+				$path=="/addmeja" || $path=="/addkaryawan" ||
 				$path=="/addpelayan" || $path=="/addkoki" || 
 				strpos($path, 'editmenu') !== false || strpos($path, 'editmeja') !== false || 
 				strpos($path, 'editkaryawan') !== false ||
