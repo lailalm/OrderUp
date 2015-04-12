@@ -708,3 +708,11 @@ body{
 	color: white;
 }
 
+.abu {
+	background-color: #9f9f9f;
+	color: white;
+}
+
+.abu:hover {
+	background-color: #909090;
+}
