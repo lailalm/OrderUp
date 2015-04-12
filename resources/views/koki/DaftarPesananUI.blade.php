@@ -28,15 +28,37 @@
 		
 			<div class="col-sm-4 col-xs-12 text-center">
 				<div id = "btn-status-pesan" class="btn-group" data-toggle="buttons">
-					<label id="btn-wait" class="btn">
-						<input type="radio" name="options" id="wait" autocomplete="off"> Waiting
+
+					<label id="btn-wait-{{$pemesanan->id_pemesanan}}" class="btn">
+						<input type="radio" name="options" id="wait"> Waiting
 				  	</label>
-				  	<label id="btn-process" class="btn">
-						<input type="radio" name="options" id="process" autocomplete="off"> On Process
+				  	<label id="btn-process-{{$pemesanan->id_pemesanan}}" class="btn">
+						<input type="radio" name="options" id="process"> On Process
 				  	</label>
-				  	<label id="btn-done" class="btn">
-						<input type="radio" name="options" id="done" autocomplete="off"> Done
+				  	<label id="btn-done-{{$pemesanan->id_pemesanan}}" class="btn">
+						<input type="radio" name="options" id="done"> Done
 				  	</label>
+
+
+				  	<script>
+						$('#btn-wait-{{$pemesanan->id_pemesanan}}').click(function(){  
+						  $(this).css('background-color', '#bb2828');
+						  $('#btn-process-{{$pemesanan->id_pemesanan}}').css('background-color', '#9f9f9f');
+						  $('#btn-done-{{$pemesanan->id_pemesanan}}').css('background-color', '#9f9f9f');
+						});
+						
+						$('#btn-process-{{$pemesanan->id_pemesanan}}').click(function(){  
+						  $('#btn-wait-{{$pemesanan->id_pemesanan}}').css('background-color', '#9f9f9f');
+						  $(this).css('background-color', '#fce809');
+						  $('#btn-done-{{$pemesanan->id_pemesanan}}').css('background-color', '#9f9f9f');
+						});
+						
+						$('#btn-done-{{$pemesanan->id_pemesanan}}').click(function(){  
+						  $('#btn-wait-{{$pemesanan->id_pemesanan}}').css('background-color', '#9f9f9f');
+						  $('#btn-process-{{$pemesanan->id_pemesanan}}').css('background-color', '#9f9f9f');
+						  $(this).css('background-color', 'green');
+						});
+					</script>
 				</div>
 				<div class="clearfix visible-xs-block"></div>
 			</div>

@@ -18,7 +18,7 @@ class KokiController extends Controller {
 	public function index()
 	{
 
-		$pemesanan = Pemesanan::orderBy('id_pemesanan', 'DESC')->get();
+		$pemesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->get();
 
 		return View::make('koki.DaftarPesananUI')
 			->with('pemesanan', $pemesanan);
@@ -102,6 +102,26 @@ class KokiController extends Controller {
 	public function create()
 	{
 		//
+	}
+
+
+	public function changeStatus($status, $id){
+
+		$pemesanan = Pemesanan::find($id);
+		if($status == "waiting"){
+			$pemesanan->status = "Queued";
+		}
+		else if($status == "process"){
+			$pemesanan->status = "On Process";
+		}
+		else if($status == "done"){
+			$pemesanan->status = "Done";
+		}
+		else{
+			//ErrorView
+		}
+		$pemesanan->save();
+		return Redirect::to('daftarpesanan');
 	}
 
 	/**

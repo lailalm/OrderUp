@@ -120,6 +120,8 @@ Route::get('makeavailable/{id}', 'KokiController@makeAvailable');
 
 Route::get('makeunavailable/{id}', 'KokiController@makeUnavailable');
 
+Route::get('changestatus/{status}/{id}', 'KokiController@changeStatus');
+
 /*
 |-------------------------------------------------------------------------
 | Pelayan Area Routes
