@@ -49,18 +49,27 @@
 				        </div>
 			        	<div class="clearfix visible-xs-block"></div>
 			        
-				        <div id= "penjelasan" class= "col-xs-10 col-xs-offset-1">
+				        <div id= "penjelasan" class= "space-bottom col-xs-10 col-xs-offset-1">
 				        	{{$menu->deskripsi}}
 				        </div>
 				        
 				        <div class="col-xs-12 text-center">
-							<div id = "btn-status-menu" class="btn-group">
-							 	<a href="{{ URL::to('makeunavailable/'. $menu->id_menu) }}" id="btn-not-tersedia" class="btn btn-primary">
-									Tidak Tersedia
-							 	</a>
-							  	<a href="{{ URL::to('makeavailable/'. $menu->id_menu) }}" id="btn-not-tersedia" class="btn btn-success">
-									Tersedia
-								</a>
+							<div class="btn-group col-xs-12">
+								@if($menu->status == 0)
+								 	<a href="{{ URL::to('makeunavailable/'. $menu->id_menu) }}" class="btn btn-primary col-sm-6">
+										Tidak Tersedia
+								 	</a>
+								  	<a href="{{ URL::to('makeavailable/'. $menu->id_menu) }}" class="btn abu col-sm-6">
+										Tersedia
+									</a>
+								@else
+									<a href="{{ URL::to('makeunavailable/'. $menu->id_menu) }}" class="btn abu col-sm-6">
+										Tidak Tersedia
+								 	</a>
+								  	<a href="{{ URL::to('makeavailable/'. $menu->id_menu) }}"  class="btn btn-success col-sm-6">
+										Tersedia
+									</a>
+								@endif
 							</div>							
 				      	</div>
 					    <div class="modal-footer">

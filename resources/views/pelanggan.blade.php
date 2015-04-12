@@ -46,7 +46,7 @@
 		                	</a>
 		                </div>
 		            	<div id = "right" class="nav navbar-nav navbar-right">     
-		            		{!! HTML::image('assets/img/panggil.png', 'panggil', array( 'width' => '60px', 'data-toggle' => 'modal', 'data-target' => '#menu-modal')) !!}              
+		            		{!! HTML::image('assets/img/panggil.png', 'panggil', array( 'width' => '60px', 'data-toggle' => 'modal', 'data-target' => '#menu-modalxxx')) !!}              
 		                </div>
 		            </div>
 		
@@ -64,7 +64,7 @@
 		@yield('content')
 		
 		<!-- MODAL DETAIL -->
-  		<div class="modal fade" id="menu-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="selected">
+  		<div class="modal fade" id="menu-modalxxx" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="selected">
 		  	<div class="modal-dialog">
 			    <div class="modal-content">
 			      	<div class="modal-header">

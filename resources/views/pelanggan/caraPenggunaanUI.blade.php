@@ -82,6 +82,6 @@
 
 
 <div id= "footer" class="col-xs-12">
-	<a href= "home.html"><img src= "assets/img/kembali.png" width= 70px></a>
+	<a href= "{{ URL::previous() }}"><img src= "assets/img/kembali.png" width= 70px></a>
 </div>
 @endsection
