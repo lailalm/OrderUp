@@ -50,7 +50,9 @@
 					        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
 					        ?>
 						</div>
+						 @if ($menu->status == 1)
 						<button type="button" class="btn btn-primary col-xs-3" data-dismiss="modal" data-toggle="modal" data-target="#modal-pesan{{$menu->id_menu}}">Pesan</button>
+						@endif
 			      	</div>
 			    </div>
 			</div>
@@ -71,12 +73,12 @@
 						<div class= "col-xs-12 clearfix space-bottom text-center">
 							Berapa porsi yang Anda ingin pesan?
 						</div>
-						<input type="button" class="btn col-xs-1 col-xs-offset-2 text-center add_subs" value=" - ">
-						<div class="col-xs-6">
+						<!-- <input type="button" class="btn col-xs-1 col-xs-offset-2 text-center add_subs" value=" - "> -->
+						<div class="col-xs-6 col-xs-offset-3">
 		                    {!! Form::text('porsi', null, 
 		                    array('required', 'class'=>'form-control', 'id'=>'porsi'.$menu->id_menu)) !!}
 						</div>
-						<input type="button" class="col-xs-1 btn add_subs" value=" + ">
+						<!-- <input type="button" class="col-xs-1 btn add_subs" value=" + "> -->
 						<div class= "space col-xs-12 clearfix space-bottom">
 							Apakah Anda memiliki permintaan khusus?
 						</div>

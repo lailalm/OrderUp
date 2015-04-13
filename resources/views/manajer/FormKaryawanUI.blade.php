@@ -57,7 +57,7 @@
                 <div class="form-group col-xs-8">
                     {!! Form::label('Foto') !!}
 
-                    <input id="menu-pic" type="file" class="file"
+                    <input id="menu-pic" type="file" class="file" required
                     {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
                 </div>
 

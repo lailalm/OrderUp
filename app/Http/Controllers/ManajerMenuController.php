@@ -90,12 +90,38 @@ class ManajerMenuController extends Controller {
 		else if ($rekomendasi == "deleterekomendasi"){
 			$menu->is_rekomendasi = '0';
 		}
-		else{
+		else {
 
 		}
-		$menu->save();
 
-		return redirect('manajermenu/utama');	
+		$menu->save();
+		$kategori = $menu->kategori;
+		
+		if($kategori=="Menu Utama"){
+			$rute = "utama";
+		}
+		else if($kategori=="Menu Pembuka"){
+			$rute = "pembuka";
+		}
+		else if($kategori=="Menu Sampingan"){
+			$rute = "sampingan";
+		}
+		else if($kategori=="Menu Penutup"){
+			$rute = "Penutup";
+		}
+		else if($kategori=="Menu Minuman"){
+			$rute = "minuman";
+		}
+		else if($kategori=="Menu Rekomendasi"){
+			$rute = "rekomendasi";			
+		}
+		else if($kategori=="Menu Promosi"){
+			$rute = "promosi";
+		}
+		else {
+
+		}
+		return redirect('manajermenu/'.$rute);	
 	}
 
 	public function dasar()
@@ -120,7 +146,6 @@ class ManajerMenuController extends Controller {
 	public function store()
 	{
 		//validate
-
 		$rules = array(
 			"name" => 'required',
 			"harga" => 'required|numeric',
@@ -138,7 +163,7 @@ class ManajerMenuController extends Controller {
 		if($validator->fails()) {
 			return Redirect::to('addmenu')
 				->withError($validator);
-		} else{
+		} else {
 
 			$menu = new Menu;
 			
@@ -161,38 +186,50 @@ class ManajerMenuController extends Controller {
 			$menu->original_photoname = $file->getClientOriginalName();
 			$menu->photoname = $file->getFilename().'.'.$extension;
 			
-			
+			$kategori = $menu->kategori;
 			$menu->save();
-			return Redirect::to('manajermenu/utama');
+			if($kategori=="Menu Utama"){
+				$rute = "utama";
+			}
+			else if($kategori=="Menu Pembuka"){
+				$rute = "pembuka";
+			}
+			else if($kategori=="Menu Sampingan"){
+				$rute = "sampingan";
+			}
+			else if($kategori=="Menu Penutup"){
+				$rute = "Penutup";
+			}
+			else if($kategori=="Menu Minuman"){
+				$rute = "minuman";
+			}
+			else if($kategori=="Menu Rekomendasi"){
+				$rute = "rekomendasi";			
+			}
+			else if($kategori=="Menu Promosi"){
+				$rute = "promosi";
+			}
+			else {
+
+			}
+			return Redirect::to('manajermenu/'.$rute);
 		}
 
 	}
 
-	 /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
+	
 	public function edit($id)
     {
         $menu = Menu::find($id);
 
-        // show the Edit form and pass Karyawan
         return View::make('manajer.EditMenuUI')
         	->with('menu', $menu);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
+   
     public function update($id)
     {
         //validate
-
 		$rules = array(
 			"name" => 'required',
 			"harga" => 'required|numeric',
@@ -234,8 +271,34 @@ class ManajerMenuController extends Controller {
 				$menu->photoname = $file->getFilename().'.'.$extension;
 			}
 			$menu->save();
+			$kategori = $menu->kategori;
 
-			return Redirect::to('manajermenu');
+			if($kategori=="Menu Utama"){
+				$rute = "utama";
+			}
+			else if($kategori=="Menu Pembuka"){
+				$rute = "pembuka";
+			}
+			else if($kategori=="Menu Sampingan"){
+				$rute = "sampingan";
+			}
+			else if($kategori=="Menu Penutup"){
+				$rute = "Penutup";
+			}
+			else if($kategori=="Menu Minuman"){
+				$rute = "minuman";
+			}
+			else if($kategori=="Menu Rekomendasi"){
+				$rute = "rekomendasi";			
+			}
+			else if($kategori=="Menu Promosi"){
+				$rute = "promosi";
+			}
+			else {
+
+			}
+
+			return Redirect::to('manajermenu/'.$rute);
 		}
     }
 
@@ -248,8 +311,35 @@ class ManajerMenuController extends Controller {
     public function destroy($id)
     {
         $menu = Menu::find($id);
+        $kategori = $menu->kategori;
+        $name = $menu->name;
         $menu->delete();
 
+        if($kategori=="Menu Utama"){
+			$rute = "utama";
+		}
+		else if($kategori=="Menu Pembuka"){
+			$rute = "pembuka";
+		}
+		else if($kategori=="Menu Sampingan"){
+			$rute = "sampingan";
+		}
+		else if($kategori=="Menu Penutup"){
+			$rute = "Penutup";
+		}
+		else if($kategori=="Menu Minuman"){
+			$rute = "minuman";
+		}
+		else if($kategori=="Menu Rekomendasi"){
+			$rute = "rekomendasi";			
+		}
+		else if($kategori=="Menu Promosi"){
+			$rute = "promosi";
+		}
+		else {
+
+		}
+		$success_message = "Berhasil menghapus menu ";
         return Redirect::to('manajermenu');
     }
 

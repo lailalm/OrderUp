@@ -24,7 +24,7 @@
                 </div>
 
                 <div class="form-group col-xs-6">
-                    {!! Form::label('Harga') !!}>
+                    {!! Form::label('Harga') !!}
                          {!! Form::text('harga', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
 

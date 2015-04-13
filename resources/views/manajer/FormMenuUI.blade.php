@@ -2,37 +2,39 @@
 
 @section('content')
 
-<div class="alert alert-danger">
-    <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-2">
+            @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    <li>{{ $error }}</li>
+                </ul>
+            </div>
+            @endforeach
+
             <div class="col-xs-12 panel" id="formEditKaryawan">
                 <h3>Tambah Menu {{ $promosi? "Promosi" : "" }}</h3>
 
                 <div class="form-group col-xs-8">
                     {!! Form::open(array('route' => 'addmenu_store', 'class' => 'form', 'files'=>true)) !!}
 
-                    <label for="exampleInputNama">Nama Menu</label>
+                    <label for="exampleInputNama">Nama Menu*</label>
                     {!! Form::text('name', null, array('required', 'class'=>'form-control', 'id'=>'exampleInputNama', 'placeholder'=>'Nama Menu')) !!}
                 </div>
 
                 <div class="form-group col-xs-4">
-                    <label for="exampleInputAlamat">Harga</label>
+                    <label for="exampleInputAlamat">Harga*</label>
                     {!! Form::text('harga', null, 
-                    array('required', 'class'=>'form-control', 'id'=>'exampleInputAlamat', 'placeholder'=>'Contoh : 1000')) !!}
+                    array('required', 'type'=>'number', 'class'=>'form-control', 'id'=>'exampleInputAlamat', 'placeholder'=>'Contoh : 1000')) !!}
                 </div>
                 <div class="clearfix visible-xs-block"></div>
                 
                 <div class="form-group col-xs-12">
-                    <label for="exampleInputDes">Deskripsi</label>
+                    <label for="exampleInputDes">Deskripsi*</label>
                      {!! Form::textarea('deskripsi', null, 
                         array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
                 </div>
@@ -88,7 +90,7 @@
                 <div class="clearfix visible-xs-block"></div>
 
                 <div class="form-group col-xs-12">
-                    <label for="exampleInputKat">Kategori Menu</label> <br>
+                    <label for="exampleInputKat">Kategori Menu*</label> <br>
                     {!! Form::select('kategori', array('Menu Pembuka' => 'Menu Pembuka', 
                                                         'Menu Utama' => 'Menu Utama',
                                                         'Menu Sampingan' => 'Menu Sampingan',
@@ -99,13 +101,15 @@
                 </div>
 
                 <div class="form-group col-xs-12">
-                    <label for="Gamber Menu">Gambar Menu</label>
+                    <label for="Gamber Menu">Gambar Menu*</label>
                     <input id="menu-pic" type="file" class="file"
                     {!! Form::file('foto', array('class'=>'form-control')) !!}
                 </div>
 
 
-
+                <div class="form-group col-xs-12">
+                    <p>*harus diisi</p>
+                </div>
                 <div class = "col-xs-3 col-xs-offset-3">
                     <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
                         Batal

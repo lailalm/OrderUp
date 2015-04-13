@@ -23,7 +23,7 @@
                 <div class="form-group col-xs-8">
                     {!! Form::label('Kode Masuk Meja') !!}
                     {!! Form::text('kodemasuk', null, 
-                        array('required', 'class'=>'form-control', 'placeholder'=>'Masukkan Kode Masuk Meja')) !!}
+                        array('required', 'class'=>'form-control', 'placeholder'=>'Masukkan Kode Masuk Meja', 'readonly')) !!}
                 </div>
 
                 <div class="clearfix visible-xs-block"></div>

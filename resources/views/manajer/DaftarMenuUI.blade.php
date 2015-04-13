@@ -18,6 +18,17 @@
 				<option value="minuman" {{ $kategori == 'minuman' ? 'selected' : ''}}> Menu Minuman</option>
 			</select>
 			<div id= "isi" class ="col-xs-12 clearfix">
+
+			@foreach ($errors->all() as $error)
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    <li>{{ $error }}</li>
+                </ul>
+            </div>
+            @endforeach
+
 	        
 			@if (count($list_menu) <= 0)
 				<h5 class="judul-role">

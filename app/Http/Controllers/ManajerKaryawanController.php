@@ -132,12 +132,6 @@ class ManajerKaryawanController extends Controller {
         	->with('karyawan', $karyawan);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
     public function update($id)
     {
         //validate
@@ -189,17 +183,16 @@ class ManajerKaryawanController extends Controller {
 		}
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
+    
     public function destroy($id)
     {
         $karyawan = Karyawan::find($id);
+        $temp = $karyawan->role;
         $karyawan->delete();
 
-        return Redirect::to('manajerkaryawan');
+        if ($temp == "Pelayan")
+				return Redirect::to('manajerkaryawan/pelayan');
+		else
+			return Redirect::to('manajerkaryawan/koki');
     }
 }

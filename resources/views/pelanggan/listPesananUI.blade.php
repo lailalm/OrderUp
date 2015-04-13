@@ -52,12 +52,12 @@
 							<div class= "col-xs-12 clearfix space-bottom">
 								Berapa porsi menu <b>{!! App\Menu::find($pesanan->id_menu)->name !!}</b> yang Anda ingin batalkan?
 							</div>
-							<input type="button" class="btn col-xs-1 col-xs-offset-2 add_subs" value=" - ">
+							<!-- <input type="button" class="btn col-xs-1 col-xs-offset-2 add_subs" value=" - "> -->
 							
-							<div class="col-xs-6">
+							<div class="col-xs-6 col-xs-offset-3">
 								<input name="countcancel" class="form-control" type="text" value="{{ $pesanan->jumlah }}"required>
 							</div>
-							<input type="button" class="col-xs-1 btn add_subs" value=" + ">
+							<!-- <input type="button" class="col-xs-1 btn add_subs" value=" + "> -->
 								<div id="btn-cancel" class="col-xs-10 col-xs-offset-1 space">
 									<button data-dismiss="modal" class="btn btn-primary col-xs-5"> Cancel</button>
 							{!! Form::hidden('id_pemesanan', $pesanan->id_pemesanan) !!}
