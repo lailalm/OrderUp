@@ -10,6 +10,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-2">
+            @if(Session::has('message'))                
+                <div class="alert {{ Session::get('alert-class') }}">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    {{ Session::get('message') }}
+                </div>
+            @endif
+
             <div class="col-xs-12 panel" id="formEditKaryawan">
                 <h3>Tambah {{ ucfirst($role) }}</h3>
                 

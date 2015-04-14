@@ -73,6 +73,9 @@ class ManajerKaryawanController extends Controller {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->fails()) {
+			Session::flash('message', 'Gagal menambahkan. Mohon cek kembali isian Anda.'); 
+			Session::flash('alert-class', 'alert-success');
+
 			return Redirect::to('addkoki')
 				->withError('errors', $validator);
 		} else {
@@ -107,6 +110,9 @@ class ManajerKaryawanController extends Controller {
 			$karyawan->original_photoname = $file->getClientOriginalName();
 			$karyawan->photoname = $file->getFilename().'.'.$extension;
 			$karyawan->save();
+
+			Session::flash('message',  $karyawan->name .' berhasil ditambahkan.'); 
+			Session::flash('alert-class', 'alert-success'); 
 
 			if ($karyawan->role == "Pelayan")
 				return Redirect::to('manajerkaryawan/pelayan');
@@ -148,6 +154,8 @@ class ManajerKaryawanController extends Controller {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {
+			Session::flash('message', 'Gagal mengubah. Mohon cek kembali isian Anda.'); 
+			Session::flash('alert-class', 'alert-danger'); 
 			return Redirect::to('editkaryawan/'.$id)
 				->withError($validator);
 		} else {
@@ -174,8 +182,9 @@ class ManajerKaryawanController extends Controller {
 			}
 			$karyawan->save();
 
-			//Session::flash('message', 'Successfully created nerd!');
-			
+			Session::flash('message', $karyawan->name .' berhasil diubah.'); 
+			Session::flash('alert-class', 'alert-success'); 
+
 			if ($karyawan->role == "Pelayan")
 				return Redirect::to('manajerkaryawan/pelayan');
 			else
