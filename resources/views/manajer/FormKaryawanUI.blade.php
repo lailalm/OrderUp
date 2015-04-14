@@ -23,13 +23,13 @@
                 {!! Form::open(array('route' => 'addkaryawan_store', 'class' => 'form','files'=>true)) !!}
 
                 <div class="form-group col-xs-8">
-                    {!! Form::label('Nama') !!}
+                    {!! Form::label('Nama*') !!}
                     {!! Form::text('name', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
                 <div class="form-group col-xs-8">
-                    {!! Form::label('Email') !!}
+                    {!! Form::label('Email*') !!}
                     {!! Form::email('email', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
@@ -50,19 +50,19 @@
                 </div>
 
                 <div class="form-group col-xs-8">
-                    {!! Form::label('Alamat') !!}
+                    {!! Form::label('Alamat*') !!}
                     {!! Form::text('alamat', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
                 <div class="form-group col-xs-8">
-                    <label>Telepon</label>
+                    <label>Telepon*</label>
                     {!! Form::text('telepon', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
                 <div class="form-group col-xs-8">
-                    {!! Form::label('Foto') !!}
+                    {!! Form::label('Foto*') !!}
 
                     <input id="menu-pic" type="file" class="file" required
                     {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
@@ -72,6 +72,10 @@
                 <div class="form-group col-xs-10">
                     <label>Tanggal Mulai Bekerja</label>
                     {!! Form::input('date', 'tanggal_mulai') !!}
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <p>*wajib diisi</p>
                 </div>
 
                 <div class="clearfix visible-xs-block"></div>
