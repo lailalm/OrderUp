@@ -108,7 +108,7 @@
                     <p>*harus diisi</p>
                 </div>
                 <div class = "col-xs-3 col-xs-offset-3">
-                    <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
+                    <a href="{{ url('/manajermenu') }}" id="batal-button" class="btn btn-primary col-xs-12">
                         Batal
                     </a>
                 </div>

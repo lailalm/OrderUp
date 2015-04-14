@@ -22,14 +22,14 @@
                 
                 {!! Form::open(array('route' => 'addkaryawan_store', 'class' => 'form','files'=>true)) !!}
 
-                <div class="form-group col-xs-8">
-                    {!! Form::label('Nama') !!}
+                <div class="form-group col-xs-12">
+                    {!! Form::label('Nama*') !!}
                     {!! Form::text('name', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
-                <div class="form-group col-xs-8">
-                    {!! Form::label('Email') !!}
+                <div class="form-group col-xs-12">
+                    {!! Form::label('Email*') !!}
                     {!! Form::email('email', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
@@ -49,20 +49,20 @@
 
                 </div>
 
-                <div class="form-group col-xs-8">
-                    {!! Form::label('Alamat') !!}
+                <div class="form-group col-xs-12">
+                    {!! Form::label('Alamat*') !!}
                     {!! Form::text('alamat', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
-                <div class="form-group col-xs-8">
-                    <label>Telepon</label>
+                <div class="form-group col-xs-12">
+                    <label>Telepon*</label>
                     {!! Form::text('telepon', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
-                <div class="form-group col-xs-8">
-                    {!! Form::label('Foto') !!}
+                <div class="form-group col-xs-12">
+                    {!! Form::label('Foto*') !!}
 
                     <input id="menu-pic" type="file" class="file" required
                     {!! Form::file('foto', array('required', 'class'=>'form-control')) !!}
@@ -70,14 +70,22 @@
 
 
                 <div class="form-group col-xs-10">
-                    <label>Tanggal Mulai Bekerja</label>
+                    <label>Tanggal Mulai Bekerja*</label>
                     {!! Form::input('date', 'tanggal_mulai') !!}
                 </div>
 
                 <div class="clearfix visible-xs-block"></div>
 
-                <div class="form-group col-xs-4">
-                    {!! Form::submit('Submit', array('class' => 'btn btn-primary col-xs-12')) !!}
+                <div class="form-group col-xs-12">
+                    <p>*harus diisi</p>
+                </div>
+                <div class = "col-xs-3 col-xs-offset-3">
+                    <a href="{{ url('/manajerkaryawan') }}" id="batal-button" class="btn btn-primary col-xs-12">
+                        Batal
+                    </a>
+                </div>
+                <div class = "col-xs-3">
+                    {!! Form::submit('Simpan', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
                 </div>
 
                 {!! Form::close() !!}
