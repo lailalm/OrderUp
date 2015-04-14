@@ -46,7 +46,10 @@
 				
 	          	<div id="menu1" class ="col-sm-4 col-xs-12 clear-fix"> 
 	          		{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
-	          		{{$menu->name}}
+	          		@if($menu->is_rekomendasi == 1)
+	          			<i class="fa fa-star"></i>
+	          		@endif
+	          			{{$menu->name}}
 	          	</div>
 	      		<div class="clearfix visible-xs-block"></div>
 

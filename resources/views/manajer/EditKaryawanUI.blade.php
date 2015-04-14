@@ -2,7 +2,11 @@
 
 @section('content')
 
-
+<ul>
+    @foreach($errors->all() as $error)
+        <li></li>
+    @endforeach
+</ul>
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-2">
@@ -13,7 +17,7 @@
                     {{ Session::get('message') }}
                 </div>
             @endif
-
+            
             <div class="col-xs-12 panel" id="formEditKaryawan">
                 <h3>Edit {{$karyawan->role}} #{{$karyawan->name}}</h3>
 
@@ -52,7 +56,7 @@
                 <div class="form-group col-xs-8">
                     {!! Form::label('Telepon') !!}
                     {!! Form::text('telepon', null, 
-                        array('requiredclass'=>'form-control', 'placeholder'=>'')) !!}
+                        array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
                 <div class="form-group col-xs-8">

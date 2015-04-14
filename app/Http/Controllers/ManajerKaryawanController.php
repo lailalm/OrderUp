@@ -156,6 +156,7 @@ class ManajerKaryawanController extends Controller {
 		if($validator->fails()) {
 			Session::flash('message', 'Gagal mengubah. Mohon cek kembali isian Anda.'); 
 			Session::flash('alert-class', 'alert-danger'); 
+			
 			return Redirect::to('editkaryawan/'.$id)
 				->withError($validator);
 		} else {
