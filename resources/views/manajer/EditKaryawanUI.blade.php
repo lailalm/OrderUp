@@ -2,16 +2,12 @@
 
 @section('content')
 
-<ul>
-    @foreach($errors->all() as $error)
-        <li></li>
-    @endforeach
-</ul>
 
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-2">
-            @if(Session::has('message'))                
+           
+             @if(Session::has('message'))                
                 <div class="alert {{ Session::get('alert-class') }}">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
                     {{ Session::get('message') }}
@@ -56,7 +52,7 @@
                 <div class="form-group col-xs-8">
                     {!! Form::label('Telepon') !!}
                     {!! Form::text('telepon', null, 
-                        array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
+                        array('requiredclass'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
                 <div class="form-group col-xs-8">
@@ -78,7 +74,7 @@
                 </div>
 
                 <div class="form-group space space-bottom">
-                    <div class = "col-xs-3">
+                    <div class = "col-xs-3 col-xs-offset-3">
                         <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
                             Batal
                         </a>

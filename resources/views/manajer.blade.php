@@ -19,6 +19,7 @@
 		{!! HTML::style('assets/css/sidebar.css') !!}
 		{!! HTML::style('assets/css/bootstrap-select.min.css') !!}
 		{!! HTML::style('assets/css/fileinput.min.css') !!}
+		{!! HTML::style('assets/css/font-awesome.min.css') !!}
 		@section('css')
 		
 		@section('head-js')

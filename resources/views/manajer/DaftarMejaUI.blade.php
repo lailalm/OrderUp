@@ -11,10 +11,19 @@
 	<div class="row">
 		<div class="main col-md-10 col-md-offset-2">
 		  	<div class="clearfix visible-xs-block"></div>
+			
+			<h3 id="kategori" class="judul-home col-md-12">Daftar Meja</h3>
 		  	
 		  	<div id= "isi" class ="col-xs-12 clearfix">
-			<h3 id="kategori" class="judul-home col-md-9">Daftar Meja</h3>
+		  	@if(Session::has('message'))				
+			    <div class="alert {{ Session::get('alert-class') }}">
+			        <a href="#" class="close" data-dismiss="alert">&times;</a>
+			        {{ Session::get('message') }}
+			    </div>
+			@endif
 
+			
+			
 		  	@foreach ($daftar_meja as $meja)
 			<div class ="daftar-meja col-sm-12 col-xs-12"> 
 					<div class="col-sm-3 col-xs-3">
@@ -29,8 +38,8 @@
 					{{$meja->deskripsi}}
 				</div>
 				<div>
-					<a class="btn btn-small btn-primary" href="{{ URL::to('editmeja/'. $meja->id_meja) }}">Edit</a>
-					<a class="btn btn-small btn-primary" href="" data-toggle="modal" data-target="#confirm-delete-modal{{$meja->id_meja}}">Delete</a>
+					<a class="btn btn-small btn-primary" href="{{ URL::to('editmeja/'. $meja->id_meja) }}"><i class="fa fa-pencil-square-o"></i> Ubah</a>
+					<a class="btn btn-small btn-primary" href="" data-toggle="modal" data-target="#confirm-delete-modal{{$meja->id_meja}}"><i class="fa fa-trash-o"></i> Hapus</a>
 				</div>
 				
 			</div>

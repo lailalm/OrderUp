@@ -39,7 +39,7 @@ class ManajerMejaController extends Controller {
 	 */
 	public function index()
 	{
-		$list_meja=Meja::get();
+		$list_meja = Meja::get();
 
 		return View::make('manajer.DaftarMejaUI')
 			->with('daftar_meja', $list_meja);
@@ -72,7 +72,9 @@ class ManajerMejaController extends Controller {
 
 		$validator = Validator::make(Input::all(), $rules);
 
-		if($validator->fails()) {
+		if($validator->fails()) {		
+	        Session::flash('message', 'Gagal menambahkan meja. Mohon periksa isian Anda.'); 
+			Session::flash('alert-class', 'alert-danger'); 
 			return redirect('addmeja')
 				->withError($validator);
 		} else {
@@ -90,6 +92,9 @@ class ManajerMejaController extends Controller {
 			$karyawan->role= "Meja";
 			$karyawan->save();
 
+
+	        Session::flash('message', 'Berhasil menambahkan '.$meja->nomormeja); 
+			Session::flash('alert-class', 'alert-success'); 
 			//Session::flash('message', 'Successfully created nerd!');
 			return redirect('manajermeja');
 		}
@@ -158,6 +163,9 @@ class ManajerMejaController extends Controller {
 			$karyawan->password = bcrypt($meja->kodemasuk);
 			$karyawan->save();
 
+
+	        Session::flash('message', 'Berhasil mengubah '.$meja->nomormeja); 
+			Session::flash('alert-class', 'alert-success'); 
 			//Session::flash('message', 'Successfully created nerd!');
 			return redirect('manajermeja');
 		}
@@ -172,8 +180,12 @@ class ManajerMejaController extends Controller {
     public function destroy($id)
     {
         $meja = Meja::find($id);
+        $temp = $meja->nomormeja;
         $meja->delete();
 
+
+        Session::flash('message', 'Berhasil menghapus '.$temp.' dari daftar meja.'); 
+		Session::flash('alert-class', 'alert-success'); 
 		return redirect('manajermeja');
 
     }

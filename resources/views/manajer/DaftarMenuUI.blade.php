@@ -29,7 +29,13 @@
             </div>
             @endforeach
 
-	        
+	        @if(Session::has('message'))				
+			    <div class="alert {{ Session::get('alert-class') }}">
+			        <a href="#" class="close" data-dismiss="alert">&times;</a>
+			        {{ Session::get('message') }}
+			    </div>
+			@endif
+			
 			@if (count($list_menu) <= 0)
 				<h5 class="judul-role">
 					Belum ada menu {{ $kategori }} terdaftar.
