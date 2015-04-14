@@ -188,10 +188,14 @@ class ManajerKaryawanController extends Controller {
     {
         $karyawan = Karyawan::find($id);
         $temp = $karyawan->role;
+        $temp2 = $karyawan->name;
         $karyawan->delete();
 
+        Session::flash('message', 'Berhasil menghapus '.$temp2.' dari daftar '.$temp); 
+		Session::flash('alert-class', 'alert-success'); 
+
         if ($temp == "Pelayan")
-				return Redirect::to('manajerkaryawan/pelayan');
+			return Redirect::to('manajerkaryawan/pelayan');
 		else
 			return Redirect::to('manajerkaryawan/koki');
     }
