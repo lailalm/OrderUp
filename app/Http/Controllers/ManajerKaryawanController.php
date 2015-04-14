@@ -2,6 +2,7 @@
 
 require 'vendor/autoload.php';
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Http\Request;
 
 use App\Karyawan;
 use View;
@@ -76,8 +77,8 @@ class ManajerKaryawanController extends Controller {
 			Session::flash('message', 'Gagal menambahkan. Mohon cek kembali isian Anda.'); 
 			Session::flash('alert-class', 'alert-danger');
 
-			return Redirect::to('addkoki')
-				->withError('errors', $validator);
+			return Redirect::to('addkoki');;
+				// ->withError('errors', $validator);
 		} else {
 
 			$karyawan = new Karyawan;
@@ -156,9 +157,8 @@ class ManajerKaryawanController extends Controller {
 		if($validator->fails()) {
 			Session::flash('message', 'Gagal mengubah. Mohon cek kembali isian Anda.'); 
 			Session::flash('alert-class', 'alert-danger'); 
-			
-			return Redirect::to('editkaryawan/'.$id)
-				->withError($validator);
+			return Redirect::to('editkaryawan/'.$id);
+				// ->withError($validator);
 		} else {
 
 			$karyawan = Karyawan::find($id);

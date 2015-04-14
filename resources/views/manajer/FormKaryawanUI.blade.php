@@ -23,12 +23,14 @@
                 {!! Form::open(array('route' => 'addkaryawan_store', 'class' => 'form','files'=>true)) !!}
 
                 <div class="form-group col-xs-12">
+
                     {!! Form::label('Nama*') !!}
                     {!! Form::text('name', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
                 <div class="form-group col-xs-12">
+
                     {!! Form::label('Email*') !!}
                     {!! Form::email('email', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
@@ -62,6 +64,7 @@
                 </div>
 
                 <div class="form-group col-xs-12">
+
                     {!! Form::label('Foto*') !!}
 
                     <input id="menu-pic" type="file" class="file" required
@@ -72,6 +75,10 @@
                 <div class="form-group col-xs-10">
                     <label>Tanggal Mulai Bekerja*</label>
                     {!! Form::input('date', 'tanggal_mulai') !!}
+                </div>
+
+                <div class="form-group col-xs-12">
+                    <p>*wajib diisi</p>
                 </div>
 
                 <div class="clearfix visible-xs-block"></div>

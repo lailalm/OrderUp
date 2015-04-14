@@ -15,6 +15,7 @@
 				<option value="rekomendasi" {{ $kategori == 'rekomendasi' ? 'selected' : ''}}> Menu Rekomendasi</option>
 				<option value="pembuka" {{ $kategori == 'pembuka' ? 'selected' : ''}}> Menu Pembuka</option>
 				<option value="sampingan" {{ $kategori == 'sampingan' ? 'selected' : ''}}> Menu Sampingan</option>
+				<option value="penutup" {{ $kategori == 'penutup' ? 'selected' : ''}}> Menu Penutup</option>
 				<option value="minuman" {{ $kategori == 'minuman' ? 'selected' : ''}}> Menu Minuman</option>
 			</select>
 			<div id= "isi" class ="col-xs-12 clearfix">
