@@ -81,7 +81,7 @@ trait AuthenticatesAndRegistersUsers {
 			return redirect()->intended($this->redirectPath());
 		}
 
-		return redirect($this->loginPath())
+		return redirect($this->loginPath($request->isKaryawan))
 					->withInput($request->only('email', 'remember'))
 					->withErrors([
 						'email' => $this->getFailedLoginMessage(),
@@ -95,7 +95,7 @@ trait AuthenticatesAndRegistersUsers {
 	 */
 	protected function getFailedLoginMessage()
 	{
-		return 'These credentials do not match our records.';
+		return 'Input yang anda masukkan tidak terdaftar';
 	}
 
 	/**
@@ -130,9 +130,14 @@ trait AuthenticatesAndRegistersUsers {
 	 *
 	 * @return string
 	 */
-	public function loginPath()
+	public function loginPath($stat)
 	{
-		return property_exists($this, 'loginPath') ? $this->loginPath : '/auth/login';
+		if($stat=="true"){
+			return property_exists($this, 'loginPath') ? $this->loginPath : '/auth/login';
+		}
+		else {
+			return '/';
+		}
 	}
 
 }

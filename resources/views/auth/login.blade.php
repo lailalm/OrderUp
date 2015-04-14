@@ -31,10 +31,10 @@
 			@if (count($errors) > 0)
 				<div class="alert alert-danger">
     				<a href="#" class="close" data-dismiss="alert">&times;</a>
-					<strong>Whoops!</strong> There were some problems with your input.<br><br>
+					<strong>Whoops!</strong><br>
 					<ul>
 						@foreach ($errors->all() as $error)
-							<li>{{ $error }}</li>
+							{{ $error }}<br>
 						@endforeach
 					</ul>
 				</div>
@@ -46,7 +46,7 @@
 			<div id= "login" class ='col-sm-8 col-sm-offset-2 clearfix'>
 				<form id= "formIn" class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
+				<input id= "isKaryawan" type="hidden" class="form-control" name="isKaryawan" value="true">
 				<input id= "email-in" type="email" required placeholder="Email" class="form-control" name="email" value="{{ old('email') }}">
 				<input id= "password" type="password" required placeholder="Password" class="form-control" name="password">
 

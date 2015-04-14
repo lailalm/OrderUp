@@ -32,6 +32,17 @@
 	<body>
 		@if (Auth::guest())
 		<div id = "main" class="col-sm-6 col-sm-offset-3"> 
+			@if (count($errors) > 0)
+				<div class="alert alert-danger">
+    				<a href="#" class="close" data-dismiss="alert">&times;</a>
+					<strong>Whoops!</strong><br>
+					<ul>
+						@foreach ($errors->all() as $error)
+							{{ $error }}<br>
+						@endforeach
+					</ul>
+				</div>
+			@endif
 			<div id ="logo">
 				<img src= "assets/img/logo.png" width= 90%> 
 			</div>
@@ -44,6 +55,7 @@
 			<div id= "login" class ='col-sm-8 col-sm-offset-2'>
 				<form id= "formIn" class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<input id= "isKaryawan" type="hidden" class="form-control" name="isKaryawan" value="false">
 					<input id= "kode-in" type="text" required placeholder="Kode Login"
 						class="form-control" name="email">
 					<input style="display:none" id="password" type="password" 
