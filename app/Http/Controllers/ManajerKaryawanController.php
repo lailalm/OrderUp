@@ -74,7 +74,7 @@ class ManajerKaryawanController extends Controller {
 
 		if ($validator->fails()) {
 			Session::flash('message', 'Gagal menambahkan. Mohon cek kembali isian Anda.'); 
-			Session::flash('alert-class', 'alert-success');
+			Session::flash('alert-class', 'alert-danger');
 
 			return Redirect::to('addkoki')
 				->withError('errors', $validator);
