@@ -85,9 +85,13 @@ class ManajerMenuController extends Controller {
 		
 		$menu = Menu::find($id);
 		if($rekomendasi == "rekomendasi"){
+			Session::flash('message', 'Berhasil menambahkan menu '.$menu->name.' menjadi menu rekomendasi.'); 
+			Session::flash('alert-class', 'alert-success');
 			$menu->is_rekomendasi = '1';
 		}
 		else if ($rekomendasi == "deleterekomendasi"){
+			Session::flash('message', 'Berhasil menghapus rekomendasi pada '.$menu->name.'.'); 
+			Session::flash('alert-class', 'alert-success');
 			$menu->is_rekomendasi = '0';
 		}
 		else {
@@ -112,10 +116,10 @@ class ManajerMenuController extends Controller {
 		else if($kategori=="Menu Minuman"){
 			$rute = "minuman";
 		}
-		else if($kategori=="Menu Rekomendasi"){
+		else if($is_rekomendasi=="1"){
 			$rute = "rekomendasi";			
 		}
-		else if($kategori=="Menu Promosi"){
+		else if($is_promosi=="1"){
 			$rute = "promosi";
 		}
 		else {
@@ -148,7 +152,7 @@ class ManajerMenuController extends Controller {
 		//validate
 		$rules = array(
 			"name" => 'required',
-			"harga" => 'required|numeric',
+			"harga" => 'required|numeric|min:1',
 			"kategori" => 'required',
 			"deskripsi"=> 'required',
 			"is_rekomendasi" => 'required',
@@ -160,9 +164,16 @@ class ManajerMenuController extends Controller {
 
 		$validator = Validator::make(Input::all(), $rules);
 
-		if($validator->fails()) {
-			return Redirect::to('addmenu')
-				->withError($validator);
+		if ($validator->fails()) {
+			Session::flash('message', 'Gagal menambahkan. Mohon cek kembali isian Anda.'); 
+			Session::flash('alert-class', 'alert-danger');
+			
+			if(Input::get('is_promosi') == '0'){
+				return Redirect::to('addmenu');;
+			}
+			else{
+				return Redirect::to('addmenupromosi');;
+			}
 		} else {
 
 			$menu = new Menu;
@@ -203,15 +214,20 @@ class ManajerMenuController extends Controller {
 			else if($kategori=="Menu Minuman"){
 				$rute = "minuman";
 			}
-			else if($kategori=="Menu Rekomendasi"){
+			else if($menu->is_rekomendasi=="1"){
 				$rute = "rekomendasi";			
 			}
-			else if($kategori=="Menu Promosi"){
+			else if($menu->is_promosi=="1"){
 				$rute = "promosi";
 			}
 			else {
 
 			}
+
+			Session::flash('message',  $menu->name .' berhasil ditambahkan.'); 
+			Session::flash('alert-class', 'alert-success'); 
+
+
 			return Redirect::to('manajermenu/'.$rute);
 		}
 
@@ -232,7 +248,7 @@ class ManajerMenuController extends Controller {
         //validate
 		$rules = array(
 			"name" => 'required',
-			"harga" => 'required|numeric',
+			"harga" => 'required|numeric|min:1',
 			"deskripsi" => 'required',
 			"kategori" => 'required',
 			"is_rekomendasi" => 'required',
@@ -245,8 +261,9 @@ class ManajerMenuController extends Controller {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {
-			return Redirect::to('addmenu')
-				->withError($validator);
+			Session::flash('message', 'Gagal mengubah. Silahkan periksa input Anda.'); 
+			Session::flash('alert-class', 'alert-danger'); 
+			return Redirect::to('editmenu/'.$id);
 		} else{
 
 			$menu = Menu::find($id);
@@ -288,16 +305,18 @@ class ManajerMenuController extends Controller {
 			else if($kategori=="Menu Minuman"){
 				$rute = "minuman";
 			}
-			else if($kategori=="Menu Rekomendasi"){
+			else if($menu->is_rekomendasi=="1"){
 				$rute = "rekomendasi";			
 			}
-			else if($kategori=="Menu Promosi"){
+			else if($menu->is_promosi=="1"){
 				$rute = "promosi";
 			}
 			else {
 
 			}
-
+			
+			Session::flash('message', 'Berhasil mengubah menu '.$menu->name); 
+			Session::flash('alert-class', 'alert-success'); 
 			return Redirect::to('manajermenu/'.$rute);
 		}
     }
@@ -330,16 +349,17 @@ class ManajerMenuController extends Controller {
 		else if($kategori=="Menu Minuman"){
 			$rute = "minuman";
 		}
-		else if($kategori=="Menu Rekomendasi"){
+		else if($menu->is_rekomendasi=="1"){
 			$rute = "rekomendasi";			
 		}
-		else if($kategori=="Menu Promosi"){
+		else if($menu->is_promosi=="1"){
 			$rute = "promosi";
 		}
 		else {
 
 		}
-		$success_message = "Berhasil menghapus menu ";
+	Session::flash('message',  $menu->name .' berhasil dihapus.'); 
+	Session::flash('alert-class', 'alert-success'); 
         return Redirect::to('manajermenu');
     }
 

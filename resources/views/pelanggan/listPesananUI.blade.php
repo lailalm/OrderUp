@@ -3,10 +3,16 @@
 @section('content')
 <div id = "content" class="clearfix">
 	<div class="pengisi-atas"></div>
+	@if(Session::has('message'))				
+	    <div class="alert {{ Session::get('alert-class') }}">
+	        <a href="#" class="close" data-dismiss="alert">&times;</a>
+	        {{ Session::get('message') }}
+	    </div>
+	@endif
 	<h4 class="white text-center">Daftar Pesanan</h4>
 
 		@if (count($list_pesanan) <= 0)
-			<h5 class="judul-role">
+			<h5 class="judul-role white">
 				Belum ada pesanan. Silahkan memesan terlebih dahulu.
 			</h5>	
 		@endif
@@ -19,7 +25,13 @@
 					<h6>{{ $pesanan->jumlah }} porsi</h6>
 				</div>
 				<div id="status-pesan" class="col-xs-4 clearfix">
-					<h5><em>{{ $pesanan->status }}</em></h5>
+					<h5><em>
+					@if ($pesanan->status == 'Queued')
+						Waiting
+					@else 
+						{{ $pesanan->status }}
+					@endif
+					</em></h5>
 				</div>
 				<div class="col-xs-3 no-padding">
 					@if ($pesanan->status == 'Queued')
@@ -103,7 +115,7 @@
 </div>
 
 <div id= "footer" class="col-xs-12">
-	<a href="{{ URL::previous() }}">
+	<a href="{{ url('/') }}">
     	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
     </a>
 </div>

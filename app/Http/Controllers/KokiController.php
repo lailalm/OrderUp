@@ -8,14 +8,15 @@ use Redirect;
 use Session;
 use App\Menu;
 use App\Pemesanan;
+use App\Meja;
 
 class KokiController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
+
 	public function index()
 	{
 		$pemesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->
@@ -96,17 +97,22 @@ class KokiController extends Controller {
 			$rute = "Penutup";
 		}
 		else if($kategori=="Menu Minuman"){
-			$rute = "minum";
+			$rute = "minuman";
 		}
-		else if($kategori=="Menu Rekomendasi"){
+		else if($menu->is_rekomendasi=="1"){
 			$rute = "rekomendasi";			
 		}
-		else if($kategori=="Menu Promosi"){
+		else if($menu->is_promosi=="1"){
 			$rute = "promosi";
 		}
 		else {
 
 		}
+
+		Session::flash('message',  $menu->name .' menjadi tersedia.'); 
+		Session::flash('alert-class', 'alert-success'); 
+
+
 		return Redirect::to('statusmenu/'.$rute);
 	}
 
@@ -131,17 +137,20 @@ class KokiController extends Controller {
 			$rute = "Penutup";
 		}
 		else if($kategori=="Menu Minuman"){
-			$rute = "minum";
+			$rute = "minuman";
 		}
-		else if($kategori=="Menu Rekomendasi"){
+		else if($menu->is_rekomendasi=="1"){
 			$rute = "rekomendasi";			
 		}
-		else if($kategori=="Menu Promosi"){
+		else if($menu->is_promosi=="1"){
 			$rute = "promosi";
 		}
 		else {
 
 		}
+
+		Session::flash('message',  $menu->name .' menjadi tidak tersedia.'); 
+		Session::flash('alert-class', 'alert-success'); 
 		return Redirect::to('statusmenu/'.$rute);
 	}
 
@@ -156,12 +165,18 @@ class KokiController extends Controller {
 		$pemesanan = Pemesanan::find($id);
 		if($status == "waiting"){
 			$pemesanan->status = "Queued";
+			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "Waiting".'); 
+			Session::flash('alert-class', 'alert-success'); 
 		}
 		else if($status == "process"){
 			$pemesanan->status = "On Process";
+			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "On Process".'); 
+			Session::flash('alert-class', 'alert-success'); 
 		}
 		else if($status == "done"){
 			$pemesanan->status = "Done";
+			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "Done".'); 
+			Session::flash('alert-class', 'alert-success'); 
 		}
 		else{
 			//ErrorView

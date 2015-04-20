@@ -85,11 +85,16 @@
 					        	{{$menu->deskripsi}}
 					        </div>
 					        
-					        <div id = "harga-menu" class = "col-xs-12">
+					        <div id = "harga-menu" class = "col-xs-5">
 					        	<?php 
 					        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
 					        	?>
 					        </div>
+					        @if ($menu->is_promosi === 1)
+					        <div class="col-xs-7 text-right space">
+					        	<p>Tanggal berakhir promosi : {{ $menu->end_date_promosi }}</p>
+					        </div>
+					        @endif
 					        
 					      </div>
 					      <div class="modal-footer">

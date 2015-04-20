@@ -36,6 +36,25 @@
                         array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
                 </div>
 
+                <div class="form-group col-xs-6">
+                    <label for="exampleInputKat">Kategori Menu*</label> <br>
+                    {!! Form::select('kategori', array('Menu Pembuka' => 'Menu Pembuka', 
+                                                        'Menu Utama' => 'Menu Utama',
+                                                        'Menu Sampingan' => 'Menu Sampingan',
+                                                        'Menu Penutup' => 'Menu Penutup',
+                                                        'Menu Minuman' => 'Menu Minuman'), null, 
+                                                        ['class' => 'selectpicker']) !!}
+                        
+                </div>
+
+                <div class="form-group col-xs-6">
+                    <label for="Gamber Menu">Gambar Menu*</label>
+                    <input id="menu-pic" type="file" class="file"
+                    {!! Form::file('foto', array('class'=>'form-control')) !!}
+                </div> 
+                
+                <div class="clearfix visible-xs-block"></div>
+                 
                  @if ($promosi)
                     <div class="form-group col-xs-12">
                         <label for="exampleInputDes">Tanggal Terakhir Promosi </label>
@@ -85,23 +104,6 @@
                 @endif
 
                 <div class="clearfix visible-xs-block"></div>
-
-                <div class="form-group col-xs-12">
-                    <label for="exampleInputKat">Kategori Menu*</label> <br>
-                    {!! Form::select('kategori', array('Menu Pembuka' => 'Menu Pembuka', 
-                                                        'Menu Utama' => 'Menu Utama',
-                                                        'Menu Sampingan' => 'Menu Sampingan',
-                                                        'Menu Penutup' => 'Menu Penutup',
-                                                        'Menu Minuman' => 'Menu Minuman'), null, 
-                                                        ['class' => 'selectpicker']) !!}
-                        
-                </div>
-
-                <div class="form-group col-xs-12">
-                    <label for="Gamber Menu">Gambar Menu*</label>
-                    <input id="menu-pic" type="file" class="file"
-                    {!! Form::file('foto', array('class'=>'form-control')) !!}
-                </div>
 
 
                 <div class="form-group col-xs-12">

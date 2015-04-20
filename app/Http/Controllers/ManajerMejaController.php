@@ -7,6 +7,8 @@ use Validator;
 use Input;
 use Redirect;
 use Session;
+use Mail;
+use Config;
 
 
 class ManajerMejaController extends Controller {
@@ -161,8 +163,7 @@ class ManajerMejaController extends Controller {
 			$karyawan->name = $meja->id_meja;
 			$karyawan->email = $meja->kodemasuk;
 			$karyawan->password = bcrypt($meja->kodemasuk);
-			$karyawan->save();
-
+			$karyawan->save(); 
 
 	        Session::flash('message', 'Berhasil mengubah '.$meja->nomormeja); 
 			Session::flash('alert-class', 'alert-success'); 

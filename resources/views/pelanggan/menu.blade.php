@@ -109,14 +109,14 @@
 <div id = "content " class="clearfix">
 	<div class="pengisi-atas">
 		
-	</div>
+	</div><br>
 	<div id= "promo" class = "col-sm-8 col-sm-offset-2">
-		{!! HTML::image('assets/img/promosi-title.png', 'panggil', array( 'width' => '120px')) !!}              
+		{!! HTML::image('assets/img/promosi-title.png', 'panggil', array( 'width' => '150px')) !!} <br>           
 		<ul id="slippry-demo">
 		@foreach ($menu_promosi as $menu)
 			<li>
 			    <a href="{{ url('menu/promosi')}}">
-			    	{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array('width' => '200px', 'height' => '500px')) !!}
+			    	{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array('width' => '200px')) !!}
 			    </a>
 			</li>
 		@endforeach
@@ -125,7 +125,7 @@
 		
 	<div id="content1" class="container">
 		<div id= "kategori-main" class="col-sm-8 col-sm-offset-2">
-			<div id= "kategori1" class= "col-sm-6 row">
+			<div id= "kategori1" class= "col-xs-12 text-center">
 				<div id="btn-kat1" class = "col-xs-4">
 					<a href= "{{ url('menu/rekomendasi')}}">
 	    				{!! HTML::image('assets/img/rekomendasi.png', 'Rekomendasi', array( 'width' => '70px')) !!}              
@@ -139,14 +139,14 @@
 				</div>
 				
 				<div id="btn-kat3" class = "col-xs-4">
-					<a href= "{{ URL::to('menu/utama') }}">
+					<a href= "{{ url('menu/utama') }}">
 	    				{!! HTML::image('assets/img/utama.png', 'Utama', array( 'width' => '70px')) !!}              
 					</a>
 				</div>
 				<div class="clearfix visible-xs-block"></div>
 			</div>
 			
-			<div id= "kategori2" class= "col-sm-6 row">
+			<div id= "kategori2" class= "col xs-12 text-center">
 				<div id="btn-kat4" class = "col-xs-4">
 					<a href= "{{ url('menu/sampingan')}}">
 	    				{!! HTML::image('assets/img/sampingan.png', 'Sampingan', array( 'width' => '70px')) !!}              
@@ -182,13 +182,13 @@
 
 			      	<div class="modal-body">
 			       		{!! Form::open(array('route' => 'addpemanggilan', 'class' => 'form')) !!}
-				        <div id= "nama-menu" class= "col-xs-8 space-bottom">
+				        <div id= "nama-panggil" class= "col-xs-12 space-bottom text-center">
 				        	<b>Apa yang Anda butuhkan?</b> 
 				        </div>
 				  
 			        	 <div class="form-group col-xs-12">
                  			{!! Form::textarea('deskripsi', null, 
-                    			array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan kebutuhan Anda (opsional)')) !!}
+                    			array('class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan kebutuhan Anda (opsional)')) !!}
            				 </div>
 				        <div class = "col-xs-3">
 				        	{!!Form::hidden('id_meja', '1') !!}

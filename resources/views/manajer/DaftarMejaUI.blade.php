@@ -37,9 +37,9 @@
 				<div class="col-sm-3 colxs-3">
 					{{$meja->deskripsi}}
 				</div>
-				<div>
-					<a class="btn btn-small btn-primary" href="{{ URL::to('editmeja/'. $meja->id_meja) }}"><i class="fa fa-pencil-square-o"></i> Ubah</a>
-					<a class="btn btn-small btn-primary" href="" data-toggle="modal" data-target="#confirm-delete-modal{{$meja->id_meja}}"><i class="fa fa-trash-o"></i> Hapus</a>
+				<div class="col-xs-3 text-center">
+					<a id="btn-edit-meja" class="btn btn-small btn-primary" href="{{ URL::to('editmeja/'. $meja->id_meja) }}"> Edit</a>
+					<a id="btn-hapus-meja" class="btn btn-small btn-primary" href="" data-toggle="modal" data-target="#confirm-delete-modal{{$meja->id_meja}}">Hapus</a>
 				</div>
 				
 			</div>

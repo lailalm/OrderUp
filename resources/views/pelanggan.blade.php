@@ -16,6 +16,7 @@
 		{!! HTML::style('assets/css/bootstrap-theme.min.cs') !!} 
 		{!! HTML::style('assets/css/stylePelanggan.css') !!}
 		{!! HTML::style('assets/css/slippry.css') !!}
+		{!! HTML::style('assets/css/font-awesome.min.css') !!}
 		@section('css')
 		
 

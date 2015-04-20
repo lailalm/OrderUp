@@ -10,7 +10,11 @@ use App\Menu;
 use App\Pemanggilan;
 
 class PelayanController extends Controller {
-
+        
+        public function __construct()
+	{
+		$this->middleware('auth'); 
+	}
 	
 	public function getPemanggilan()
 	{

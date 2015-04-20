@@ -10,6 +10,7 @@ use Validator;
 use Input;
 use Redirect;
 use Session;
+use Mail;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -61,7 +62,7 @@ class ManajerKaryawanController extends Controller {
 	{
 		//validate
 		$rules = array(
-			"name" => 'required',
+			"name" => 'required|regex:/^[A-Za-z0-9\- ]+$/',
 			"email" => 'required|email',
 			"password" => 'required|min:8',
 			"role" => "required",
@@ -94,17 +95,6 @@ class ManajerKaryawanController extends Controller {
 
 			$extension 					= $file->getClientOriginalExtension();
 
-			// Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
-			// Image::configure(array('driver' => 'imagick'));
-			// $photo=Image::make('storage/app/'.$file->getFilename());
-			// $height=$photo->height();
-			// $width=$photo->width();
-			// if ($height<$width){
-				// $photo->crop($height,$height);
-			// } else{
-
-				// $photo->crop($width,$width);
-			// }
 			$extension 					= $file->getClientOriginalExtension();
 			Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
 			$karyawan->mime = $file->getClientMimeType();
@@ -112,6 +102,8 @@ class ManajerKaryawanController extends Controller {
 			$karyawan->photoname = $file->getFilename().'.'.$extension;
 			$karyawan->save();
 
+			$this->emailRegistered(Input::get('name'),Input::get('email'),Input::get('password'),Input::get('role'));
+			
 			Session::flash('message',  $karyawan->name .' berhasil ditambahkan.'); 
 			Session::flash('alert-class', 'alert-success'); 
 
@@ -208,5 +200,13 @@ class ManajerKaryawanController extends Controller {
 			return Redirect::to('manajerkaryawan/pelayan');
 		else
 			return Redirect::to('manajerkaryawan/koki');
+    }
+	
+	public function emailRegistered($name,$email,$password,$role)
+    {
+		Mail::send('emails.password', ['newPassword' => $password, 'name'=> $name,'role' => $role], function($message) use ($email, $name)
+		{
+			$message->to($email, $name)->subject('Welcome!');			
+		});
     }
 }

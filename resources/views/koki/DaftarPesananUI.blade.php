@@ -4,10 +4,18 @@
 <div class="main col-md-9 col-md-offset-2">
 	<label class="judul-home">Daftar Pesanan</label>
 	<div class="clearfix visible-xs-block"></div>
+	@if(Session::has('message'))                
+                <div class="alert {{ Session::get('alert-class') }}">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    {{ Session::get('message') }}
+                </div>
+        @endif
+
 	<!-- MASUKIN FOREACH DI SINI -->
 	<div id= "isi" class ="col-xs-12 clearfix">
 		<div class ="konten-koki col-sm-12 col-xs-12"> 
-			
+
+		
 		@foreach ($pemesanan as $pemesanan)
 			<div class="row">
 				<div class="col-sm-5 col-xs-5">

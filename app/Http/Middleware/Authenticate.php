@@ -49,27 +49,31 @@ class Authenticate {
 		//disi
 		if($this->auth->user()->role=="Manajer"){
 			$path=$request->getPathInfo();
+		
 			if ($path=="/manajermeja" || $path=="/manajerkaryawan" || 
 				$path=="/addmenu" || $path=="/addmenupromosi" || 
 				$path=="/addmeja" || $path=="/addkaryawan" ||
 				$path=="/addpelayan" || $path=="/addkoki" || 
-				strpos($path, 'editmenu') !== false || strpos($path, 'editmeja') !== false || 
-				strpos($path, 'editkaryawan') !== false ||
-				strpos($path, 'deletemeja') || strpos($path, 'deletemenu') || 
-				strpos($path, 'deletekaryawan') ||
-				strpos($path, 'manajermenu') ||
-				strpos($path, 'manajerkaryawan') ) {
+				substr($path,0,9)==='/editmenu' || 
+				substr($path,0,9)==='/editmeja'|| 
+				substr($path,0,13)==='/editkaryawan' ||
+				substr($path,0,11)==='/deletemeja' || 
+				substr($path,0,11)==='/deletemenu' || 
+				substr($path,0,15)==='/deletekaryawan' ||
+				substr($path,0,12)==='/manajermenu' ||
+				substr($path,0,16)==='/manajerkaryawan') {
 				return $next($request);
+			} else {
+				return Redirect::to('/manajermenu');
 			}
-			return Redirect::to('manajermenu');
 		} 
 		elseif ($this->auth->user()->role=="Koki") {
 			$path=$request->getPathInfo();
-			if ($path=="daftarpesanan" || 
-				strpos($path, 'statusmenu') ||
-				strpos($path, 'makeavailable') ||
-				strpos($path, 'makeunavailable') ||
-				strpos($path, 'changestatus')
+			if ($path=="/daftarpesanan" || 
+				substr($path,0,11)==='/statusmenu' ||
+				substr($path,0,14)==='/makeavailable' ||
+				substr($path,0,16)==='/makeunavailable' ||
+				substr($path,0,13)==='/changestatus'
 				 ) 
 			{
 				return $next($request);
@@ -77,31 +81,35 @@ class Authenticate {
 			return Redirect::to('daftarpesanan');
 		} elseif ($this->auth->user()->role=="Pelayan") {
 			$path=$request->getPathInfo();
-			if ($path=="listpemanggilan" ||
-				strpos($path, 'removepemanggilan') ) 
+			if ($path=="/daftarpesanan" ||
+			    $path=="/listpemanggilan" ||
+			    substr($path,0,13)==='/changestatus' ||
+			    substr($path, 0, 18)==='/removepemanggilan' ) 
 			{
 				return $next($request);
+			} else {
+				return Redirect::to('/daftarpesanan');
 			}
-			return Redirect::to('daftarpesanan');
 		} 
 		elseif ($this->auth->user()->role=="Meja") 
 		{
 			$path=$request->getPathInfo();
-			if ($path=="addpemesanan" ||
-				$path=="listpesanan" ||
-				$path=="hapuspesanan" ||
-				$path=="pembayaran" ||
-				$path=="tutorial" ||
-				$path=="logout" ||
-				$path=="addpemanggilan" ||
-				$path=="bayar" ||
-				$path=="kredit" ||
-				$path=="debit" ||
-				strpos($path, 'menu') ) 
+			if ($path=="/addpemesanan" ||
+				$path=="/listpesanan" ||
+				$path=="/hapuspesanan" ||
+				$path=="/pembayaran" ||
+				$path=="/tutorial" ||
+				$path=="/logout" ||
+				$path=="/addpemanggilan" ||
+				$path=="/bayar" ||
+				$path=="/kredit" ||
+				$path=="/debit" ||
+				substr($path,0,5)==='/menu') 
 			{
 				return $next($request);
+			} else {
+				return Redirect::to('/');
 			}
-			return Redirect::to('/');
 		}
 		return $next($request);	
 	}

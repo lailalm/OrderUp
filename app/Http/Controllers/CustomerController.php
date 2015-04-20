@@ -116,17 +116,28 @@ class CustomerController extends Controller {
 	
 	public function bayar()
 	{
-		$pemanggilan = new Pemanggilan;
-		$pemanggilan->id_meja = Auth::user()->name;
-		$pemanggilan->pesan = 'Membayar pemesanan dengan uang tunai '.Input::get('nominal');
-		$pemanggilan->status_pemanggilan =0;
-		$pemanggilan->save();
+		$rules = array(
+			"nominal" => 'required|integer|min:1'
+		);
 
-		foreach(Pemesanan::get() as $pesan){
-			$pesan->status = "Paid";
-			$pesan->save();
+		$validator = Validator::make(Input::all(), $rules);
+		if($validator->fails()) {		
+	        	Session::flash('message', 'Gagal membayar. Periksa masukan Anda.'); 
+			Session::flash('alert-class', 'alert-danger');
+			return Redirect::to('/pembayaran');
+		} else {
+			$pemanggilan = new Pemanggilan;
+			$pemanggilan->id_meja = Auth::user()->name;
+			$pemanggilan->pesan = 'Membayar pemesanan dengan uang tunai '.Input::get('nominal');
+			$pemanggilan->status_pemanggilan =0;
+			$pemanggilan->save();
+	
+			foreach(Pemesanan::get() as $pesan){
+				$pesan->status = "Paid";
+				$pesan->save();
+			}
+			return Redirect::to('logout');
 		}
-		return Redirect::to('logout');
 	}
 
 	public function kredit()
@@ -211,38 +222,67 @@ class CustomerController extends Controller {
 
 	public function addPemesanan()
 	{
-		$pesan = new Pemesanan;
+		$rules = array(
+			"id_menu"=> 'required',
+			"porsi" => 'required|integer|min:1'
+		);
 
-		$pesan->id_meja 		= Auth::user()->name;
-		$pesan->id_menu 		= Input::get('id_menu');
-		$pesan->jumlah 			= Input::get('porsi');
-		$pesan->keterangan 		= Input::get('deskripsi');
-
-		$pesan->save();
+		$validator = Validator::make(Input::all(), $rules);
+		if($validator->fails()) {		
+	        	Session::flash('message', 'Gagal menambahkan pesanan. Mohon periksa isian Anda.'); 
+			Session::flash('alert-class', 'alert-danger');
+		} else {
+			$pesan = new Pemesanan;
+	
+			$pesan->id_meja 		= Auth::user()->name;
+			$pesan->id_menu 		= Input::get('id_menu');
+			$pesan->jumlah 			= Input::get('porsi');
+			$pesan->keterangan 		= Input::get('deskripsi');
+	
+			$pesan->save();
+			Session::flash('message', 'Berhasil menambahkan pesanan.'); 
+			Session::flash('alert-class', 'alert-success');
+		}
 		return Redirect::to('menu/'.Input::get('kategori'));
 	}
 
 	public function cancelPemesanan()
 	{
-		$batal = Input::get('countcancel');
-		$id_pemesanan = Input::get('id_pemesanan');
-		$pesan = Pemesanan::find(Input::get('id_pemesanan'));
-		$current_jumlah = $pesan->jumlah;
-		if ( $batal >= $current_jumlah){
-			// if($batal==$current_jumlah){
-				Pemesanan::where('id_pemesanan', $id_pemesanan)->delete();
-			// }
+		$rules = array(
+			"countcancel" => 'required|integer|min:1'
+		);
+
+		$validator = Validator::make(Input::all(), $rules);
+		if($validator->fails()) {	
+			Session::flash('message', 'Gagal membatalkan pesanan.'); 
+			Session::flash('alert-class', 'alert-danger');
 			return Redirect::to('listpesanan');
-		}
+		} 
 		else {
-			$pesan->jumlah = $current_jumlah - $batal;
-			$pesan->save();
-			return Redirect::to('listpesanan');
+			$batal = Input::get('countcancel');
+			$id_pemesanan = Input::get('id_pemesanan');
+			$pesan = Pemesanan::find(Input::get('id_pemesanan'));
+			$current_jumlah = $pesan->jumlah;
+			
+			if ( $batal >= $current_jumlah){
+				Pemesanan::where('id_pemesanan', $id_pemesanan)->delete();
+				Session::flash('message', 'Berhasil membatalkan pesanan.'); 
+				Session::flash('alert-class', 'alert-success');
+				return Redirect::to('listpesanan');
+			}
+			else {
+				$pesan->jumlah = $current_jumlah - $batal;
+				$pesan->save();
+				Session::flash('message', 'Berhasil membatalkan pesanan.'); 
+				Session::flash('alert-class', 'alert-success');
+				return Redirect::to('listpesanan');
+			}
 		}
 	}
 
 	public function logout()
 	{
+		Auth::logout();
 		return view('pelanggan.logoutUI');
 	}
 

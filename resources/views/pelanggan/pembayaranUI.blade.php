@@ -6,16 +6,22 @@
 ?>
 <div id = "content" class="clearfix">
 	<div class="pengisi-atas"></div>
+	@if(Session::has('message'))				
+	    <div class="alert {{ Session::get('alert-class') }}">
+	        <a href="#" class="close" data-dismiss="alert">&times;</a>
+	        {{ Session::get('message') }}
+	    </div>
+	@endif
 	<h4 class="white text-center">Pembayaran</h4>
-	@if (count($list_pesanan) <= 0)
-		<h5 class="judul-role">
+
+        @if (count($list_pesanan) <= 0)
+		<h5 class="judul-role white">
 			Belum ada tagihan. Silahkan memesan terlebih dahulu.
 		</h5>	
-	@endif
-
+        @endif
 	@foreach($list_pesanan as $pesanan)
 	<div class="kotak-putih space">
-		<div class="row">
+		 <div class="row">
 			<div class="col-xs-4 padding-left">
 				<h5><b>{!! App\Menu::find($pesanan->id_menu)->name !!}</b></h5>
 				<h6>{{ $pesanan->jumlah }} porsi</h6>
@@ -52,13 +58,25 @@
 		</div>
 	</div>
 </div>
-
+@if (count($list_pesanan) <= 0)
+<div id="content1" class="container space">
+	<div id= "pembayaran-main" class="col-sm-8 col-sm-offset-2">
+		<div id= "cara-bayar" class= "col-sm-6 row text-center">
+			<div id="btn-bayar3" class = "col-xs-12">
+				<a href="{{ url('/auth/logout') }}">
+					{!! HTML::image('assets/img/logout.png', 'panggil', array( 'width' => '70px')) !!}              
+				</a>
+			</div>
+                 </div>
+         </div>
+</div>
+@else	
 <!-- pilih cara bayar -->
 <div id="content1" class="container space">
 	<div id= "pembayaran-main" class="col-sm-8 col-sm-offset-2">
 		<div id= "cara-bayar" class= "col-sm-6 row">
 			<div id="btn-bayar1" class = "col-xs-4">
-				<a href= # data-toggle="modal" data-target="#tunai-modal">
+				<a href=# data-toggle="modal" data-target="#tunai-modal">
 					{!! HTML::image('assets/img/tunai.png', 'panggil', array( 'width' => '70px')) !!}              
 				</a>
 			</div>
@@ -81,6 +99,8 @@
 		</div>
 	</div>
 </div>
+@endif
+
 <div class="pengisi-atas"></div>
 
 <!-- Modal Konfirm Batal -->

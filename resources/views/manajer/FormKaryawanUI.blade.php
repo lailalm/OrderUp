@@ -63,7 +63,7 @@
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
-                <div class="form-group col-xs-12">
+                <div class="form-group col-xs-6">
 
                     {!! Form::label('Foto*') !!}
 
@@ -72,13 +72,9 @@
                 </div>
 
 
-                <div class="form-group col-xs-10">
-                    <label>Tanggal Mulai Bekerja*</label>
+                <div class="form-group col-xs-6">
+                    <label>Tanggal Mulai Bekerja*</label><br>
                     {!! Form::input('date', 'tanggal_mulai') !!}
-                </div>
-
-                <div class="form-group col-xs-12">
-                    <p>*wajib diisi</p>
                 </div>
 
                 <div class="clearfix visible-xs-block"></div>
