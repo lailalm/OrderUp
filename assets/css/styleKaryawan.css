@@ -716,3 +716,11 @@ body{
 .abu:hover {
 	background-color: #909090;
 }
+
+#btn-hapus-meja {
+	margin-left: 10px;
+}
+
+#btn-edit-meja {
+	width: 69px;
+}

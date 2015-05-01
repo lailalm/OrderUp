@@ -1,5 +1,4 @@
-
-@font-face {
+ @font-face {
 	font-family: opensans;
 	src: url('../font/OpenSans-Regular.ttf');
 }
@@ -48,6 +47,13 @@ body{
 	padding: 20px;
 	background: rgba(255,255,255,0.4);
 }
+
+@media(max-width: 767px) {
+#login {
+	padding-bottom: 50px;
+}
+}
+
 
 #login input {
 	display: block;
@@ -140,7 +146,7 @@ body{
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
-	margin-top: 10px;
+	margin-top: 20px;
 	margin-bottom: 30px;
 }
 
@@ -182,13 +188,12 @@ body{
 	z-index: 0;
 }
 
-@media(max-width: 767px) {
 #kategori1 {
 	border-bottom-style: solid;
 	border-width: 1px;
 	border-color: rgba(255,255,255,0.5);
 }
-}
+
 
 #slippry-demo {
 	margin-top: 5px;
@@ -267,7 +272,14 @@ body{
 
 #penjelasan-menu {
 	margin-top: 5px;
+	font-size: 110%;
+}
+
+#nama-menu {
 	font-size: 120%;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: rgba(0,0,0,1);	
 }
 
 #status-menu {
@@ -281,6 +293,7 @@ body{
 	text-align: left;
 	color: #bb2828;
 	font-size: 110%;
+	margin-bottom: 10px;
 }
 
 .btn-primary {
@@ -294,6 +307,15 @@ body{
 	border-color: #00695c !important;
 	background-color: #00695c  !important;
 }
+
+#nama-panggil {
+	font-size: 120%;
+}
+
+#simpan-button {
+	width: 70px;
+}
+
 /*@media(max-width: 767px) {
 .modal-dialog {
 	top: 15% !important;
@@ -346,7 +368,7 @@ body{
 }
 
 .pengisi {
-	height: 20px;
+	height: 30px;
 }
 
 .pengisi-atas {

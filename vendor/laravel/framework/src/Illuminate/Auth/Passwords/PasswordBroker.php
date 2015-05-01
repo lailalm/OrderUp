@@ -1,5 +1,6 @@
 <?php namespace Illuminate\Auth\Passwords;
 
+use App\Karyawan;	
 use Closure;
 use UnexpectedValueException;
 use Illuminate\Contracts\Auth\UserProvider;
@@ -98,7 +99,7 @@ class PasswordBroker implements PasswordBrokerContract {
 	 *
 	 * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
 	 * @param  string  $token
-	 * @param  \Closure|null  $callback
+	 * @param  \Closure|null  $callback 
 	 * @return int
 	 */
 	public function emailResetLink(CanResetPasswordContract $user, $token, Closure $callback = null)
@@ -107,8 +108,11 @@ class PasswordBroker implements PasswordBrokerContract {
 		// password reminder e-mail. We'll pass a "token" variable into the views
 		// so that it may be displayed for an user to click for password reset.
 		$view = $this->emailView;
-
-		return $this->mailer->send($view, compact('token', 'user'), function($m) use ($user, $token, $callback)
+		$newPassword=$this->generatePassword(8);
+		$karyawan = Karyawan::find($user->id_karyawan);
+		$karyawan->password 	= bcrypt($newPassword); 
+		$karyawan->save();
+		return $this->mailer->send($view, compact('newPassword', 'user'), function($m) use ($user, $token, $callback)
 		{
 			$m->to($user->getEmailForPasswordReset());
 
@@ -252,4 +256,15 @@ class PasswordBroker implements PasswordBrokerContract {
 		return $this->tokens;
 	}
 
+	
+	
+	public function generatePassword($length) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
 }

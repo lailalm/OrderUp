@@ -28,7 +28,7 @@ return [
 	|
 	*/
 
-	'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+	'host' => env('MAIL_HOST', 'mail.orderup.web.id'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => null, 'name' => null],
+	'from' => ['address' => 'admin@orderup.web.id', 'name' => null],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,8 +78,7 @@ return [
 	| set it here. This will get used to authenticate with your server on
 	| connection. You may also set the "password" value below this one.
 	|
-	*/
-
+	*/ 
 	'username' => env('MAIL_USERNAME'),
 
 	/*
@@ -112,7 +111,7 @@ return [
 	|--------------------------------------------------------------------------
 	| Mail "Pretend"
 	|--------------------------------------------------------------------------
-	|
+	|x`
 	| When this option is enabled, e-mail will not actually be sent over the
 	| web and will instead be written to your application's logs files so
 	| you may inspect the message. This is great for local development.
