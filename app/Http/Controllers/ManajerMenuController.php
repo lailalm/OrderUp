@@ -360,7 +360,7 @@ class ManajerMenuController extends Controller {
 		}
 	Session::flash('message',  $menu->name .' berhasil dihapus.'); 
 	Session::flash('alert-class', 'alert-success'); 
-        return Redirect::to('manajermenu');
+        return Redirect::to('manajermenu/'.$rute);
     }
 
 

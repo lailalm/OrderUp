@@ -16,21 +16,27 @@
                     {{ Session::get('message') }}
                 </div>
             @endif
+
+            <div id="error-cont" class="alert alert-danger" style="display:none;">
+                <!-- <a href="#" class="close" data-dismiss="alert">&times;</a> -->
+                <p id="error-msg"></p>
+            </div>
+
             <div class="col-xs-12 panel" id="formEditKaryawan">
-                {!! Form::model($menu, array('route' => array('editmenu_update', $menu->id_menu), 'method' => 'PUT','files'=>true)) !!}
+                {!! Form::model($menu, array('route' => array('editmenu_update', $menu->id_menu), 'method' => 'PUT','files'=>true, 'name'=>'edit-menu')) !!}
                 
                 <h3>Ubah Menu {{ $menu->is_promosi? "Promosi" : ""}}</h3>
                 <div class="form-group col-xs-6">
                     {!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%')) !!}
                 </div>
                 <div class="form-group col-xs-6">
-                    {!! Form::label('Nama') !!}
+                    {!! Form::label('Nama Menu*') !!}
                     {!! Form::text('name', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
                 <div class="form-group col-xs-6">
-                    {!! Form::label('Harga') !!}
+                    {!! Form::label('Harga*') !!}
                          {!! Form::text('harga', null, 
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
 
@@ -38,7 +44,7 @@
                 </div>
 
                 <div class="form-group col-xs-6">
-                    {!! Form::label('Kategori') !!}<br>
+                    {!! Form::label('Kategori*') !!}<br>
                     {!! Form::select('kategori', array('Menu Pembuka' => 'Menu Pembuka', 
                                                 'Menu Utama' => 'Menu Utama',
                                                 'Menu Sampingan' => 'Menu Sampingan',
@@ -48,13 +54,13 @@
                 </div>
 
                 <div class="form-group col-xs-6">
-                    {!! Form::label('Gambar Menu') !!}
+                    {!! Form::label('Gambar Menu*') !!}
                     <input id="menu-pic" type="file" class="file"
                     {!! Form::file('foto', array('class'=>'form-control')) !!}
                 </div>
 
                 <div class="form-group col-xs-12">
-                    {!! Form::label('Deskripsi') !!}
+                    {!! Form::label('Deskripsi*') !!}
                     {!! Form::textarea('deskripsi', null, 
                         array('required', 'class'=>'form-control','rows'=>5, 'placeholder'=>'Masukkan Deskripsi Menu')) !!}
                 </div>
@@ -149,7 +155,7 @@
 
                 <div class="form-group">
                     <div class = "col-xs-3 col-xs-offset-3">
-                        <a href="{{ URL::previous() }}" id="batal-button" class="btn btn-primary col-xs-12">
+                        <a href="{{ url('/manajermenu') }}" id="batal-button" class="btn btn-primary col-xs-12">
                             Batal
                         </a>
                     </div>
@@ -163,5 +169,35 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    var validator = new FormValidator('edit-menu', [{
+            name: 'harga',
+            display: 'Harga',
+            rules: 'numeric|greater_than[0]'
+        },
+        {
+            name:'name',
+            display: 'Nama Menu',
+            rules:'required'
+        },
+        {
+            name: 'deskripsi',
+            display: 'Deskripsi Menu',
+            rules: 'required'
+        }
+        ], function(errors, event) {
+            var SELECTOR_ERRORS = $('#error-msg');
+
+            if (errors.length > 0) {
+                // Show the errors
+                SELECTOR_ERRORS.empty();
+                for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                    SELECTOR_ERRORS.append(errors[i].message + '<br />');
+                }
+                $('#error-cont').show("slow");
+                // alert('errors!!');
+            }
+        });
+</script>
 
 @endsection

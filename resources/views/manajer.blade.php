@@ -30,6 +30,7 @@
 		{!! HTML::script('assets/js/sidebar.js'); !!}	
 		{!! HTML::script('assets/js/bootstrap-select.min.js'); !!}	
 		{!! HTML::script('assets/js/fileinput.min.js'); !!}	
+		{!! HTML::script('assets/js/validate.js'); !!}	
 		
 	</head>
 	

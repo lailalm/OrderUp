@@ -13,11 +13,16 @@
                 </div>
             @endif
 
+            <div id="error-cont" class="alert alert-danger" style="display:none;">
+                <!-- <a href="#" class="close" data-dismiss="alert">&times;</a> -->
+                <p id="error-msg"></p>
+            </div>
+
             <div class="col-xs-12 panel" id="formEditKaryawan">
                 <h3>Tambah Menu {{ $promosi? "Promosi" : "" }}</h3>
 
                 <div class="form-group col-xs-8">
-                    {!! Form::open(array('route' => 'addmenu_store', 'class' => 'form', 'files'=>true)) !!}
+                    {!! Form::open(array('route' => 'addmenu_store', 'class' => 'form', 'name'=>'add-menu', 'files'=>true)) !!}
 
                     <label for="exampleInputNama">Nama Menu*</label>
                     {!! Form::text('name', null, array('required', 'class'=>'form-control', 'id'=>'exampleInputNama', 'placeholder'=>'Nama Menu')) !!}
@@ -125,5 +130,40 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    var validator = new FormValidator('add-menu', [{
+            name: 'harga',
+            display: 'Harga',
+            rules: 'numeric|greater_than[0]'
+        },
+        {
+            name: 'foto',
+            display: 'Gambar Menu',
+            rules: 'required|is_file_type[gif,png,jpg]'
+        },
+        {
+            name:'name',
+            display: 'Nama Menu',
+            rules:'required'
+        },
+        {
+            name: 'deskripsi',
+            display: 'Deskripsi Menu',
+            rules: 'required'
+        }
+        ], function(errors, event) {
+            var SELECTOR_ERRORS = $('#error-msg');
+
+            if (errors.length > 0) {
+                // Show the errors
+                SELECTOR_ERRORS.empty();
+                for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+                    SELECTOR_ERRORS.append(errors[i].message + '<br />');
+                }
+                $('#error-cont').show("slow");
+                // alert('errors!!');
+            }
+        });
+</script>
 
 @endsection
