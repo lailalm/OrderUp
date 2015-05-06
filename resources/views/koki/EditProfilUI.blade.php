@@ -116,7 +116,7 @@
         						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         					</div>
         					<div class="modal-body">
-                    {!! Form::model($karyawan, array('route' => array('editkaryawan_update', $karyawan->id_karyawan), 'method' => 'PUT','files'=>true)) !!}
+                    {!! Form::model($karyawan, array('route' => array('editkodeloginkoki'), 'name'=>'edit-kodelogin', 'method' => 'PUT','files'=>true)) !!}
                     <h3> Ubah Kode Login </h3>
                     <div class="form-group col-xs-12">
                       {!! Form::label('Kode Lama') !!}

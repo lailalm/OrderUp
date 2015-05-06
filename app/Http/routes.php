@@ -128,6 +128,8 @@ Route::get('editprofil', 'KokiController@edit');
 
 Route::put('editprofiluser', ['as' => 'editprofiluser', 'uses'=> 'KokiController@update']);
 
+Route::put('editkodeloginkoki', ['as' => 'editkodeloginkoki', 'uses'=> 'KokiController@updateKodeLogin']);
+
 /*
 |-------------------------------------------------------------------------
 | Pelayan Area Routes
