@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-2">
-             @if(Session::has('message'))   
+             @if(Session::has('message'))
                 <div class="alert {{ Session::get('alert-class') }}">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
                     {{ Session::get('message') }}
@@ -26,19 +26,19 @@
                 </div>
                 <div class="form-group col-xs-8">
                     {!! Form::label('Nama*') !!}
-                    {!! Form::text('name', null, 
+                    {!! Form::text('name', null,
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
                 <div class="form-group col-xs-8">
                     {!! Form::label('Email*') !!}
-                    {!! Form::email('email', null, 
+                    {!! Form::email('email', null,
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
                 <div style="display:none;">
                     <div class="form-group col-xs-8">
                         {!! Form::label('Password') !!}
-                        {!! Form::password('password', null, 
+                        {!! Form::password('password', null,
                             array('class'=>'form-control', 'placeholder'=>'')) !!}
                     </div>
 
@@ -51,10 +51,10 @@
                     </div>
 
                 </div>
-                
+
                 <div class="form-group col-xs-8">
                     {!! Form::label('Telepon*') !!}
-                    {!! Form::text('telepon', null, 
+                    {!! Form::text('telepon', null,
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
@@ -66,7 +66,7 @@
 
                 <div class="form-group col-xs-8">
                     {!! Form::label('Alamat*') !!}
-                    {!! Form::text('alamat', null, 
+                    {!! Form::text('alamat', null,
                         array('required', 'class'=>'form-control', 'placeholder'=>'')) !!}
                 </div>
 
@@ -79,7 +79,7 @@
                 <div class="form-group col-xs-12">
                     <p>*wajib diisi</p>
                 </div>
-                
+
                 <div class="form-group space space-bottom">
                     <div class = "col-xs-3 col-xs-offset-3">
                         <a href="{{ url('/manajerkaryawan') }}" id="batal-button" class="btn btn-primary col-xs-12">

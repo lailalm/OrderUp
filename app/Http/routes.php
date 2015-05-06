@@ -34,6 +34,8 @@ Route::get('admin', 'ManajerMenuController@index');
 |-------------------------------------------------------------------------
 */
 
+
+
 Route::get('addmenu', ['as' => 'addmenu','uses'=> 'ManajerMenuController@create']);
 
 Route::get('addmenupromosi', ['as' => 'addmenu','uses'=> 'ManajerMenuController@createPromosi']);
@@ -77,7 +79,7 @@ Route::put('editkaryawan/{id}', ['as' => 'editkaryawan_update','uses'=> 'Manajer
 
 Route::get('manajerkaryawan/get/{photoname}', ['as' => 'getphoto', 'uses' => 'ManajerKaryawanController@get']);
 
-/* TO - DO : 
+/* TO - DO :
 	- Get Karyawan By Category/{category} koki/pelayan
 */
 
@@ -121,6 +123,8 @@ Route::get('makeavailable/{id}', 'KokiController@makeAvailable');
 Route::get('makeunavailable/{id}', 'KokiController@makeUnavailable');
 
 Route::get('changestatus/{status}/{id}', 'KokiController@changeStatus');
+
+Route::get('editprofil', 'KokiController@edit');
 
 /*
 |-------------------------------------------------------------------------

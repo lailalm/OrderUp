@@ -9,6 +9,7 @@ use Session;
 use App\Menu;
 use App\Pemesanan;
 use App\Meja;
+use App\Karyawan;
 
 class KokiController extends Controller {
 
@@ -83,7 +84,7 @@ class KokiController extends Controller {
 		$menu->status = 1;
 		$menu->save();
 		$kategori = $menu->kategori;
-		
+
 		if($kategori=="Menu Utama"){
 			$rute = "utama";
 		}
@@ -100,7 +101,7 @@ class KokiController extends Controller {
 			$rute = "minuman";
 		}
 		else if($menu->is_rekomendasi=="1"){
-			$rute = "rekomendasi";			
+			$rute = "rekomendasi";
 		}
 		else if($menu->is_promosi=="1"){
 			$rute = "promosi";
@@ -109,21 +110,21 @@ class KokiController extends Controller {
 
 		}
 
-		Session::flash('message',  $menu->name .' menjadi tersedia.'); 
-		Session::flash('alert-class', 'alert-success'); 
+		Session::flash('message',  $menu->name .' menjadi tersedia.');
+		Session::flash('alert-class', 'alert-success');
 
 
 		return Redirect::to('statusmenu/'.$rute);
 	}
 
-	
+
 	public function makeUnavailable($id)
 	{
 		$menu = Menu::find($id);
 		$menu->status = 0;
 		$menu->save();
 		$kategori = $menu->kategori;
-		
+
 		if($kategori=="Menu Utama"){
 			$rute = "utama";
 		}
@@ -140,7 +141,7 @@ class KokiController extends Controller {
 			$rute = "minuman";
 		}
 		else if($menu->is_rekomendasi=="1"){
-			$rute = "rekomendasi";			
+			$rute = "rekomendasi";
 		}
 		else if($menu->is_promosi=="1"){
 			$rute = "promosi";
@@ -149,8 +150,8 @@ class KokiController extends Controller {
 
 		}
 
-		Session::flash('message',  $menu->name .' menjadi tidak tersedia.'); 
-		Session::flash('alert-class', 'alert-success'); 
+		Session::flash('message',  $menu->name .' menjadi tidak tersedia.');
+		Session::flash('alert-class', 'alert-success');
 		return Redirect::to('statusmenu/'.$rute);
 	}
 
@@ -165,18 +166,18 @@ class KokiController extends Controller {
 		$pemesanan = Pemesanan::find($id);
 		if($status == "waiting"){
 			$pemesanan->status = "Queued";
-			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "Waiting".'); 
-			Session::flash('alert-class', 'alert-success'); 
+			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "Waiting".');
+			Session::flash('alert-class', 'alert-success');
 		}
 		else if($status == "process"){
 			$pemesanan->status = "On Process";
-			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "On Process".'); 
-			Session::flash('alert-class', 'alert-success'); 
+			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "On Process".');
+			Session::flash('alert-class', 'alert-success');
 		}
 		else if($status == "done"){
 			$pemesanan->status = "Done";
-			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "Done".'); 
-			Session::flash('alert-class', 'alert-success'); 
+			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "Done".');
+			Session::flash('alert-class', 'alert-success');
 		}
 		else{
 			//ErrorView
@@ -185,7 +186,7 @@ class KokiController extends Controller {
 		return Redirect::to('daftarpesanan');
 	}
 
-	
+
 	public function store()
 	{
 		//
@@ -197,12 +198,16 @@ class KokiController extends Controller {
 	}
 
 
-	public function edit($id)
+	public function edit()
 	{
-		//
+		$karyawan = Karyawan::find(Auth::user()->id_karyawan);
+
+		// show the Edit form and pass Karyawan
+		return View::make('koki.EditProfilUI')
+			->with('karyawan', $karyawan);
 	}
 
-	
+
 	public function update($id)
 	{
 		//
