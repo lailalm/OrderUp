@@ -77,9 +77,13 @@
 
 								<div class="form-group col-xs-12">
                   {!! Form::label('Telepon*') !!}
-                  {!! Form::text('telepon', null,
-                      array('required', 'disabled', 'class'=>'form-control', 'placeholder'=>'Format penulisan: +62[Nomor HP Anda')) !!}
-								</div>
+                  <div class="input-group">
+                    <div class="input-group-addon">+62</div>
+                    {!! Form::text('telepon', null,
+                      array('required', 'disabled', 'class'=>'form-control')) !!}
+                  
+                  </div>
+                </div>
 								<div class="clearfix visible-xs-block"></div>
 
                 <div class="form-group col-xs-12">
