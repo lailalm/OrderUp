@@ -204,8 +204,15 @@ class KokiController extends Controller {
 		$karyawan = Karyawan::find(Auth::user()->id_karyawan);
 
 		// show the Edit form and pass Karyawan
-		return View::make('koki.EditProfilUI')
-			->with('karyawan', $karyawan);
+		if(Auth::user()->role == 'Koki'){
+			return View::make('koki.EditProfilUI')
+				->with('karyawan', $karyawan);
+		}
+		else{
+			return View::make('pelayan.EditProfilUI')
+				->with('karyawan', $karyawan);
+		}
+
 
 	}
 
@@ -266,7 +273,7 @@ class KokiController extends Controller {
 
 		$validator = Validator::make(Input::all(), $rules);
 		if(!Hash::check(Input::get("old_pw"),Auth::user()->password)){
-			Session::flash('message', 'Gagal Mengubah. Kode login yang anda masukkan salah.');
+			Session::flash('message', 'Gagal Mengubah. Kode login lama yang anda masukkan salah.');
 			Session::flash('alert-class', 'alert-danger');
 			return Redirect::to('editprofil');
 		}
@@ -285,7 +292,7 @@ class KokiController extends Controller {
 			$karyawan->password 	= bcrypt(Input::get('new_pw'));
 			$karyawan->save();
 
-			Session::flash('message', 'password'. $karyawan->name .' berhasil diubah.');
+			Session::flash('message', 'Kode login untuk user '. $karyawan->name .' berhasil diubah.');
 			Session::flash('alert-class', 'alert-success');
 
 				return Redirect::to('editprofil');
