@@ -7,8 +7,8 @@
 			<div id="kategori" class="judul-home col-md-8">
 			Menu {{ ucfirst($kategori) }}
 			</div>
-			<select 
-				class="selectpicker col-md-4 space" 
+			<select
+				class="selectpicker col-md-4 space"
 				onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
 				<option value="utama" {{ $kategori === 'utama' ? 'selected' : '' }}> Menu Utama</option>
 				<option value="promosi" {{ $kategori == 'promosi' ? 'selected' : ''}}> Menu Promosi</option>
@@ -30,22 +30,22 @@
             </div>
             @endforeach
 
-	        @if(Session::has('message'))				
+	        @if(Session::has('message'))
 			    <div class="alert {{ Session::get('alert-class') }}">
 			        <a href="#" class="close" data-dismiss="alert">&times;</a>
 			        {{ Session::get('message') }}
 			    </div>
 			@endif
-			
+
 			@if (count($list_menu) <= 0)
 				<h5 class="judul-role">
 					Belum ada menu {{ $kategori }} terdaftar.
-				</h5>	
+				</h5>
 			@endif
 
 			@foreach ($list_menu as $menu)
-				
-	          	<div id="menu1" class ="col-sm-4 col-xs-12 clear-fix"> 
+
+	          	<div id="menu1" class ="col-sm-4 col-xs-12 clear-fix">
 	          		{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
 	          		@if($menu->is_rekomendasi == 1)
 	          			<i class="fa fa-star"></i>
@@ -64,12 +64,12 @@
 					      	<div class="modal-body">
 					        	{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
 						    <div class="modal-body">
-				       
+
 					        <div id= "nama-menu" class= "col-xs-8">
 					        	<b>{{$menu->name}}</b>
 					        </div>
-					  
-				        	@if ($menu->status === 1)	
+
+				        	@if ($menu->status === 1)
 					        	<div id= "status" class= "col-xs-4">
 					        		Tersedia
 					        	</div>
@@ -78,15 +78,15 @@
 					        		Tidak Tersedia
 					        	</div>
 				        	@endif
-					        
+
 					        <div class="clearfix visible-xs-block"></div>
-					        
+
 					        <div id= "penjelasan" class= "col-xs-10 col-xs-offset-1">
 					        	{{$menu->deskripsi}}
 					        </div>
-					        
+
 					        <div id = "harga-menu" class = "col-xs-5">
-					        	<?php 
+					        	<?php
 					        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
 					        	?>
 					        </div>
@@ -95,7 +95,7 @@
 					        	<p>Tanggal berakhir promosi : {{ $menu->end_date_promosi }}</p>
 					        </div>
 					        @endif
-					        
+
 					      </div>
 					      <div class="modal-footer">
 					      	<div id="footer-modal-menu" class =" col-xs-12">
@@ -103,18 +103,18 @@
 									<a href= "rekomendasi/{{$menu->id_menu}}"><div class = "col-xs-5 col-xs-offset-3">
 									Rekomendasi
 									</div></a>
-								
+
 								@else
 									<a href= "deleterekomendasi/{{$menu->id_menu}}"><div class = "col-xs-5 col-xs-offset-3">
 									Hapus Rekomendasi
 									</div></a>
 								@endif
-								
-						
+
+
 								<a href="{{ URL::to('editmenu/'. $menu->id_menu) }}"><div class = "col-xs-2">
 									Edit
 								</div></a>
-						
+
 								<a href="#" data-dismiss="modal" data-toggle="modal" data-target="#confirm-delete-modal{{$menu->id_menu}}"><div class = "col-xs-2">
 									Hapus
 								</div></a>
@@ -137,7 +137,7 @@
 						      		Apakah Anda yakin ingin menghapus menu <b>{{$menu->name}}</b>?
 						      	</div>
 					      	</div>
-					      
+
 					      	<div class="modal-footer">
 					      		<div id="footer-modal-menu" class =" col-xs-12">
 									<div class = "col-xs-3 col-xs-offset-3">
@@ -145,7 +145,7 @@
 											Batal
 										</button>
 									</div>
-						
+
 									<div class = "col-xs-3">
 										<a href="{{ URL::to('deletemenu/' . $menu->id_menu) }}" id="hapus-button" class="btn button col-xs-12">
 											Hapus
@@ -158,7 +158,7 @@
 					    </div>
 					</div>
 				</div>
-			
+
 		    	@endforeach
 	    </div>
 	</div>

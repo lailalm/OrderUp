@@ -189,7 +189,7 @@ class KokiController extends Controller {
 
 	public function store()
 	{
-		//
+
 	}
 
 	public function show($id)
@@ -205,12 +205,54 @@ class KokiController extends Controller {
 		// show the Edit form and pass Karyawan
 		return View::make('koki.EditProfilUI')
 			->with('karyawan', $karyawan);
+
 	}
 
 
-	public function update($id)
+	public function update()
 	{
-		//
+		$rules = array(
+			"name" => 'required',
+			"email" => 'required|email',
+			"telepon" => "required|numeric",
+			"alamat" => "required"
+		);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if($validator->fails()) {
+			Session::flash('message', 'Gagal mengubah. Mohon cek kembali isian Anda.');
+			Session::flash('alert-class', 'alert-danger');
+			return Redirect::to('editprofil');
+				// ->withError($validator);
+		} else {
+
+			$karyawan = Karyawan::find(Auth::user()->id_karyawan);
+			$karyawan->name 			= Input::get('name');
+			$karyawan->email 			= Input::get('email');
+			$password					= Input::get('password');
+			// if(!$password==""){
+			// 	$karyawan->password 	= bcrypt(Input::get('password'));
+			// }
+			$karyawan->telepon 			= Input::get('telepon');
+			$karyawan->alamat 			= Input::get('alamat');
+			// $karyawan->tanggal_mulai 	= Input::get('tanggal_mulai');
+			$file 						= Input::file('foto');
+
+			if(!is_null($file)){
+				$extension 					= $file->getClientOriginalExtension();
+				Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
+				$karyawan->mime = $file->getClientMimeType();
+				$karyawan->original_photoname = $file->getClientOriginalName();
+				$karyawan->photoname = $file->getFilename().'.'.$extension;
+			}
+			$karyawan->save();
+
+			Session::flash('message', $karyawan->name .' berhasil diubah.');
+			Session::flash('alert-class', 'alert-success');
+
+				return Redirect::to('editprofil');
+			}
 	}
 
 
