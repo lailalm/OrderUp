@@ -29,6 +29,7 @@
 		{!! HTML::script('assets/js/sidebar.js'); !!}
 		{!! HTML::script('assets/js/bootstrap-select.min.js'); !!}
 		{!! HTML::script('assets/js/fileinput.min.js'); !!}
+		{!! HTML::script('assets/js/validate.js'); !!}
 
 	</head>
 
@@ -55,7 +56,7 @@
 	        			{!! HTML::image('assets/img/logo.png', 'logo-order-up', array( 'width' => '80%')) !!}
 	        		</a>
 				</div>
-						<div data-parent="#accordion" class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
+						<div data-parent="#accordion" class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample0" aria-expanded="false" aria-controls="collapseExample1">
 							<li>
 								<a href="{{ url('/editprofil')}}">
 								{!! HTML::image('assets/img/profil.png', 'karyawan', array( 'width' => '70px')) !!}
