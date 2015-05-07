@@ -74,7 +74,8 @@ class Authenticate {
 				substr($path,0,14)==='/makeavailable' ||
 				substr($path,0,16)==='/makeunavailable' ||
 				substr($path,0,13)==='/changestatus'||
-				substr($path,0,11)==='/editprofil'
+				substr($path,0,11)==='/editprofil'||
+				substr($path,0,18)==='/editkodeloginkoki'
 				 )
 			{
 				return $next($request);
@@ -85,7 +86,10 @@ class Authenticate {
 			if ($path=="/daftarpesanan" ||
 			    $path=="/listpemanggilan" ||
 			    substr($path,0,13)==='/changestatus' ||
-			    substr($path, 0, 18)==='/removepemanggilan' )
+			    substr($path, 0, 18)==='/removepemanggilan' ||
+					substr($path,0,11)==='/editprofil'||
+					substr($path,0,18)==='/editkodeloginkoki'
+					)
 			{
 				return $next($request);
 			} else {

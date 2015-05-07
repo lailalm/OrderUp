@@ -1,4 +1,4 @@
-@extends('koki')
+@extends('pelayan')
 
 @section('content')
 
@@ -77,13 +77,9 @@
 
 								<div class="form-group col-xs-12">
                   {!! Form::label('Telepon*') !!}
-                  <div class="input-group">
-                    <div class="input-group-addon">+62</div>
-                    {!! Form::text('telepon', null,
-                      array('required', 'disabled', 'class'=>'form-control')) !!}
-                  
-                  </div>
-                </div>
+                  {!! Form::text('telepon', null,
+                      array('required', 'disabled', 'class'=>'form-control', 'placeholder'=>'Format penulisan: +62[Nomor HP Anda')) !!}
+								</div>
 								<div class="clearfix visible-xs-block"></div>
 
                 <div class="form-group col-xs-12">
@@ -93,7 +89,7 @@
 								</div>
 								<div class="clearfix visible-xs-block"></div>
 
-								
+
 								<div class="clearfix visible-xs-block"></div>
 
 							</div>
@@ -145,7 +141,7 @@
                         {!! Form::submit('Ubah', array('class' => 'btn btn-primary col-xs-12')) !!}
                     </div>
                     {!! Form::close() !!}
-        						
+
         					</div>
         					<div class="modal-footer row"></div>
         				</div>

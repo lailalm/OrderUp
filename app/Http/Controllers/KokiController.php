@@ -6,6 +6,7 @@ use Validator;
 use Input;
 use Redirect;
 use Session;
+use Hash;
 use App\Menu;
 use App\Pemesanan;
 use App\Meja;
@@ -203,8 +204,15 @@ class KokiController extends Controller {
 		$karyawan = Karyawan::find(Auth::user()->id_karyawan);
 
 		// show the Edit form and pass Karyawan
-		return View::make('koki.EditProfilUI')
-			->with('karyawan', $karyawan);
+		if(Auth::user()->role == 'Koki'){
+			return View::make('koki.EditProfilUI')
+				->with('karyawan', $karyawan);
+		}
+		else{
+			return View::make('pelayan.EditProfilUI')
+				->with('karyawan', $karyawan);
+		}
+
 
 	}
 
@@ -249,6 +257,42 @@ class KokiController extends Controller {
 			$karyawan->save();
 
 			Session::flash('message', $karyawan->name .' berhasil diubah.');
+			Session::flash('alert-class', 'alert-success');
+
+				return Redirect::to('editprofil');
+			}
+	}
+
+	public function updateKodeLogin()
+	{
+		$rules = array(
+			"old_pw" => 'required',
+			"new_pw" => 'required',
+			"new_pw_conf" => 'required'
+		);
+
+		$validator = Validator::make(Input::all(), $rules);
+		if(!Hash::check(Input::get("old_pw"),Auth::user()->password)){
+			Session::flash('message', 'Gagal Mengubah. Kode login lama yang anda masukkan salah.');
+			Session::flash('alert-class', 'alert-danger');
+			return Redirect::to('editprofil');
+		}
+		elseif(Input::get("new_pw")!=Input::get("new_pw_conf")){
+			Session::flash('message', 'Gagal mengubah. Konfirmasi kode login tidak sama dengan kode login baru');
+			Session::flash('alert-class', 'alert-danger');
+			return Redirect::to('editprofil');
+		}
+		elseif($validator->fails()){
+			Session::flash('message', 'Gagal mengubah. Mohon cek kembali isian Anda.');
+			Session::flash('alert-class', 'alert-danger');
+			return Redirect::to('editprofil');
+				// ->withError($validator);
+		} else {
+			$karyawan = Karyawan::find(Auth::user()->id_karyawan);
+			$karyawan->password 	= bcrypt(Input::get('new_pw'));
+			$karyawan->save();
+
+			Session::flash('message', 'Kode login untuk user '. $karyawan->name .' berhasil diubah.');
 			Session::flash('alert-class', 'alert-success');
 
 				return Redirect::to('editprofil');
