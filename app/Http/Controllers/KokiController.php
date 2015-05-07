@@ -204,7 +204,11 @@ class KokiController extends Controller {
 		$karyawan = Karyawan::find(Auth::user()->id_karyawan);
 
 		// show the Edit form and pass Karyawan
-		if(Auth::user()->role == 'Koki'){
+		if (Auth::user()->role == 'Manajer'){
+			return View::make('manajer.EditProfilUI')
+				->with('karyawan', $karyawan);
+		}
+		else if (Auth::user()->role == 'Koki'){
 			return View::make('koki.EditProfilUI')
 				->with('karyawan', $karyawan);
 		}

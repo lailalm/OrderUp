@@ -1,4 +1,4 @@
-@extends('koki')
+@extends('manajer')
 
 @section('content')
 
@@ -93,7 +93,7 @@
 								</div>
 								<div class="clearfix visible-xs-block"></div>
 
-								
+
 								<div class="clearfix visible-xs-block"></div>
 
 							</div>
@@ -142,10 +142,10 @@
                         </a>
                     </div>
                     <div class = "col-xs-3">
-                        {!! Form::submit('Ubah', array('class' => 'btn btn-primary col-xs-12', 'id' => 'ubah-kode')) !!}
+                        {!! Form::submit('Ubah', array('class' => 'btn btn-primary col-xs-12')) !!}
                     </div>
                     {!! Form::close() !!}
-        						
+
         					</div>
         					<div class="modal-footer row"></div>
         				</div>

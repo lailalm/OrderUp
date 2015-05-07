@@ -61,7 +61,10 @@ class Authenticate {
 				substr($path,0,11)==='/deletemenu' ||
 				substr($path,0,15)==='/deletekaryawan' ||
 				substr($path,0,12)==='/manajermenu' ||
-				substr($path,0,16)==='/manajerkaryawan') {
+				substr($path,0,16)==='/manajerkaryawan'||
+				substr($path,0,11)==='/editprofil'||
+				substr($path,0,18)==='/editkodeloginkoki'
+				 ) {
 				return $next($request);
 			} else {
 				return Redirect::to('/manajermenu');
