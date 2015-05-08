@@ -47,7 +47,7 @@
 		  </div>
 		</div>
 		  
-		<div class="container-fluid">
+	  <div class="container-fluid">
       <div class="row">
         <div id= "sidebar" class="col-xs-5 col-sm-3 col-md-2 sidebar sidebar-left sidebar-animate sidebar-md-show">
           <ul class="nav navbar-stacked">
@@ -104,7 +104,7 @@
 					</li>
 	            </div>
 	            <div class="clearfix visible-xs-block"></div>
-	            
+
 	            <div class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
 	            <li>
 	              <a href="#contact">
@@ -123,7 +123,45 @@
 					</li>
 	            </div>
 	            <div class="clearfix visible-xs-block"></div>
+
+	 			<div class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample4">
+					<li>
+					  <a href="#contact">
+					  	{!! HTML::image('assets/img/statistik.png', 'karyawan', array( 'width' => '70px')) !!}
+					  </a>
+					</li>
+					<li>
+						<div div class="collapse" id="collapseExample4">
+							<div class="well col-sm-12">
+								<a class = "submenu-link" href = "{{ url('#') }}"><div class="submenu col-sm-12">Lihat Rangkuman Statistik</div></a>
+								<div class="clearfix visible-xs-block"></div>
+								<a class = "submenu-link" href = "{{ url('#') }}"><div class="submenu col-sm-12">Lihat Statistik Bulanan</div></a>
+								<div class="clearfix visible-xs-block"></div>
+								<a class = "submenu-link" href = "{{ url('#') }}"><div class="submenu col-sm-12">Lihat Statistik Mingguan</div></a>
+								<div class="clearfix visible-xs-block"></div>
+							</div>
+						</div>
+					</li>
+				</div>
+				<div class="clearfix visible-xs-block"></div>
 	            
+				<div class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample5" aria-expanded="false" aria-controls="collapseExample5">
+					<li>
+					  <a href="#contact">
+					  	{!! HTML::image('assets/img/ulasan.png', 'karyawan', array( 'width' => '70px')) !!}
+					  </a>
+					</li>
+					<li>
+						<div div class="collapse" id="collapseExample5">
+							<div class="well col-sm-12">
+								<a class = "submenu-link" href = "{{ url('#') }}"><div class="submenu col-sm-12">Lihat Ulasan Layanan</div></a>
+								<div class="clearfix visible-xs-block"></div>
+							</div>
+						</div>
+						</li>
+					</div>
+				<div class="clearfix visible-xs-block"></div>
+
 	            <div class = "menu-nav cols-xs-12">
 	            <li>
 	              <a href="{{ url('/auth/logout') }}">

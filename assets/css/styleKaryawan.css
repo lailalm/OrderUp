@@ -331,10 +331,12 @@ body{
 
 .sidebar {
 	border: none !important;
+	padding: 0px !important;
+	width: 150px;
 }
 
 .menu-nav {
-	margin-bottom: 10px !important;
+	margin-bottom: 0px !important;
 	border-bottom-style: solid;
 	border-width: 1px;
 	border-color: rgba(255,255,255,0.5);
@@ -345,6 +347,7 @@ body{
 #logo-nav {
 	background-color: black;
 	border-bottom-style: none;
+	height: 81px;
 }
 
 .navbar-brand {
@@ -685,46 +688,14 @@ body{
 	margin-top: 10px;
 }
 
-/*TAMBAHAN LAILA*/
-.nama-menu-status{
-	color:white;
-	text-align:left;
-	padding-top:3%;
-	height: auto;
-	margin: 0 auto;
-	padding: 0px;
+@media(min-width: 767px){
+#nav-atas{
+	display: none !important;
 }
-
-.space {
-	margin-top: 20px;
+.sidebar {
+	top: 0px !important;
 }
-
-.space-bottom {
-	margin-bottom: 20px;
 }
-
-.judul-role {
-	font-size: 14px;
-	color: white;
-}
-
-.abu {
-	background-color: #9f9f9f;
-	color: white;
-}
-
-.abu:hover {
-	background-color: #909090;
-}
-
-#btn-hapus-meja {
-	margin-left: 10px;
-}
-
-#btn-edit-meja {
-	width: 69px;
-}
-
 
 #logo-icon-nav {
 	margin-top: 9%;
