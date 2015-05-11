@@ -1,40 +1,87 @@
-<!DOCTYPE html>
-<html lang = "en">
-	<head>	
- 		<title>Order Up!</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-		
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
-		
-		<link rel= "stylesheet" type = "text/css" href ="assets/css/stylePelanggan.css">
-		
-		<script src="assets/js/jquery-1.11.2.min.js"></script>
-		<script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-		
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="assets/js/bootstrap.min.js"></script>			
-	</head>
-	
-	<body>
-			<div id = "main" class="col-sm-6 col-sm-offset-3"> 
-				<div id ="logo">
-					<img src= "assets/img/logo.png" width= 90%> 
-				</div>
-				
-				<div id= "text-content" class = 'container-fluid'>
-					<p> Harap menunggu sejenak.
-					</p>
-					<p>
-					Pelayan kami akan segera mengantarkan <em>bill</em> ke meja Anda.
-					</p>
-					<hr width = 80%>
-					<h3>Terima kasih.</h3>
-				</div>
+@extends('pelanggan')
+
+@section('content')
+<div id = "content" class="clearfix">
+	<div class="pengisi-atas"></div>
+	<h4 class="white text-center">Cara Penggunaan</h4>
+	<div class="kotak-putih space">
+		<div class="row isi-tutor">
+			<div class="col-xs-12 judul-tutor">
+				Melakukan Pemesanan
 			</div>
-	</body>
-</html>
+			
+			<div class="col-xs-4">
+				<img class="foto-tutor" src ="assets/img/tutor/pesan1.png">
+			</div>
+		
+			<div class="col-xs-4">
+				<img class="foto-tutor" src ="assets/img/tutor/pesan2.png">
+			</div>
+		
+			<div class="col-xs-4">
+				<img class="foto-tutor" src ="assets/img/tutor/pesan3.png">
+			</div>
+			<div class="clearfix visible-xs-block"></div>
+			
+		</div>
+	</div>
+	
+	<div class="kotak-putih space">
+		<div class="row isi-tutor">
+			<div class="col-xs-12 judul-tutor">
+				Melakukan Pembatalan Pesanan
+			</div>
+			
+			<div class="col-xs-4">
+				<img class="foto-tutor" src ="assets/img/tutor/batal-pesan1.png">
+			</div>
+		
+			<div class="col-xs-4">
+				<img class="foto-tutor" src ="assets/img/tutor/batal-pesan2.png">
+			</div>
+		
+			<div class="col-xs-4">
+				<img class="foto-tutor" src ="assets/img/tutor/batal-pesan3.png">
+			</div>
+			<div class="clearfix visible-xs-block"></div>
+			
+		</div>
+	</div>
+	
+	<div class="kotak-putih space">
+		<div class="row isi-tutor">
+			<div class="col-xs-12 judul-tutor">
+				Melakukan Pembayaran
+			</div>
+			
+			<div class="col-xs-4">
+				<img class="foto-tutor" src ="assets/img/tutor/bayar1.png">
+			</div>
+		
+			<div class="col-xs-4">
+				<img class="foto-tutor" src ="assets/img/tutor/bayar2.png">
+			</div>
+		
+			<div class="col-xs-4">
+				<img class="foto-tutor" src ="assets/img/tutor/bayar3.png">
+			</div>
+			<div class="clearfix visible-xs-block"></div>
+			
+		</div>
+	</div>
+	
+	<div class="kotak-putih space">
+		<div class="row isi-tutor">
+			Untuk informasi lebih lanjut harap <br> bertanya kepada pelayan					
+		</div>
+	</div>
+
+</div>
+
+<div class="pengisi-atas"></div>
+
+
+<div id= "footer" class="col-xs-12">
+	<a href= "{{ url('/') }}"><img src= "assets/img/kembali.png" width= 70px></a>
+</div>
+@endsection

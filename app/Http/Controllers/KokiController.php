@@ -12,6 +12,10 @@ use App\Pemesanan;
 use App\Meja;
 use App\Karyawan;
 
+
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 class KokiController extends Controller {
 
 	public function __construct()
@@ -260,7 +264,7 @@ class KokiController extends Controller {
 			}
 			$karyawan->save();
 
-			Session::flash('message', $karyawan->name .' berhasil diubah.');
+			Session::flash('message','Profil '. $karyawan->name .' berhasil diubah.');
 			Session::flash('alert-class', 'alert-success');
 
 				return Redirect::to('editprofil');
@@ -270,24 +274,24 @@ class KokiController extends Controller {
 	public function updateKodeLogin()
 	{
 		$rules = array(
-			"old_pw" => 'required',
-			"new_pw" => 'required',
+			"old_pw" => 'required|min:8',
+			"new_pw" => 'required|min:8',
 			"new_pw_conf" => 'required'
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
 		if(!Hash::check(Input::get("old_pw"),Auth::user()->password)){
-			Session::flash('message', 'Gagal Mengubah. Kode login lama yang anda masukkan salah.');
+			Session::flash('message', 'Gagal Mengubah kode login. Kode login lama yang anda masukkan salah.');
 			Session::flash('alert-class', 'alert-danger');
 			return Redirect::to('editprofil');
 		}
 		elseif(Input::get("new_pw")!=Input::get("new_pw_conf")){
-			Session::flash('message', 'Gagal mengubah. Konfirmasi kode login tidak sama dengan kode login baru');
+			Session::flash('message', 'Gagal mengubah kode login. Konfirmasi kode login tidak sama dengan kode login baru');
 			Session::flash('alert-class', 'alert-danger');
 			return Redirect::to('editprofil');
 		}
 		elseif($validator->fails()){
-			Session::flash('message', 'Gagal mengubah. Mohon cek kembali isian Anda.');
+			Session::flash('message', 'Gagal mengubah kode login. Mohon cek kembali isian Anda. (minimal 8 karakter)');
 			Session::flash('alert-class', 'alert-danger');
 			return Redirect::to('editprofil');
 				// ->withError($validator);
