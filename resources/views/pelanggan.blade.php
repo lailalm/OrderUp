@@ -14,6 +14,7 @@
 
 		{!! HTML::style('assets/css/bootstrap.min.css') !!}
 		{!! HTML::style('assets/css/bootstrap-theme.min.cs') !!} 
+		{!! HTML::style('assets/css/bootstrap-select.min.css') !!}
 		{!! HTML::style('assets/css/stylePelanggan.css') !!}
 		{!! HTML::style('assets/css/slippry.css') !!}
 		{!! HTML::style('assets/css/font-awesome.min.css') !!}
@@ -25,6 +26,7 @@
 		{!! HTML::script('assets/js/jquery-1.11.2.min.js'); !!}
 		{!! HTML::script('assets/js/jquery-migrate-1.2.1.min.js'); !!}
 		{!! HTML::script('assets/js/bootstrap.min.js'); !!}
+		{!! HTML::script('assets/js/bootstrap-select.min.js'); !!}	
 		{!! HTML::script('assets/js/slippry.min.js'); !!}	
 
 

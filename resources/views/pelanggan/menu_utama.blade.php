@@ -30,4 +30,123 @@
 			<div class="modal-dialog">
 				
 			    <div class="modal-content">
-			      	<div class="modal-hea
+			      	<div class="modal-header">
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			      	</div>
+			      	<div class="modal-body">
+			    		{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}             
+				        <div id= "nama-menu" class= "col-xs-12 space">
+				        @if($menu->is_rekomendasi == 1)
+	          			<i class="fa fa-star"></i>
+	          			@endif
+				        	<b>{{$menu->name}}</b>
+				        </div>
+
+				        @if ($menu->status == 1)	
+			        	<div id="status-menu" class= "col-xs-12 text-left">
+			        		Tersedia
+			        	</div>
+						@else
+			        	<div id="status-menu" class= "col-xs-12 text-left">
+			        		<font color="#bb2828" size="2">Tidak Tersedia</font>
+			        	</div>
+			        	@endif
+
+				        <div id= "penjelasan-menu" class= "col-xs-12 text-center clearfix space-bottom">
+				        	{{ $menu->deskripsi }}
+				        </div>
+			      	</div>
+			      	<div class="modal-footer">
+			      		<div id="harga-menu" class= "harga-menu col-xs-12">
+							<?php 
+					        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
+					        ?>
+						</div>
+						 @if ($menu->status == 1)
+						<button type="button" class="btn btn-primary col-xs-4 col-xs-offset-8" data-dismiss="modal" data-toggle="modal" data-target="#modal-pesan{{$menu->id_menu}}">Pesan</button>
+						@endif
+			      	</div>
+			    </div>
+			</div>
+		</div>
+		
+		<!-- Modal Add Pesan -->
+		<div class="modal fade" id="modal-pesan{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<div class="text-center col-xs-12">
+							<h4>{{ $menu->name }}</h4>
+						</div>
+					</div>
+					<div class="modal-body">
+						<input id="satuan{{$menu->id_menu}}" style="display:none;" value="{{ $menu->harga }}">
+						{!! Form::open(array('route' => 'addpemesanan', 'class' => 'form-inline text-center center-block')) !!}	
+						<div class= "col-xs-12 clearfix space-bottom text-center">
+							Berapa porsi yang Anda ingin pesan?
+						</div>
+						<!-- <input type="button" class="btn col-xs-1 col-xs-offset-2 text-center add_subs" value=" - "> -->
+						<div class="col-xs-6 col-xs-offset-3">
+		                    {!! Form::text('porsi', null, 
+		                    array('required', 'class'=>'form-control', 'id'=>'porsi'.$menu->id_menu)) !!}
+						</div>
+						<!-- <input type="button" class="col-xs-1 btn add_subs" value=" + "> -->
+						<div class= "space col-xs-12 clearfix space-bottom">
+							Apakah Anda memiliki permintaan khusus?
+						</div>
+						{!! Form::textarea('deskripsi', null, 
+                        array('class'=>'form-control','rows'=>5, 'placeholder'=>'Deskripsi Pemesanan (Optional)')) !!}
+               			
+                   		{!!Form::hidden('id_menu', $menu->id_menu) !!}
+                   		{!!Form::hidden('kategori', $kategori) !!}
+	                    <div class="col-xs-10 col-xs-offset-1">
+							<div class="col-xs-12 harga-menu space">
+								Total 
+							</div>
+							<div id="harga-total{{$menu->id_menu}}" class="col-xs-12 harga-menu space-bottom">
+								<?php 
+					        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
+					        	?>
+							</div>
+							<button data-dismiss="modal" class="btn btn-primary col-xs-4 col-xs-offset-2"> Cancel</button>
+               				{!! Form::submit('Pesan', array('class' => 'btn btn-primary col-xs-4 col-xs-offset-1')) !!}							
+						</div>
+               		</div>
+               		<div class="modal-footer row"></div>
+				</div>
+				<script type="text/javascript">
+					$('#porsi{{$menu->id_menu}}').val('1');
+
+					$('#porsi{{$menu->id_menu}}').change(function perkalian(){
+						var total = $('#satuan{{$menu->id_menu}}').val() * $('#porsi{{$menu->id_menu}}').val();
+						$('#harga-total{{$menu->id_menu}}').text(formatRp(total));
+					});
+				</script>
+			    {!! Form::close() !!}
+			</div>
+		</div>
+		@endforeach
+	</div>
+</div>
+	
+<div class="pengisi"></div>
+
+<div id= "footer" class="col-xs-12">
+	<a href="{{ url('/') }}">
+    	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
+    </a>
+</div>
+
+<script type="text/javascript">
+	function formatRp(num) {
+	    var p = num.toFixed(2).split(".");
+	    return "Rp " + p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+	        return  num + (i && !(i % 3) ? "." : "") + acc;
+	    }, "") + "," + p[1];
+	}
+
+	
+</script>
+
+@endsection
