@@ -54,7 +54,7 @@
           	<div id="accordion" class="panel-group">
 	        	<div id= "logo-nav" class = "menu-nav cols-xs-12">
 	        		<a href="#">
-	        			{!! HTML::image('assets/img/logo.png', 'logo-order-up', array( 'width' => '80%')) !!}
+	        			{!! HTML::image('assets/img/logo.png', 'logo-order-up', array( 'width' => '90%')) !!}
 	        		</a>
 				</div>
 	            <div data-parent="#accordion" class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample0" aria-expanded="false" aria-controls="collapseExample1">
