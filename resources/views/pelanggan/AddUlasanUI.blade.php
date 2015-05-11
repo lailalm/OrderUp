@@ -63,7 +63,7 @@
 	var onerow = $(".new_ulasan").clone();
 
 	$('#addnewulasan').click(function(){
-		one.appendTo(".new_ulasan");
+		onerow.appendTo(".new_ulasan");
 	});
 </script>
 @endsection
