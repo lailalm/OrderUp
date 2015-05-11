@@ -1,87 +1,29 @@
-@extends('pelanggan')
+@extends('manajer')
 
 @section('content')
 <div id = "content" class="clearfix">
-	<div class="pengisi-atas"></div>
-	<h4 class="white text-center">Cara Penggunaan</h4>
-	<div class="kotak-putih space">
-		<div class="row isi-tutor">
-			<div class="col-xs-12 judul-tutor">
-				Melakukan Pemesanan
+	<div id="ulasan-layanan" class="col-xs-10 col-xs-offset-1 clearfix">
+		<div id="judul-ulasan" class="col-xs-12">
+			<div id="nomor-ulasan"> <!--increment untuk tiap ulasan-->
+				#1 |
+			</div>
+			<div id="tanggal-ulasan"> <!--tergantung tgl simpan ulasan-->
+				10 Mei 2015
+			</div>
+		</div>	
+		<div class="clearfix visible-xs-block"></div>
+		
+		<div class="col-xs-12">
+			<div id="rating-layanan" class="rating col-xs-4 col-xs-offset-1">
+				HAHA
 			</div>
 			
-			<div class="col-xs-4">
-				<img class="foto-tutor" src ="assets/img/tutor/pesan1.png">
-			</div>
-		
-			<div class="col-xs-4">
-				<img class="foto-tutor" src ="assets/img/tutor/pesan2.png">
-			</div>
-		
-			<div class="col-xs-4">
-				<img class="foto-tutor" src ="assets/img/tutor/pesan3.png">
+			<div id="isi-ulasan-layanan" class="isi-ulasan col-xs-6">
+				Tempatnya asik banget buat ngobrol bareng temen-temen :)
 			</div>
 			<div class="clearfix visible-xs-block"></div>
-			
 		</div>
+		<div class="clearfix visible-xs-block"></div>
 	</div>
-	
-	<div class="kotak-putih space">
-		<div class="row isi-tutor">
-			<div class="col-xs-12 judul-tutor">
-				Melakukan Pembatalan Pesanan
-			</div>
-			
-			<div class="col-xs-4">
-				<img class="foto-tutor" src ="assets/img/tutor/batal-pesan1.png">
-			</div>
-		
-			<div class="col-xs-4">
-				<img class="foto-tutor" src ="assets/img/tutor/batal-pesan2.png">
-			</div>
-		
-			<div class="col-xs-4">
-				<img class="foto-tutor" src ="assets/img/tutor/batal-pesan3.png">
-			</div>
-			<div class="clearfix visible-xs-block"></div>
-			
-		</div>
-	</div>
-	
-	<div class="kotak-putih space">
-		<div class="row isi-tutor">
-			<div class="col-xs-12 judul-tutor">
-				Melakukan Pembayaran
-			</div>
-			
-			<div class="col-xs-4">
-				<img class="foto-tutor" src ="assets/img/tutor/bayar1.png">
-			</div>
-		
-			<div class="col-xs-4">
-				<img class="foto-tutor" src ="assets/img/tutor/bayar2.png">
-			</div>
-		
-			<div class="col-xs-4">
-				<img class="foto-tutor" src ="assets/img/tutor/bayar3.png">
-			</div>
-			<div class="clearfix visible-xs-block"></div>
-			
-		</div>
-	</div>
-	
-	<div class="kotak-putih space">
-		<div class="row isi-tutor">
-			Untuk informasi lebih lanjut harap <br> bertanya kepada pelayan					
-		</div>
-	</div>
-
-</div>
-
-<div class="pengisi-atas"></div>
-
-
-<div id= "footer" class="col-xs-12">
-	<a href= "{{ url('/') }}"><img src= "assets/img/kembali.png" width= 70px></a>
 </div>
 @endsection
