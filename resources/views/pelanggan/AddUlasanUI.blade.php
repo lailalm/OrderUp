@@ -1,4 +1,4 @@
-@extends('manajer')
+@extends('pelanggan')
 
 @section('content')
 <div id = "content" class="clearfix">
