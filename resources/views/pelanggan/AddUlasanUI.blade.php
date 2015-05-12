@@ -11,6 +11,8 @@
 		<h5>Ulasan Layanan</h5>
 		  {!! Form::textarea('deskripsiRestoran', null,
                         array('required', 'class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
+           
+        {!! Form::select('category', $list_pesanan) !!}
 		<div class="stars">
 		    <input class="star star-5" id="star-5" type="radio" name="star"/>
 		    <label class="star star-5" for="star-5"></label>
