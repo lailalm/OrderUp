@@ -133,7 +133,7 @@ class CustomerController extends Controller {
 			$pemanggilan->pesan = 'Membayar pemesanan dengan uang tunai '.Input::get('nominal');
 			$pemanggilan->status_pemanggilan =0;
 			$pemanggilan->save();
-			$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('id_menu',Menu::where('id_menu','id_menu'));
+			$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('id_menu');
 
 
 			// foreach(Pemesanan::get() as $pesan){
