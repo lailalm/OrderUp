@@ -5,6 +5,8 @@ use App\Menu;
 use App\Pemesanan;
 use App\Pemanggilan;
 use App\Meja;
+use App\UlasanRestoran;
+use App\UlasanMakanan;
 use View;
 use Validator;
 use Input;
@@ -25,8 +27,8 @@ class CustomerController extends Controller {
 	// {
 	// 	$this->middleware('auth');
 	// }
-	
-	
+
+
 	public function index()
 	{
 		$menu_promosi = Menu::where('is_promosi','1')->get();
@@ -77,7 +79,7 @@ class CustomerController extends Controller {
 			->with('kategori', 'utama');;
 		}
 	}
-	
+
 	public function getMyPesanan()
 	{
 		$idm = Auth::user()->name;
@@ -113,7 +115,7 @@ class CustomerController extends Controller {
 		return Redirect::to('/');
 	}
 
-	
+
 	public function bayar()
 	{
 		$rules = array(
@@ -121,8 +123,8 @@ class CustomerController extends Controller {
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
-		if($validator->fails()) {		
-	        	Session::flash('message', 'Gagal membayar. Periksa masukan Anda.'); 
+		if($validator->fails()) {
+	        	Session::flash('message', 'Gagal membayar. Periksa masukan Anda.');
 			Session::flash('alert-class', 'alert-danger');
 			return Redirect::to('/pembayaran');
 		} else {
@@ -131,12 +133,13 @@ class CustomerController extends Controller {
 			$pemanggilan->pesan = 'Membayar pemesanan dengan uang tunai '.Input::get('nominal');
 			$pemanggilan->status_pemanggilan =0;
 			$pemanggilan->save();
-	
+			$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
 			foreach(Pemesanan::get() as $pesan){
 				$pesan->status = "Paid";
 				$pesan->save();
 			}
-			return Redirect::to('logout');
+			return View::make('pelanggan.AddUlasanUI')
+				->with('list_pesanan', $pemesanan);
 		}
 	}
 
@@ -147,12 +150,14 @@ class CustomerController extends Controller {
 		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu kredit';
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
+		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
 
 		foreach(Pemesanan::get() as $pesan){
 			$pesan->status = "Paid";
 			$pesan->save();
 		}
-		return Redirect::to('logout/');
+		return View::make('pelanggan.AddUlasanUI')
+			->with('list_pesanan', $pemesanan);
 
 	}
 
@@ -162,15 +167,19 @@ class CustomerController extends Controller {
 		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu debit';
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
+		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
 
 		foreach(Pemesanan::get() as $pesan){
 			$pesan->status = "Paid";
 			$pesan->save();
 		}
-		return Redirect::to('logout/');
+
+
+		return View::make('pelanggan.AddUlasanUI')
+			->with('list_pesanan', $pemesanan);
 
 	}
-	
+
 	public function showMenuUtama()
 	{
 		if($kategori=="utama"){
@@ -228,19 +237,19 @@ class CustomerController extends Controller {
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
-		if($validator->fails()) {		
-	        	Session::flash('message', 'Gagal menambahkan pesanan. Mohon periksa isian Anda.'); 
+		if($validator->fails()) {
+	        	Session::flash('message', 'Gagal menambahkan pesanan. Mohon periksa isian Anda.');
 			Session::flash('alert-class', 'alert-danger');
 		} else {
 			$pesan = new Pemesanan;
-	
+
 			$pesan->id_meja 		= Auth::user()->name;
 			$pesan->id_menu 		= Input::get('id_menu');
 			$pesan->jumlah 			= Input::get('porsi');
 			$pesan->keterangan 		= Input::get('deskripsi');
-	
+
 			$pesan->save();
-			Session::flash('message', 'Berhasil menambahkan pesanan.'); 
+			Session::flash('message', 'Berhasil menambahkan pesanan.');
 			Session::flash('alert-class', 'alert-success');
 		}
 		return Redirect::to('menu/'.Input::get('kategori'));
@@ -253,27 +262,27 @@ class CustomerController extends Controller {
 		);
 
 		$validator = Validator::make(Input::all(), $rules);
-		if($validator->fails()) {	
-			Session::flash('message', 'Gagal membatalkan pesanan.'); 
+		if($validator->fails()) {
+			Session::flash('message', 'Gagal membatalkan pesanan.');
 			Session::flash('alert-class', 'alert-danger');
 			return Redirect::to('listpesanan');
-		} 
+		}
 		else {
 			$batal = Input::get('countcancel');
 			$id_pemesanan = Input::get('id_pemesanan');
 			$pesan = Pemesanan::find(Input::get('id_pemesanan'));
 			$current_jumlah = $pesan->jumlah;
-			
+
 			if ( $batal >= $current_jumlah){
 				Pemesanan::where('id_pemesanan', $id_pemesanan)->delete();
-				Session::flash('message', 'Berhasil membatalkan pesanan.'); 
+				Session::flash('message', 'Berhasil membatalkan pesanan.');
 				Session::flash('alert-class', 'alert-success');
 				return Redirect::to('listpesanan');
 			}
 			else {
 				$pesan->jumlah = $current_jumlah - $batal;
 				$pesan->save();
-				Session::flash('message', 'Berhasil membatalkan pesanan.'); 
+				Session::flash('message', 'Berhasil membatalkan pesanan.');
 				Session::flash('alert-class', 'alert-success');
 				return Redirect::to('listpesanan');
 			}
@@ -306,6 +315,17 @@ class CustomerController extends Controller {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function saveUlasan(){
+		$ulasanR = new UlasanRestoran;
+
+		$ulasanR->id_meja = Auth::user()->name;
+		$ulasanR->tanggal = date('Y-m-d');
+		$ulasanR->review = Input::get('deskripsiRestoran');
+
+		$ulasanR->save();
+		return Redirect::to('/logout');
 	}
 
 }

@@ -6,7 +6,7 @@
 ?>
 <div id = "content" class="clearfix">
 	<div class="pengisi-atas"></div>
-	@if(Session::has('message'))				
+	@if(Session::has('message'))
 	    <div class="alert {{ Session::get('alert-class') }}">
 	        <a href="#" class="close" data-dismiss="alert">&times;</a>
 	        {{ Session::get('message') }}
@@ -17,7 +17,7 @@
         @if (count($list_pesanan) <= 0)
 		<h5 class="judul-role white">
 			Belum ada tagihan. Silahkan memesan terlebih dahulu.
-		</h5>	
+		</h5>
         @endif
 	@foreach($list_pesanan as $pesanan)
 	<div class="kotak-putih space">
@@ -28,7 +28,7 @@
 			</div>
 			<div id="harga-satu" class="col-xs-4 text-center clearfix">
 				<h6>
-					<?php 
+					<?php
 		        		echo "Rp " .str_replace(",",".",number_format(App\Menu::find($pesanan->id_menu)->harga, 0)).",-"
 		        	?>
 				</h6>
@@ -64,37 +64,37 @@
 		<div id= "cara-bayar" class= "col-sm-6 row text-center">
 			<div id="btn-bayar3" class = "col-xs-12">
 				<a href="{{ url('/auth/logout') }}">
-					{!! HTML::image('assets/img/logout.png', 'panggil', array( 'width' => '70px')) !!}              
+					{!! HTML::image('assets/img/logout.png', 'panggil', array( 'width' => '70px')) !!}
 				</a>
 			</div>
                  </div>
          </div>
 </div>
-@else	
+@else
 <!-- pilih cara bayar -->
 <div id="content1" class="container space">
 	<div id= "pembayaran-main" class="col-sm-8 col-sm-offset-2">
 		<div id= "cara-bayar" class= "col-sm-6 row">
 			<div id="btn-bayar1" class = "col-xs-4">
 				<a href=# data-toggle="modal" data-target="#tunai-modal">
-					{!! HTML::image('assets/img/tunai.png', 'panggil', array( 'width' => '70px')) !!}              
+					{!! HTML::image('assets/img/tunai.png', 'panggil', array( 'width' => '70px')) !!}
 				</a>
 			</div>
-			
+
 			<div id="btn-bayar2" class = "col-xs-4">
 				<a href="{{ url('debit')}}">
-					{!! HTML::image('assets/img/debit.png', 'panggil', array( 'width' => '70px')) !!}              
+					{!! HTML::image('assets/img/debit.png', 'panggil', array( 'width' => '70px')) !!}
 				</a>
 			</div>
-			
+
 			<div id="btn-bayar3" class = "col-xs-4">
 				<a href="{{ url('kredit')}}">
-					{!! HTML::image('assets/img/kredit.png', 'panggil', array( 'width' => '70px')) !!}    
-				</a>          
+					{!! HTML::image('assets/img/kredit.png', 'panggil', array( 'width' => '70px')) !!}
+				</a>
 			</div>
 
 			<div class="clearfix visible-xs-block">
-				
+
 			</div>
 		</div>
 	</div>
@@ -123,20 +123,20 @@
 				{!! Form::submit('Bayar', array('class'=>'btn btn-primary col-xs-5 col-xs-offset-2')) !!}
 				{!! Form::close()!!}
 			</div>
-       	
+
         <br>
       </div>
       <div class="modal-footer row">
-        	
+
       </div>
 
     </div>
   </div>
 </div>
-		
+
 <div id= "footer" class="col-xs-12">
 	<a href="{{ url('/')}}">
-    	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
+    	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}
     </a>
 </div>
 

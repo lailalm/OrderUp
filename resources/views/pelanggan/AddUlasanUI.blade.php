@@ -7,9 +7,9 @@
 
 	<div class="kotak-putih small-padding">
 		<!-- ULASAN LAYANAN GOES HERE -->
-
+		{!! Form::open(array('route' => 'simpanulasan')) !!}
 		<h5>Ulasan Layanan</h5>
-		  {!! Form::textarea('deskripsi', null, 
+		  {!! Form::textarea('deskripsiRestoran', null,
                         array('required', 'class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
 		<div class="stars">
 		    <input class="star star-5" id="star-5" type="radio" name="star"/>
@@ -29,17 +29,19 @@
 			<h5>Ulasan Menu</h5>
 			<select class="selectpicker">
 				<!-- FOREACH MENU YANG DIPESAN -->
-				<option value="Menu1">Menu 1</option>
-				<option value="Menu1">Menu 1</option>
-				<option value="Menu1">Menu 1</option>
+
+				@foreach($list_pesanan as $pesanan)
+				<option value="{{$pesanan->id_menu}}">{!! App\Menu::find($pesanan->id_menu)->name !!}</option>
+				@endforeach
 				<!-- END FOREACH -->
 			</select>
 	          <br><br>
-			  {!! Form::textarea('deskripsi', null, 
+			  {!! Form::textarea('deskripsi', null,
 	                        array('required', 'class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
 			<div class="stars">
-			    <input class="star star-5" id="star-51" type="radio" name="star1"/>
-			    <label class="star star-5" for="star-51"></label>
+			    <input class="star star-5" id="star-51" type="radio" name="star1" value="5"/>
+
+					<label class="star star-5" for="star-51"></label>
 			    <input class="star star-4" id="star-41" type="radio" name="star1"/>
 			    <label class="star star-4" for="star-41"></label>
 			    <input class="star star-3" id="star-31" type="radio" name="star1"/>
@@ -52,12 +54,45 @@
 			<hr>
 		</div>
 		<h5 class="text-right"><a  class="harga-menu" id="addnewulasan">Tambah ulasan menu baru</a></h5>
-		<a href="#" class="harga-menu col-xs-9 " style="font-size:90%; padding-top:10px; margin-btoom:20px;"> Lewatkan </a>
-		<button class="btn btn-primary col-xs-3">Simpan</button>
+		<a href="#" data-toggle="modal" data-target="#konfirmasilewatkan" class="harga-menu col-xs-9 " style="font-size:90%; padding-top:10px; margin-btoom:20px;"> Lewatkan </a>
+
+		{!! Form::submit('Simpan', array('class'=>'btn btn-primary col-xs-3')) !!}
+		{!! Form::close()!!}
 		<div class="pengisi"></div>
 	</div>
-	
+
 	<div class="pengisi"></div>
+
+	<div class="modal fade" id="konfirmasilewatkan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	      </div>
+	      <div class="modal-body">
+		      	 <div class= "col-xs-12 clearfix space-bottom">
+	        		Tidak ingin memberikan ulasan?
+	        	</div>
+	        	<div class="col-xs-8 col-xs-offset-2">
+	        		{!! Form::open(array('route' => 'logout')) !!}
+		        	<!-- {!! Form::text('nominal', null, array('class' => 'form-control', 'placeholder' => 'Contoh: 100000', 'required')) !!} -->
+	        		{!! Form::hidden('cara', 'tunai') !!}
+						</div>
+	        	<div id="btn-cancel" class="col-xs-10 col-xs-offset-1 space">
+					<button data-dismiss="modal" class="btn btn-primary col-xs-5">Batal</button>
+					{!! Form::submit('Ya', array('class'=>'btn btn-primary col-xs-5 col-xs-offset-2')) !!}
+					{!! Form::close()!!}
+				</div>
+
+	        <br>
+	      </div>
+	      <div class="modal-footer row">
+
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
 
 <script type="text/javascript">
 	var onerow = $(".new_ulasan").clone();
