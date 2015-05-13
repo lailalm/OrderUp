@@ -133,16 +133,18 @@ class CustomerController extends Controller {
 			$pemanggilan->pesan = 'Membayar pemesanan dengan uang tunai '.Input::get('nominal');
 			$pemanggilan->status_pemanggilan =0;
 			$pemanggilan->save();
-			$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('id_menu');
-
-
-			// foreach(Pemesanan::get() as $pesan){
-			// 	$pesan->status = "Paid";
-			// 	$pesan->save();
-			// }
-			// return View::make('pelanggan.AddUlasanUI')
-			// 	->with('list_pesanan', $pemesanan);
-			dd($pemesanan);
+			$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
+			$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+			foreach($pemesanan as $key=>$value){
+				$pemesanan[$key]=Menu::find($key)->name;
+			}
+			foreach(Pemesanan::get() as $pesan){
+				$pesan->status = "Paid";
+				$pesan->save();
+			}
+			return View::make('pelanggan.AddUlasanUI')
+				->with('list_pesanan', $listPemesanan)
+				->with('id_name',$pemesanan);
 		}
 	}
 
@@ -153,14 +155,18 @@ class CustomerController extends Controller {
 		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu kredit';
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
-		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
-
+		$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
+		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+		foreach($pemesanan as $key=>$value){
+			$pemesanan[$key]=Menu::find($key)->name;
+		}
 		foreach(Pemesanan::get() as $pesan){
 			$pesan->status = "Paid";
 			$pesan->save();
 		}
 		return View::make('pelanggan.AddUlasanUI')
-			->with('list_pesanan', $pemesanan);
+			->with('list_pesanan', $listPemesanan)
+			->with('id_name',$pemesanan);
 
 	}
 
@@ -170,16 +176,18 @@ class CustomerController extends Controller {
 		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu debit';
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
-		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
-
+		$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
+		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+		foreach($pemesanan as $key=>$value){
+			$pemesanan[$key]=Menu::find($key)->name;
+		}
 		foreach(Pemesanan::get() as $pesan){
 			$pesan->status = "Paid";
 			$pesan->save();
 		}
-
-
 		return View::make('pelanggan.AddUlasanUI')
-			->with('list_pesanan', $pemesanan);
+			->with('list_pesanan', $listPemesanan)
+			->with('id_name',$pemesanan);
 
 	}
 

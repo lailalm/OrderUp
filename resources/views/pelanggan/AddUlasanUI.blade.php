@@ -11,8 +11,7 @@
 		<h5>Ulasan Layanan</h5>
 		  {!! Form::textarea('deskripsiRestoran', null,
                         array('required', 'class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
-           
-        {!! Form::select('category', $list_pesanan) !!}
+
 		<div class="stars">
 		    <input class="star star-5" id="star-5" type="radio" name="star"/>
 		    <label class="star star-5" for="star-5"></label>
@@ -29,14 +28,15 @@
 		<!-- ULASAN MENU GOES HERE -->
 		<div class="new_ulasan">
 			<h5>Ulasan Menu</h5>
-			<select class="selectpicker">
+			<!-- <select class="selectpicker"> -->
 				<!-- FOREACH MENU YANG DIPESAN -->
 
-				@foreach($list_pesanan as $pesanan)
+				<!-- @foreach($list_pesanan as $pesanan)
 				<option value="{{$pesanan->id_menu}}">{!! App\Menu::find($pesanan->id_menu)->name !!}</option>
-				@endforeach
+				@endforeach -->
 				<!-- END FOREACH -->
-			</select>
+			<!-- </select> -->
+			`{!! Form::select('this',$id_name, null, array('class' => 'form-control selectpicker')) !!}
 	          <br><br>
 			  {!! Form::textarea('deskripsi', null,
 	                        array('required', 'class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
