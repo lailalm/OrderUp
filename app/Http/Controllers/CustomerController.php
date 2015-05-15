@@ -158,7 +158,6 @@ class CustomerController extends Controller {
 		
 		$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
 		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
-		
 		foreach($pemesanan as $key=>$value){
 			$pemesanan[$key]=Menu::find($key)->name;
 		}
@@ -322,8 +321,16 @@ class CustomerController extends Controller {
 		$ulasanR->id_meja = Auth::user()->name;
 		$ulasanR->tanggal = date('Y-m-d');
 		$ulasanR->review = Input::get('deskripsiRestoran');
-
 		$ulasanR->save();
+		for($i=0;$i<Input::get('size');){
+			$ulasanM= new UlasanMakanan;
+			$ulasanM->id_meja = Auth::user()->name;
+			$ulasanM->tanggal = date('Y-m-d');
+			$ulasanM->id_menu = Input::get('id'.$i);
+			$ulasanM->komentar = Input::get('deskripsi'.$i);
+			$i=$i+1;
+			$ulasanM->save();
+		}
 		return Redirect::to('/logout');
 	}
 

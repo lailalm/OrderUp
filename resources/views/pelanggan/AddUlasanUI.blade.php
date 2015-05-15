@@ -70,6 +70,7 @@
 		@endfor
 
 		<h5 class="text-right"><a  class="harga-menu" id="addnewulasan">Tambah ulasan menu baru</a></h5>
+
 		<a href="#" data-toggle="modal" data-target="#konfirmasilewatkan" class="harga-menu col-xs-9 " style="font-size:90%; padding-top:10px; margin-btoom:20px;"> Lewatkan </a>
 
 		{!! Form::submit('Simpan', array('class'=>'btn btn-primary col-xs-3')) !!}

@@ -828,3 +828,20 @@ body{
 	font-size: 150%;
 	text-align: center;
 }
+
+.judul-halaman {
+	margin-bottom: 15px;
+}
+
+.rangkuman-stat {
+	background-color: white;
+	font-size: 120%;
+	padding: 20px;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+	border-bottom-color:black;
+}
+
+.total {
+	color: #bb2828
+}
