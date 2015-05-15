@@ -3,13 +3,13 @@
 @section('content')
 <div class="main col-md-10 col-md-offset-2">
 	<div class="judul-halaman col-xs-6 col-xs-offset-1 space"> 
-		Statistik Mingguan (Bulan Mei 2015)
+		Statistik Bulanan
 	</div>
 
 	<div class="judul-halaman col-xs-3 col-xs-offset-1 space"> 
 		<select id="pilih-bulan" class="selectpicker" data-header="Bulan">
-		  <option>Minggu 1</option> 
-		  <option>Minggu 2</option>
+		  <option>April 2015</option> 
+		  <option>Maret 2015</option>
 		</select>
 		
 		<script>

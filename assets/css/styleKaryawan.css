@@ -842,6 +842,102 @@ body{
 	border-bottom-color:black;
 }
 
+.rangkuman-stat:hover {
+	background-color: #efefef;
+}
+
 .total {
 	color: #bb2828
+}
+
+.isi-stat {
+	background-color: white;
+	padding: 20px;
+	font-size: 120%;
+	border-bottom-style:solid;
+	border-bottom-width:1px;
+	border-bottom-color:black;
+}
+
+.stat1 {
+	background-color: white;
+	padding: 20px;
+	height: 194px;
+}
+
+#nomor1 {
+	font-size: 200%;
+	margin-bottom: 20px;
+}
+
+#nama1 {
+	font-size: 150%;
+}
+
+#total1 {
+	text-align: right;
+	margin-top: 50px;
+	font-size: 120%;
+}
+
+#foto-stat {
+	margin-bottom: 15px;
+}
+
+.total-penjualan {
+	background-color: white;
+	padding: 20px;
+	font-size: 120%;
+	margin-top: 15px;
+	text-align: right;
+}
+
+#total-porsi {
+	background-color: #bb2828;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid transparent;
+	color: white;
+	text-align: center;
+}
+
+#nomor-ulasan {
+	font-size: 150%;
+	display: inline;
+}
+#tanggal-ulasan {
+	display: inline;
+}
+
+#ulasan-layanan {
+	background-color: white;
+	margin-top: 15px;
+}
+
+#judul-ulasan {
+	margin-top: 20px;
+}
+
+.isi-ulasan {
+	margin-top: 10px;
+	margin-bottom: 20px;
+	background-color: white;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid black;
+	padding: 10px;
+}
+
+.rating {
+	margin-top: 10px;
+}
+
+#angka-rating {
+	font-size: 200%
+}
+
+#rating-layanan {
+	text-align: center;
 }
