@@ -124,7 +124,7 @@ class CustomerController extends Controller {
 
 		$validator = Validator::make(Input::all(), $rules);
 		if($validator->fails()) {
-	        	Session::flash('message', 'Gagal membayar. Periksa masukan Anda.');
+	        Session::flash('message', 'Gagal membayar. Periksa masukan Anda.');
 			Session::flash('alert-class', 'alert-danger');
 			return Redirect::to('/pembayaran');
 		} else {
@@ -155,15 +155,19 @@ class CustomerController extends Controller {
 		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu kredit';
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
+		
 		$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
 		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+		
 		foreach($pemesanan as $key=>$value){
 			$pemesanan[$key]=Menu::find($key)->name;
 		}
+		
 		foreach(Pemesanan::get() as $pesan){
 			$pesan->status = "Paid";
 			$pesan->save();
 		}
+
 		return View::make('pelanggan.AddUlasanUI')
 			->with('list_pesanan', $listPemesanan)
 			->with('id_name',$pemesanan);
@@ -176,19 +180,23 @@ class CustomerController extends Controller {
 		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu debit';
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
+
+		//KOK QUEUED DOANG?
 		$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
 		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+		
 		foreach($pemesanan as $key=>$value){
 			$pemesanan[$key]=Menu::find($key)->name;
 		}
-		foreach(Pemesanan::get() as $pesan){
-			$pesan->status = "Paid";
-			$pesan->save();
-		}
+
+		// foreach(Pemesanan::get() as $pesan){
+		// 	$pesan->status = "Paid";
+		// 	$pesan->save();
+		// }
+
 		return View::make('pelanggan.AddUlasanUI')
 			->with('list_pesanan', $listPemesanan)
 			->with('id_name',$pemesanan);
-
 	}
 
 	public function showMenuUtama()
@@ -306,27 +314,7 @@ class CustomerController extends Controller {
 		return view('pelanggan.logoutUI');
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
+	
 
 	public function saveUlasan(){
 		$ulasanR = new UlasanRestoran;
