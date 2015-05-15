@@ -41,10 +41,9 @@
 		@for ($i = 1; $i < count($id_name) + 1; $i++)
 		<div class="new_ulasan{{ $i }}" >
 			<h4>Ulasan Menu {{ $i }}</h4>
-			
 			{!! Form::select('selectbox'.$i , $id_name, null, array('class' => 'form-control selectpicker' )) !!}
 	          <br><br>
-			  {!! Form::textarea('deskripsi{{ $i }}', null,
+			{!! Form::textarea('deskripsi{{ $i }}', null,
 	                        array('required', 'class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan menu Anda di sini')) !!}
 			<div class="stars">
 			    <input class="star star-5" id="star-5{{ $i }}" type="radio" name="star{{ $i }}" value="5"/>
