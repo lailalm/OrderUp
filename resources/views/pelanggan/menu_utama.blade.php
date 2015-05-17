@@ -26,6 +26,79 @@
   		<div class="clearfix visible-xs-block space-bottom"></div>
 		
 		<!-- Modal Detail -->
+
+		<!--tambahan css baru-->
+		<style>
+       		.lihat-foto {
+       			margin-left: 100px;
+       		}
+
+       		@media(max-width: 767px) {
+       			.lihat-foto {
+       				width: 100%;
+       				margin-left: 0px;
+       			}
+
+       			#semua-ulasan {
+       				margin-top: 10px;
+       			}
+       		}
+
+       		#judul-ulasan {
+       			margin-top: 10px;
+       			font-size: 120%;
+       		}
+
+       		.rating-layanan {
+       			text-align: center;
+       		}
+
+       		.angka-rating {
+       			font-size: 170%;
+       		}
+
+       		span.rating {
+			  background: url('img/star-rating.png') top left;  
+			  display:inline-block;
+			  width: 150px; /* width of the set of 5 stars */
+			  height: 25px;
+			  overflow:hidden;
+			  text-indent:-1000em;
+			}  
+
+			span.r0 {
+			  background-position:-150px 0;
+			}
+			span.r1 {             
+			   background-position:-120px 0; /* assuming each star is 20px wide */      
+			}   
+			span.r2 {             
+			   background-position:-90px 0; /* assuming each star is 20px wide */      
+			} 
+			span.r3 {             
+			   background-position:-60px 0; /* assuming each star is 20px wide */      
+			} 
+			span.r4 {             
+			   background-position:-30px 0; /* assuming each star is 20px wide */      
+			} 
+			span.r5 {             
+			   background-position:0px 0; /* assuming each star is 20px wide */      
+			} 
+
+			#semua-ulasan {
+				text-align: right;
+				border-bottom-style: solid;
+			  	border-width: 1px;
+			  	border-color: black;
+			  	padding-bottom: 10px;
+			}
+
+			#semua-ulasan > a {
+				color: #bb2828;
+				text-decoration: none;
+			}
+       </style>
+
 		<div class="modal fade" id="menu-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				
@@ -34,7 +107,7 @@
 			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			      	</div>
 			      	<div class="modal-body">
-			    		{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}             
+			    		{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array( 'width' => '70%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}             
 				        <div id= "nama-menu" class= "col-xs-12 space">
 				        @if($menu->is_rekomendasi == 1)
 	          			<i class="fa fa-star"></i>
@@ -55,6 +128,25 @@
 				        <div id= "penjelasan-menu" class= "col-xs-12 text-center clearfix space-bottom">
 				        	{{ $menu->deskripsi }}
 				        </div>
+
+				        <!--ulasan menu-->
+				        <div id="rating-layanan1" class="rating rating-layanan col-xs-12">
+							<div id="angka-rating1" class="angka-rating">
+								<b>4</b>
+							</div>
+							<div id="star" class = "star-rating">
+								<span class="rating r4">1/5</span>
+
+								<!--RATING
+								rating: 0 berarti class = "r0"
+								rating: 1 berarti class = "r1"
+								rating: 2 berarti class = "r2"
+								rating: 3 berarti class = "r3"
+								rating: 4 berarti class = "r4"
+								rating: 5 berarti class = "r5"-->
+							</div>
+						</div>
+						<!--ulasan menu-->
 			      	</div>
 			      	<div class="modal-footer">
 			      		<div id="harga-menu" class= "harga-menu col-xs-12">
