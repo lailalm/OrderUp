@@ -12,14 +12,10 @@
 		<!-- ULASAN LAYANAN GOES HERE -->
 		{!! Form::open(array('route' => 'simpanulasan', 'class' => 'form')) !!}
 		<h4>Ulasan Layanan</h4>
-<<<<<<< HEAD
 		{!! Form::textarea('deskripsiRestoran', null,
             array('class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
         {!! Form::hidden('total', count($id_name)) !!}
-=======
-		  {!! Form::textarea('deskripsiRestoran', null,
-                array('class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
->>>>>>> 14f45c123e17f94619eba31e3d91e468f39f4fc5
+
 
 		<div class="stars">
 		    <input class="star star-5" id="star-5" type="radio" name="star" value="5" />
