@@ -316,7 +316,7 @@ class CustomerController extends Controller {
 	
 
 	public function saveUlasan(){
-		dd('tolol');
+		dd(Input::get('nilailayanan')!="");
 		$ulasanR = new UlasanRestoran;
 
 		$ulasanR->id_meja = Auth::user()->name;
