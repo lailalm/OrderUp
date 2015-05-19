@@ -100,12 +100,12 @@
 							<div class="clearfix visible-xs-block"></div>
 
               <div class="form-group space space-bottom">
-                  <div class = "group-btn-edit col-xs-3 col-xs-offset-3"  style="display:none;">
+                  <div class = "group-btn-edit col-xs-3 col-xs-offset-3"  style="display:;">
                       <a href="#" id="batal-button" class="btn btn-primary col-xs-12">
                           Batal
                       </a>
                   </div>
-                  <div class = "group-btn-edit col-xs-3"  style="display:none;">
+                  <div class = "group-btn-edit col-xs-3"  style="display:;">
                       {!! Form::submit('Ubah', array('class' => 'btn btn-primary col-xs-12', 'id' => 'simpan-button')) !!}
                   </div>
               </div>

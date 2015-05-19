@@ -40,9 +40,9 @@ class CreateReviewRestoranTable extends Migration {
 
 			$table->string('nama');
 
-			$table->integer('rating')->unsigned();
-
 			$table->text('review');
+
+			$table->integer('nilai');->unsigned();
 
 			$table->timestamps();
 
