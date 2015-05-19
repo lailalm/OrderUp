@@ -3,7 +3,7 @@
 @section('content')
 <div class="main col-md-10 col-md-offset-2">
 	<div class="judul-halaman col-xs-10 col-xs-offset-1"> 
-		Ulasan Menu [INSERT NAMA MENU HERE]
+		Ulasan Layanan
 	</div>
 
 	<div class="isi" style="overflow:auto; max-height:470px; width:100%;">
@@ -45,9 +45,6 @@
 			<div class="clearfix visible-xs-block"></div>
 		</div>
 		<!-- ENDOFFOREACH -->
-	</div>
-	<div id="kembali-ke-menu" class="col-xs-10 col-xs-offset-1 ulasan-layanan">
-		<a href="{{ URL::previous() }}">Kembali ke detil menu</a>
 	</div>
 </div>	
 @endsection

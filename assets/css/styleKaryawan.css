@@ -995,6 +995,17 @@ span.rating {
   text-indent:-1000em;
 }  
 
+#kembali-ke-menu {
+	text-align: right;
+	padding: 10px;
+	padding-right: 15px;
+}
+
+#kembali-ke-menu > a {
+	color: #bb2828;
+	text-decoration: none;
+}
+
 span.r0 {
   background-position:-150px 0;
 }
