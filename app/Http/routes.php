@@ -52,6 +52,16 @@ Route::get('manajermenu', 'ManajerMenuController@dasar');
 
 Route::get('manajermenu/{rekomendasi}/{id}', 'ManajerMenuController@rekomendasi');
 
+Route::get('ulasanlayanan', 'ManajerMenuController@lihatLayanan');
+
+Route::get('statistikmingguan', 'ManajerMenuController@statistikMingguan');
+
+Route::get('statistikbulanan', 'ManajerMenuController@statistikBulanan');
+
+Route::get('ulasanmenudetail', 'ManajerMenuController@ulasanMenuDetail');
+
+Route::get('rangkumanstatistik', 'ManajerMenuController@rangkuman');
+
 
 /*
 |-------------------------------------------------------------------------

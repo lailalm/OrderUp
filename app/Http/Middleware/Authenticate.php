@@ -63,7 +63,11 @@ class Authenticate {
 				substr($path,0,12)==='/manajermenu' ||
 				substr($path,0,16)==='/manajerkaryawan'||
 				substr($path,0,11)==='/editprofil'||
-				substr($path,0,18)==='/editkodeloginkoki'
+				substr($path,0,18)==='/editkodeloginkoki'||
+				substr($path,0,14)==='/ulasanlayanan'||
+				substr($path,0,18)==='/statistikmingguan'||
+				substr($path,0,17)==='/statistikbulanan'||
+				substr($path,0,17)==='/ulasanmenudetail'
 				 ) {
 				return $next($request);
 			} else {

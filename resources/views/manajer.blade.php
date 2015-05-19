@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang = "en">
-	<head>	
+	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		@section('description')
 		<meta name="description" content="" />
 		@show
 		<meta name="author" content="PPLA05" />
-		
+
 		@section('title')
 		<title>Order Up!</title>
 		@show
-		
+
 		{!! HTML::style('assets/css/bootstrap.min.css') !!}
-		{!! HTML::style('assets/css/bootstrap-theme.min.cs') !!} 
+		{!! HTML::style('assets/css/bootstrap-theme.min.cs') !!}
 		{!! HTML::style('assets/css/style.css') !!}
 		{!! HTML::style('assets/css/styleKaryawan.css') !!}
 		{!! HTML::style('assets/css/sidebar.css') !!}
@@ -21,19 +21,19 @@
 		{!! HTML::style('assets/css/fileinput.min.css') !!}
 		{!! HTML::style('assets/css/font-awesome.min.css') !!}
 		@section('css')
-		
+
 		@section('head-js')
-		@show		
+		@show
 		{!! HTML::script('assets/js/jquery-1.11.2.min.js'); !!}
 		{!! HTML::script('assets/js/jquery-migrate-1.2.1.min.js'); !!}
-		{!! HTML::script('assets/js/bootstrap.min.js'); !!}	
-		{!! HTML::script('assets/js/sidebar.js'); !!}	
-		{!! HTML::script('assets/js/bootstrap-select.min.js'); !!}	
-		{!! HTML::script('assets/js/fileinput.min.js'); !!}	
-		{!! HTML::script('assets/js/validate.js'); !!}	
-		
+		{!! HTML::script('assets/js/bootstrap.min.js'); !!}
+		{!! HTML::script('assets/js/sidebar.js'); !!}
+		{!! HTML::script('assets/js/bootstrap-select.min.js'); !!}
+		{!! HTML::script('assets/js/fileinput.min.js'); !!}
+		{!! HTML::script('assets/js/validate.js'); !!}
+
 	</head>
-	
+
 	<body>
 		<div class="navbar navbar-static navbar-default navbar-fixed-top">
 		  <div class="container-fluid">
@@ -46,7 +46,7 @@
 			</div>
 		  </div>
 		</div>
-		  
+
 	  <div class="container-fluid">
       <div class="row">
         <div id= "sidebar" class="col-xs-5 col-sm-3 col-md-2 sidebar sidebar-left sidebar-animate sidebar-md-show">
@@ -85,7 +85,7 @@
 					</li>
 	            </div>
 	            <div class="clearfix visible-xs-block"></div>
-	            
+
 	            <div data-parent="#accordion" class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample1">
 	            <li>
 	        		{!! HTML::image('assets/img/karyawan.png', 'karyawan', array( 'width' => '70px')) !!}
@@ -144,7 +144,7 @@
 					</li>
 				</div>
 				<div class="clearfix visible-xs-block"></div>
-	            
+
 				<div class = "menu-nav cols-xs-12" data-toggle="collapse" data-target="#collapseExample5" aria-expanded="false" aria-controls="collapseExample5">
 					<li>
 					  <a href="#contact">
@@ -154,7 +154,7 @@
 					<li>
 						<div div class="collapse" id="collapseExample5">
 							<div class="well col-sm-12">
-								<a class = "submenu-link" href = "{{ url('#') }}"><div class="submenu col-sm-12">Lihat Ulasan Layanan</div></a>
+								<a class = "submenu-link" href = "{{ url('/ulasanlayanan') }}"><div class="submenu col-sm-12">Lihat Ulasan Layanan</div></a>
 								<div class="clearfix visible-xs-block"></div>
 							</div>
 						</div>
@@ -170,7 +170,7 @@
 	            </li>
 	            </div>
 	            <div class="clearfix visible-xs-block"></div>
-	            
+
 	        </ul>
 	        </div>
         </div>
@@ -179,8 +179,8 @@
 	        	Selamat datang, {{ Auth::user()->name }}! Anda masuk sebagai <b>{{ Auth::user()->role}}.</b>
         	</div>
         </div>
-        
+
         @yield('content')
-		
+
 	</body>
 </html>

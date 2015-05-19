@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Menu;
+use App\UlasanRestoran
 use View;
 use Validator;
 use Input;
@@ -35,7 +36,7 @@ class ManajerMenuController extends Controller {
 		$this->middleware('auth');
 	}
 
-	
+
 	public function index($kategori)
 	{
 		if($kategori=="utama"){
@@ -78,19 +79,19 @@ class ManajerMenuController extends Controller {
 			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
 			->with('kategori', 'utama');;
 		}
-		
+
 	}
 
 	public function rekomendasi($rekomendasi, $id){
-		
+
 		$menu = Menu::find($id);
 		if($rekomendasi == "rekomendasi"){
-			Session::flash('message', 'Berhasil menambahkan menu '.$menu->name.' menjadi menu rekomendasi.'); 
+			Session::flash('message', 'Berhasil menambahkan menu '.$menu->name.' menjadi menu rekomendasi.');
 			Session::flash('alert-class', 'alert-success');
 			$menu->is_rekomendasi = '1';
 		}
 		else if ($rekomendasi == "deleterekomendasi"){
-			Session::flash('message', 'Berhasil menghapus rekomendasi pada '.$menu->name.'.'); 
+			Session::flash('message', 'Berhasil menghapus rekomendasi pada '.$menu->name.'.');
 			Session::flash('alert-class', 'alert-success');
 			$menu->is_rekomendasi = '0';
 		}
@@ -100,7 +101,7 @@ class ManajerMenuController extends Controller {
 
 		$menu->save();
 		$kategori = $menu->kategori;
-		
+
 		if($kategori=="Menu Utama"){
 			$rute = "utama";
 		}
@@ -117,7 +118,7 @@ class ManajerMenuController extends Controller {
 			$rute = "minuman";
 		}
 		else if($is_rekomendasi=="1"){
-			$rute = "rekomendasi";			
+			$rute = "rekomendasi";
 		}
 		else if($is_promosi=="1"){
 			$rute = "promosi";
@@ -125,7 +126,7 @@ class ManajerMenuController extends Controller {
 		else {
 
 		}
-		return redirect('manajermenu/'.$rute);	
+		return redirect('manajermenu/'.$rute);
 	}
 
 	public function dasar()
@@ -133,7 +134,7 @@ class ManajerMenuController extends Controller {
 		return redirect('manajermenu/utama');
 	}
 
-	
+
 	public function create()
 	{
 		return View::make('manajer.FormMenuUI')
@@ -146,6 +147,26 @@ class ManajerMenuController extends Controller {
 			->with('promosi', true);;
 	}
 
+	public function lihatLayanan(){
+		$ulasan = Ulasan
+		return View::make('manajer.UlasanLayananUI');
+	}
+
+	public function statistikBulanan(){
+		return View::make('manajer.StatistikBulananUI');
+	}
+
+	public function statistikMingguan(){
+		return View::make('manajer.StatistikMingguanUI');
+	}
+
+	public function ulasanMenuDetail(){
+		return View::make('manajer.UlasanMenuDetailUI');
+	}
+
+	public function rangkuman(){
+		return View::make('manajer.RangkumanStatistikUI');
+	}
 
 	public function store()
 	{
@@ -165,9 +186,9 @@ class ManajerMenuController extends Controller {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->fails()) {
-			Session::flash('message', 'Gagal menambahkan. Mohon cek kembali isian Anda.'); 
+			Session::flash('message', 'Gagal menambahkan. Mohon cek kembali isian Anda.');
 			Session::flash('alert-class', 'alert-danger');
-			
+
 			if(Input::get('is_promosi') == '0'){
 				return Redirect::to('addmenu');;
 			}
@@ -177,7 +198,7 @@ class ManajerMenuController extends Controller {
 		} else {
 
 			$menu = new Menu;
-			
+
 			$menu->name 				= Input::get('name');
 			$menu->harga 				= Input::get('harga');
 			$menu->kategori 			= Input::get('kategori');
@@ -196,7 +217,7 @@ class ManajerMenuController extends Controller {
 			$menu->mime = $file->getClientMimeType();
 			$menu->original_photoname = $file->getClientOriginalName();
 			$menu->photoname = $file->getFilename().'.'.$extension;
-			
+
 			$kategori = $menu->kategori;
 			$menu->save();
 			if($kategori=="Menu Utama"){
@@ -215,7 +236,7 @@ class ManajerMenuController extends Controller {
 				$rute = "minuman";
 			}
 			else if($menu->is_rekomendasi=="1"){
-				$rute = "rekomendasi";			
+				$rute = "rekomendasi";
 			}
 			else if($menu->is_promosi=="1"){
 				$rute = "promosi";
@@ -224,8 +245,8 @@ class ManajerMenuController extends Controller {
 
 			}
 
-			Session::flash('message',  $menu->name .' berhasil ditambahkan.'); 
-			Session::flash('alert-class', 'alert-success'); 
+			Session::flash('message',  $menu->name .' berhasil ditambahkan.');
+			Session::flash('alert-class', 'alert-success');
 
 
 			return Redirect::to('manajermenu/'.$rute);
@@ -233,7 +254,7 @@ class ManajerMenuController extends Controller {
 
 	}
 
-	
+
 	public function edit($id)
     {
         $menu = Menu::find($id);
@@ -242,7 +263,7 @@ class ManajerMenuController extends Controller {
         	->with('menu', $menu);
     }
 
-   
+
     public function update($id)
     {
         //validate
@@ -261,13 +282,13 @@ class ManajerMenuController extends Controller {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if($validator->fails()) {
-			Session::flash('message', 'Gagal mengubah. Silahkan periksa input Anda.'); 
-			Session::flash('alert-class', 'alert-danger'); 
+			Session::flash('message', 'Gagal mengubah. Silahkan periksa input Anda.');
+			Session::flash('alert-class', 'alert-danger');
 			return Redirect::to('editmenu/'.$id);
 		} else{
 
 			$menu = Menu::find($id);
-			
+
 			$menu->name 				= Input::get('name');
 			$menu->harga 				= Input::get('harga');
 			$menu->kategori 			= Input::get('kategori');
@@ -306,7 +327,7 @@ class ManajerMenuController extends Controller {
 				$rute = "minuman";
 			}
 			else if($menu->is_rekomendasi=="1"){
-				$rute = "rekomendasi";			
+				$rute = "rekomendasi";
 			}
 			else if($menu->is_promosi=="1"){
 				$rute = "promosi";
@@ -314,9 +335,9 @@ class ManajerMenuController extends Controller {
 			else {
 
 			}
-			
-			Session::flash('message', 'Berhasil mengubah menu '.$menu->name); 
-			Session::flash('alert-class', 'alert-success'); 
+
+			Session::flash('message', 'Berhasil mengubah menu '.$menu->name);
+			Session::flash('alert-class', 'alert-success');
 			return Redirect::to('manajermenu/'.$rute);
 		}
     }
@@ -350,7 +371,7 @@ class ManajerMenuController extends Controller {
 			$rute = "minuman";
 		}
 		else if($menu->is_rekomendasi=="1"){
-			$rute = "rekomendasi";			
+			$rute = "rekomendasi";
 		}
 		else if($menu->is_promosi=="1"){
 			$rute = "promosi";
@@ -358,12 +379,12 @@ class ManajerMenuController extends Controller {
 		else {
 
 		}
-	Session::flash('message',  $menu->name .' berhasil dihapus.'); 
-	Session::flash('alert-class', 'alert-success'); 
+	Session::flash('message',  $menu->name .' berhasil dihapus.');
+	Session::flash('alert-class', 'alert-success');
         return Redirect::to('manajermenu/'.$rute);
     }
 
 
 
-	
+
 }
