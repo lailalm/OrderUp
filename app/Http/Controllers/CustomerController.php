@@ -46,7 +46,8 @@ class CustomerController extends Controller {
 		else if($kategori=="pembuka"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
-			->with('kategori', $kategori);;
+			->with('kategori', $kategori)
+			->with('review', UlasanMakanan::get());;
 		}
 		else if($kategori=="sampingan"){
 			return View::make('pelanggan.menu_utama')

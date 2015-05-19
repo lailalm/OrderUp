@@ -62,11 +62,11 @@
 				        <!--ulasan menu-->
 				        <div id="rating-layanan1" class="rating rating-layanan col-xs-12">
 							<div id="angka-rating1" class="angka-rating">
-								<b>4</b>
+								<b>{{average($review,$menu->id_menu)}}</b>
 							</div>
 							<div id="star" class = "star-rating">
-								<span class="rating r4">1/5</span>
-
+								<span class="rating r">1/5</span>
+								{{floor(average($review,$menu->id_menu))}}
 								<!--RATING
 								rating: 0 berarti class = "r0"
 								rating: 1 berarti class = "r1"
@@ -170,5 +170,23 @@
 
 	
 </script>
+
+<?php
+
+function average($arr, $id)
+{
+    $count=0;
+    $sum = 0;
+    for ($i = 0; $i < count($arr); $i++)
+    {
+    	if($arr[$i]->id_menu==$id){
+        	$sum += $arr[$i]->nilai;
+        	$count++;
+    	}
+    }
+    if($sum==0) return $sum;
+    else return $sum / $count;
+}
+?>
 
 @endsection
