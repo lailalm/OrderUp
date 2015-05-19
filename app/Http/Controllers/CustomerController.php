@@ -331,7 +331,7 @@ class CustomerController extends Controller {
 				$ulasanM->tanggal = date('Y-m-d');
 				$ulasanM->id_menu = Input::get('id'.($i));
 				$ulasanM->komentar = Input::get('deskripsi'.$i);
-				$ulasanR->nilai= Input::get('nilaimenu'.$i);
+				$ulasanM->nilai= Input::get('nilaimenu'.$i);
 				$ulasanM->save();
 			}
 			$i=$i+1;
