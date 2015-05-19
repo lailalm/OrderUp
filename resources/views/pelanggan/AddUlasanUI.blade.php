@@ -16,6 +16,7 @@
             array('class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
         {!! Form::hidden('total', count($id_name)) !!}
 
+
 		<div class="stars">
 		    <input class="star star-5" id="star-5" type="radio" name="star" value="5" />
 		    <label class="star star-5" for="star-5"></label>
