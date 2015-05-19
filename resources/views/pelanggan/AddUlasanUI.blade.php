@@ -10,10 +10,10 @@
 
 	<div class="kotak-putih small-padding">
 		<!-- ULASAN LAYANAN GOES HERE -->
-		{!! Form::open(array('route' => 'simpanulasan')) !!}
+		{!! Form::open(array('route' => 'simpanulasan', 'class' => 'form')) !!}
 		<h4>Ulasan Layanan</h4>
 		  {!! Form::textarea('deskripsiRestoran', null,
-                        array('required', 'class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
+                        array('class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan layanan Anda di sini')) !!}
 
 		<div class="stars">
 		    <input class="star star-5" id="star-5" type="radio" name="star" value="5" />
@@ -27,7 +27,7 @@
 		    <input class="star star-1" id="star-1" type="radio" name="star" value="1"/>
 		    <label class="star star-1" for="star-1"></label>
 		</div>
-		<div style="display:none">
+		<div style="display:">
 			<input type="text" class="form-control" name="nilailayanan" id="nilailayanan">
 		</div>
 		<script type="text/javascript">
@@ -44,7 +44,7 @@
 			{!! Form::select('selectbox'.$i , $id_name, null, array('class' => 'form-control selectpicker' )) !!}
 	          <br><br>
 			{!! Form::textarea('deskripsi{{ $i }}', null,
-	                        array('required', 'class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan menu Anda di sini')) !!}
+	                        array('class'=>'form-control','rows'=>4, 'placeholder'=>'Tuliskan ulasan menu Anda di sini')) !!}
 			<div class="stars">
 			    <input class="star star-5" id="star-5{{ $i }}" type="radio" name="star{{ $i }}" value="5"/>
 				<label class="star star-5" for="star-5{{ $i }}"></label>
