@@ -316,21 +316,25 @@ class CustomerController extends Controller {
 	
 
 	public function saveUlasan(){
-		dd(Input::get('nilailayanan')!="");
-		$ulasanR = new UlasanRestoran;
-
-		$ulasanR->id_meja = Auth::user()->name;
-		$ulasanR->tanggal = date('Y-m-d');
-		$ulasanR->review = Input::get('deskripsiRestoran');
-		$ulasanR->save();
-		for($i=0;$i<Input::get('size');){
-			$ulasanM= new UlasanMakanan;
-			$ulasanM->id_meja = Auth::user()->name;
-			$ulasanM->tanggal = date('Y-m-d');
-			$ulasanM->id_menu = Input::get('id'.$i);
-			$ulasanM->komentar = Input::get('deskripsi'.$i);
-			$i=$i+1;
-			$ulasanM->save();
+		if(Input::get('nilailayanan')!=""){
+			$ulasanR = new UlasanRestoran;
+			$ulasanR->id_meja = Auth::user()->name;
+			$ulasanR->tanggal = date('Y-m-d');
+			$ulasanR->review = Input::get('deskripsiRestoran');
+			$ulasanR->nilai= Input::get('nilailayanan');
+			$ulasanR->save();
+		}
+		for($i=1;$i<(Input::get('total')+1);){
+			if(Input::get('nilaimenu'.$i)!=""){
+				$ulasanM= new UlasanMakanan;
+				$ulasanM->id_meja = Auth::user()->name;
+				$ulasanM->tanggal = date('Y-m-d');
+				$ulasanM->id_menu = Input::get('id'.($i));
+				$ulasanM->komentar = Input::get('deskripsi'.$i);
+				$ulasanR->nilai= Input::get('nilaimenu'.$i);
+				$i=$i+1;
+				$ulasanM->save();
+			}
 		}
 		return Redirect::to('/logout');
 	}
