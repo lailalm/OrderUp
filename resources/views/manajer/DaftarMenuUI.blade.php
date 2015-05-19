@@ -62,7 +62,7 @@
 					        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="selected">&times;</span></button>
 					      	</div>
 					      	<div class="modal-body">
-					        	{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
+					        	{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array('class' => 'lihat-foto', 'width' => '60%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
 						    <div class="modal-body">
 
 					        <div id= "nama-menu" class= "col-xs-8">
@@ -85,7 +85,7 @@
 					        	{{$menu->deskripsi}}
 					        </div>
 
-					        <div id = "harga-menu" class = "col-xs-5">
+							<div id = "harga-menu" class = "col-xs-5">
 					        	<?php
 					        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
 					        	?>
@@ -95,6 +95,31 @@
 					        	<p>Tanggal berakhir promosi : {{ $menu->end_date_promosi }}</p>
 					        </div>
 					        @endif
+					        <!-- TO-DO -->
+					        <div id = "judul-ulasan" class = "col-xs-12">
+					        	Ulasan
+					        </div>
+
+					        <div id="rating-layanan1" class="rating rating-layanan col-xs-12">
+								<div id="angka-rating1" class="angka-rating">
+									<b>4</b>
+								</div>
+								<div id="star" class = "star-rating">
+									<span class="rating r4">1/5</span>
+
+									<!--RATING
+									rating: 0 berarti class = "r0"
+									rating: 1 berarti class = "r1"
+									rating: 2 berarti class = "r2"
+									rating: 3 berarti class = "r3"
+									rating: 4 berarti class = "r4"
+									rating: 5 berarti class = "r5"-->
+								</div>
+							</div>
+
+							<div id = "semua-ulasan" class = "col-xs-12">
+					        	<a href="#">Lihat semua ulasan</a>
+					        </div>
 
 					      </div>
 					      <div class="modal-footer">
