@@ -489,9 +489,9 @@ body{
 	font-size: 120%;
 	margin-top: 5px;
 	border-bottom-style: solid;
-	border-width: 1px;
+	border-width: 0px;
 	border-color: black;
-	padding-bottom: 10px;
+	/*padding-bottom: 10px;*/
 }
 
 #footer-modal-menu {
@@ -1023,4 +1023,46 @@ span.r4 {
 } 
 span.r5 {             
    background-position:0px 0; /* assuming each star is 20px wide */      
-} 
+}
+
+#judul-ulasan {
+	padding-top: 10px;
+	border-top-style: solid;
+  	border-width: 1px;
+  	border-color: black;
+	font-size: 120%;
+}
+
+.rating-layanan {
+	text-align: center;
+}
+
+.lihat-foto {
+	margin-left: 100px;
+}
+
+@media(max-width: 767px) {
+	.lihat-foto {
+		width: 100%;
+		margin-left: 0px;
+	}
+
+	#semua-ulasan {
+		margin-top: 10px;
+	}
+}
+
+#semua-ulasan {
+	text-align: right;
+	border-bottom-style: solid;
+  	border-width: 1px;
+  	border-color: black;
+  	padding-bottom: 10px;
+}
+
+#semua-ulasan > a {
+	color: #bb2828;
+	text-decoration: none;
+}
+
+

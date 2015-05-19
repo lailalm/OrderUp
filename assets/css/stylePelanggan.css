@@ -506,3 +506,72 @@ hr {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+
+.lihat-foto {
+	margin-left: 100px;
+}
+
+@media(max-width: 767px) {
+	.lihat-foto {
+		width: 100%;
+		margin-left: 0px;
+	}
+
+	#semua-ulasan {
+		margin-top: 10px;
+	}
+}
+
+#judul-ulasan {
+	margin-top: 10px;
+	font-size: 120%;
+}
+
+.rating-layanan {
+	text-align: center;
+}
+
+.angka-rating {
+	font-size: 170%;
+}
+
+span.rating {
+	background: url('../img/star-rating.png') top left;  
+	display:inline-block;
+	width: 150px; /* width of the set of 5 stars */
+	height: 25px;
+	overflow:hidden;
+	text-indent:-1000em;
+}  
+
+span.r0 {
+	background-position:-150px 0;
+}
+span.r1 {             
+	background-position:-120px 0; /* assuming each star is 20px wide */      
+}   
+span.r2 {             
+	background-position:-90px 0; /* assuming each star is 20px wide */      
+} 
+span.r3 {             
+	background-position:-60px 0; /* assuming each star is 20px wide */      
+} 
+span.r4 {             
+	background-position:-30px 0; /* assuming each star is 20px wide */      
+} 
+span.r5 {             
+	background-position:0px 0; /* assuming each star is 20px wide */      
+} 
+
+#semua-ulasan {
+	text-align: right;
+	border-bottom-style: solid;
+	border-width: 1px;
+	border-color: black;
+	padding-bottom: 10px;
+}
+
+#semua-ulasan > a {
+	color: #bb2828;
+	text-decoration: none;
+}
