@@ -188,10 +188,10 @@ class CustomerController extends Controller {
 			$pemesanan[$key]=Menu::find($key)->name;
 		}
 
-		// foreach(Pemesanan::get() as $pesan){
-		// 	$pesan->status = "Paid";
-		// 	$pesan->save();
-		// }
+		foreach(Pemesanan::get() as $pesan){
+			$pesan->status = "Paid";
+			$pesan->save();
+		}
 
 		return View::make('pelanggan.AddUlasanUI')
 			->with('list_pesanan', $listPemesanan)
@@ -332,9 +332,9 @@ class CustomerController extends Controller {
 				$ulasanM->id_menu = Input::get('id'.($i));
 				$ulasanM->komentar = Input::get('deskripsi'.$i);
 				$ulasanR->nilai= Input::get('nilaimenu'.$i);
-				$i=$i+1;
 				$ulasanM->save();
 			}
+			$i=$i+1;
 		}
 		return Redirect::to('/logout');
 	}
