@@ -41,7 +41,7 @@ class CustomerController extends Controller {
 		if($kategori=="utama"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
-			->with('kategori', $kategori);;
+			->with('kategori', $kategori)
 			->with('review', UlasanMakanan::get());;
 		}
 		else if($kategori=="pembuka"){
@@ -53,37 +53,37 @@ class CustomerController extends Controller {
 		else if($kategori=="sampingan"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
-			->with('kategori', $kategori);;
+			->with('kategori', $kategori)
 			->with('review', UlasanMakanan::get());;
 		}
 		else if($kategori=="penutup"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
-			->with('kategori', $kategori);;
+			->with('kategori', $kategori)
 			->with('review', UlasanMakanan::get());;
 		}
 		else if($kategori=="minuman"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
-			->with('kategori', $kategori);;
+			->with('kategori', $kategori)
 			->with('review', UlasanMakanan::get());;
 		}
 		else if($kategori=="rekomendasi"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
-			->with('kategori', $kategori);;
+			->with('kategori', $kategori)
 			->with('review', UlasanMakanan::get());;
 		}
 		else if($kategori=="promosi"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('is_promosi','1')->get())
-			->with('kategori', $kategori);;
+			->with('kategori', $kategori)
 			->with('review', UlasanMakanan::get());;
 		}
 		else{
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
-			->with('kategori', 'utama');;
+			->with('kategori', 'utama')
 			->with('review', UlasanMakanan::get());;
 		}
 	}
@@ -163,13 +163,13 @@ class CustomerController extends Controller {
 		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu kredit';
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
-		
+
 		$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
 		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
 		foreach($pemesanan as $key=>$value){
 			$pemesanan[$key]=Menu::find($key)->name;
 		}
-		
+
 		foreach(Pemesanan::get() as $pesan){
 			$pesan->status = "Paid";
 			$pesan->save();
@@ -191,7 +191,7 @@ class CustomerController extends Controller {
 		//KOK QUEUED DOANG?
 		$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
 		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
-		
+
 		foreach($pemesanan as $key=>$value){
 			$pemesanan[$key]=Menu::find($key)->name;
 		}
@@ -321,7 +321,7 @@ class CustomerController extends Controller {
 		return view('pelanggan.logoutUI');
 	}
 
-	
+
 
 	public function saveUlasan(){
 		if(Input::get('nilailayanan')!=""){

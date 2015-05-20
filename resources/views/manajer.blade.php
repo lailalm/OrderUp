@@ -133,11 +133,11 @@
 					<li>
 						<div div class="collapse" id="collapseExample4">
 							<div class="well col-sm-12">
-								<a class = "submenu-link" href = "{{ url('#') }}"><div class="submenu col-sm-12">Lihat Rangkuman Statistik</div></a>
+								<a class = "submenu-link" href = "{{ url('/rangkumanstatistik') }}"><div class="submenu col-sm-12">Lihat Rangkuman Statistik</div></a>
 								<div class="clearfix visible-xs-block"></div>
-								<a class = "submenu-link" href = "{{ url('#') }}"><div class="submenu col-sm-12">Lihat Statistik Bulanan</div></a>
+								<a class = "submenu-link" href = "{{ url('/statistikbulanan') }}"><div class="submenu col-sm-12">Lihat Statistik Bulanan</div></a>
 								<div class="clearfix visible-xs-block"></div>
-								<a class = "submenu-link" href = "{{ url('#') }}"><div class="submenu col-sm-12">Lihat Statistik Mingguan</div></a>
+								<a class = "submenu-link" href = "{{ url('/statistikmingguan') }}"><div class="submenu col-sm-12">Lihat Statistik Mingguan</div></a>
 								<div class="clearfix visible-xs-block"></div>
 							</div>
 						</div>
