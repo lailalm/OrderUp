@@ -163,10 +163,10 @@ class CustomerController extends Controller {
 			$pemesanan[$key]=Menu::find($key)->name;
 		}
 		
-		// foreach(Pemesanan::get() as $pesan){
-		// 	$pesan->status = "Paid";
-		// 	$pesan->save();
-		// }
+		foreach(Pemesanan::get() as $pesan){
+			$pesan->status = "Paid";
+			$pesan->save();
+		}
 
 		return View::make('pelanggan.AddUlasanUI')
 			->with('list_pesanan', $listPemesanan)
