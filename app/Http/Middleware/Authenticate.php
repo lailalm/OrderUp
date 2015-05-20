@@ -67,7 +67,8 @@ class Authenticate {
 				substr($path,0,14)==='/ulasanlayanan'||
 				substr($path,0,18)==='/statistikmingguan'||
 				substr($path,0,17)==='/statistikbulanan'||
-				substr($path,0,17)==='/ulasanmenudetail'
+				substr($path,0,17)==='/ulasanmenudetail' ||
+				substr($path,0,19)==='/rangkumanstatistik'
 				 ) {
 				return $next($request);
 			} else {
