@@ -41,50 +41,50 @@ class CustomerController extends Controller {
 		if($kategori=="utama"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
-			->with('kategori', $kategori);;
-			->with('review', UlasanMakanan::get());;
+			->with('kategori', $kategori)
+			->with('review', UlasanMakanan::get());
 		}
 		else if($kategori=="pembuka"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
 			->with('kategori', $kategori)
-			->with('review', UlasanMakanan::get());;
+			->with('review', UlasanMakanan::get());
 		}
 		else if($kategori=="sampingan"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
-			->with('kategori', $kategori);;
-			->with('review', UlasanMakanan::get());;
+			->with('kategori', $kategori)
+			->with('review', UlasanMakanan::get());
 		}
 		else if($kategori=="penutup"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
-			->with('kategori', $kategori);;
-			->with('review', UlasanMakanan::get());;
+			->with('kategori', $kategori)
+			->with('review', UlasanMakanan::get());
 		}
 		else if($kategori=="minuman"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
-			->with('kategori', $kategori);;
-			->with('review', UlasanMakanan::get());;
+			->with('kategori', $kategori)
+			->with('review', UlasanMakanan::get());
 		}
 		else if($kategori=="rekomendasi"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
-			->with('kategori', $kategori);;
-			->with('review', UlasanMakanan::get());;
+			->with('kategori', $kategori)
+			->with('review', UlasanMakanan::get());
 		}
 		else if($kategori=="promosi"){
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('is_promosi','1')->get())
-			->with('kategori', $kategori);;
-			->with('review', UlasanMakanan::get());;
+			->with('kategori', $kategori)
+			->with('review', UlasanMakanan::get());
 		}
 		else{
 			return View::make('pelanggan.menu_utama')
 			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
-			->with('kategori', 'utama');;
-			->with('review', UlasanMakanan::get());;
+			->with('kategori', 'utama')
+			->with('review', UlasanMakanan::get());
 		}
 	}
 
