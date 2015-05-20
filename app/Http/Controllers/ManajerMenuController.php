@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Menu;
-use App\UlasanRestoran
+use App\UlasanRestoran;
 use View;
 use Validator;
 use Input;
@@ -148,8 +148,9 @@ class ManajerMenuController extends Controller {
 	}
 
 	public function lihatLayanan(){
-		$ulasan = Ulasan
-		return View::make('manajer.UlasanLayananUI');
+		$ulasan = UlasanRestoran::get();
+		return View::make('manajer.UlasanLayananUI')
+			->with('ulasan', $ulasan);
 	}
 
 	public function statistikBulanan(){
