@@ -165,8 +165,48 @@ class ManajerMenuController extends Controller {
 			->with('ulasan', $ulasan);
 	}
 
-	public function statistikBulanan(){
-		return View::make('manajer.StatistikBulananUI');
+	public function statistikBulanan($namaBulan){
+		if($namaBulan=="now") {
+			$namaBulan=date('M Y');
+		}
+		
+		$bulans=array();
+		foreach (Pemesanan::get() as $pemesanan) {
+			if(array_key_exists(date('M Y',strtotime($pemesanan->waktu)), $bulans)){
+				$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+$pemesanan->jumlah;
+				if(array_key_exists($pemesanan->id_menu, $bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'])){
+					$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->id_menu;
+				}
+				else{
+					$menu=array();
+					$menu['id_menu']=$pemesanan->id_menu;
+					$menu['nama']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->name;
+					$menu['jumlah']=$pemesanan->jumlah;
+					$menu['image']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->photoname;
+
+					$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]=$menu;
+				}
+			}else{
+				$menu=array();
+				$menu['id_menu']=$pemesanan->id_menu;
+				$menu['nama']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->name;
+				$menu['jumlah']=$pemesanan->jumlah;
+				$menu['image']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->photoname;
+				$menus=array();
+				$menus[$pemesanan->id_menu]=$menu;
+
+				$bulan=array();
+				$bulan['nama']=date('M',strtotime($pemesanan->waktu));
+				$bulan['tahun']=date('Y',strtotime($pemesanan->waktu));
+				$bulan['jumlah']=$pemesanan->jumlah;
+				$bulan['menu']=$menus;
+				$bulans[date('M Y',strtotime($pemesanan->waktu))]=$bulan;
+
+			}
+		}
+		return View::make('manajer.StatistikBulananUI')
+			->with('bulans',$bulans)
+			->with('namaBulan',$namaBulan);
 	}
 
 	public function statistikMingguan(){
@@ -185,7 +225,7 @@ class ManajerMenuController extends Controller {
 		$bulans=array();
 		foreach (Pemesanan::get() as $pemesanan) {
 			if(array_key_exists(date('M Y',strtotime($pemesanan->waktu)), $bulans)){
-				$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+$pemesanan->jumlah;
+				$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+($pemesanan->jumlah*Menu::find($pemesanan->id_menu)->harga);
 			}else{
 				$bulan=array();
 				$bulan['nama']=date('M',strtotime($pemesanan->waktu));
