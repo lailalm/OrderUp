@@ -5,11 +5,12 @@
 	<div class="judul-halaman col-xs-6 col-xs-offset-1 space"> 
 		Statistik Bulanan
 	</div>
-
+		
 	<div class="judul-halaman col-xs-3 col-xs-offset-1 space"> 
 		<select id="pilih-bulan" class="selectpicker" data-header="Bulan">
-		  <option>April 2015</option> 
-		  <option>Maret 2015</option>
+		@foreach($bulans as $key=>$value)
+			<option>{{$key}}</option>
+		@endforeach
 		</select>
 		
 		<script>
@@ -19,8 +20,10 @@
 	
 	<div id="bulan-stat" class="col-xs-10 col-xs-offset-1 clearfix">
 		<!-- SPECIAL FOR THE FIRST -->
+		@foreach($bulans[$namaBulan]['menu'] as $key=>$value)
 		<div id="foto-stat" class="foto-stat col-xs-5">
 			<img src="assets/img/menu-utama.jpg" width= 100%>
+			{{$value['image']}}
 		</div>
 
 		<div id="stat1" class="stat1 col-xs-7">
@@ -29,14 +32,14 @@
 			</div>
 
 			<div id ="nama1">
-				Spaghetti Seafood
+				{{$value['nama']}}
 			</div>
 
 			<div id ="total1">
-				Total penjualan: 50 porsi
+				Total penjualan: {{$value['jumlah']}} porsi
 			</div>
 		</div>
-		<!-- END OF SPECIAL -->
+		@endforeach
 
 		<div class="isi" style="overflow:auto; max-height:180px; width:100%;">
 			<!-- FOREACH EXCEPT THE FIRST ONE -->
@@ -62,7 +65,7 @@
 			</div>
 
 			<div id="total-porsi" class="col-xs-2">
-				125 porsi
+				{{$bulans[$namaBulan]['jumlah']}} porsi
 			</div>
 		</div>
 	</div>
