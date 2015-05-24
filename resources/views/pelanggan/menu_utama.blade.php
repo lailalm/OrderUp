@@ -62,18 +62,16 @@
 				        <!--ulasan menu-->
 				        <div id="rating-layanan1" class="rating rating-layanan col-xs-12">
 							<div id="angka-rating1" class="angka-rating">
-								<b>{{average($review,$menu->id_menu)}}</b>
+								<b>{{round(average($review,$menu->id_menu),1)}}</b>
 							</div>
 							<div id="star" class = "star-rating">
-								<span class="rating r">1/5</span>
-								{{floor(average($review,$menu->id_menu))}}
-								<!--RATING
-								rating: 0 berarti class = "r0"
-								rating: 1 berarti class = "r1"
-								rating: 2 berarti class = "r2"
-								rating: 3 berarti class = "r3"
-								rating: 4 berarti class = "r4"
-								rating: 5 berarti class = "r5"-->
+								@if(floor(average($review,$menu->id_menu))==0)	<span class="rating r0">1/5</span>
+								@elseif(floor(average($review,$menu->id_menu))==1) <span class="rating r1">2/5</span>
+								@elseif(floor(average($review,$menu->id_menu))==2) <span class="rating r2">3/5</span>
+								@elseif(floor(average($review,$menu->id_menu))==3) <span class="rating r3">4/5</span>
+								@elseif(floor(average($review,$menu->id_menu))==4)	<span class="rating r4">5 /5</span>
+								@else	<span class="rating r5">1/5</span>
+								@endif
 							</div>
 						</div>
 						<!--ulasan menu-->
