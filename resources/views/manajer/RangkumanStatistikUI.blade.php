@@ -7,8 +7,8 @@
 	</div>
 	<div class="isi col-xs-12" style="overflow:auto; height:470px;">
 		<!-- FOREACH DI SINI -->
+		@foreach($bulans as $bulan)
 		<div id="rangkuman-stat1" class="rangkuman-stat col-xs-10 col-xs-offset-1 clearfix">
-			@foreach($bulans as $bulan)
 				<div id="bulan1" class="bulan col-xs-5 col-xs-offset-1">
 					{{$bulan['nama']}} {{$bulan['tahun']}}
 				</div>
@@ -18,12 +18,24 @@
 				</div>
 
 				<div id="total-penjualan1" class="total col-xs-3">
-					Rp {{$bulan['jumlah']}}
+					<?php
+					echo "Rp " .str_replace(",",".",number_format($bulan['jumlah'], 0)).",-";
+					?>
+					<!-- Rp {{$bulan['jumlah']}} -->
 				</div>
-			@endforeach
 		</div>
+		@endforeach
+
 	</div>
 	<!-- ENDFOREACH -->
 </div>
 		
+<script type="text/javascript">
+	function formatRp(num) {
+	    var p = num.toFixed(2).split(".");
+	    return "Rp " + p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+	        return  num + (i && !(i % 3) ? "." : "") + acc;
+	    }, "") + "," + p[1];
+	}
+</script>
 @endsection
