@@ -3,6 +3,7 @@
 use App\Menu;
 use App\UlasanRestoran;
 use App\UlasanMakanan;
+use App\Pemesanan;
 use View;
 use Validator;
 use Input;
@@ -181,7 +182,20 @@ class ManajerMenuController extends Controller {
 	}
 
 	public function rangkuman(){
-		return View::make('manajer.RangkumanStatistikUI');
+		$bulans=array();
+		foreach (Pemesanan::get() as $pemesanan) {
+			if(array_key_exists(date('M Y',strtotime($pemesanan->waktu)), $bulans)){
+				$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+$pemesanan->jumlah;
+			}else{
+				$bulan=array();
+				$bulan['nama']=date('M',strtotime($pemesanan->waktu));
+				$bulan['tahun']=date('Y',strtotime($pemesanan->waktu));
+				$bulan['jumlah']=$pemesanan->jumlah*Menu::find($pemesanan->id_menu)->harga;
+				$bulans[date('M Y',strtotime($pemesanan->waktu))]=$bulan;
+			}
+		}
+		return View::make('manajer.RangkumanStatistikUI')
+			->with('bulans', $bulans);
 	}
 
 	public function store()
