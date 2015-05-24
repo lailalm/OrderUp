@@ -575,3 +575,75 @@ span.r5 {
 	color: #bb2828;
 	text-decoration: none;
 }
+
+.ulasan {
+	margin-left: 20px;
+}
+
+.nomor-ulasan {
+	font-size: 150%;
+	display: inline;
+}
+.tanggal-ulasan {
+	display: inline;
+}
+
+.nomor-ulasan {
+	font-size: 150%;
+	display: inline;
+}
+.tanggal-ulasan {
+	display: inline;
+}
+
+.ulasan-layanan {
+	background-color: white;
+	margin-top: 15px;
+}
+
+.judul-ulasan {
+	margin-top: 20px;
+}
+
+.isi-ulasan {
+	margin-top: 5px;
+	margin-bottom: 20px;
+	background-color: white;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid black;
+	padding: 10px;
+}
+
+.rating {
+	margin-top: 0px;
+}
+
+.angka-rating {
+	font-size: 200%
+}
+
+.rating-layanan {
+	text-align: center;
+}
+
+.ulasan-menu {
+	background-color: white;
+	margin-top: 15px;
+}
+
+.judul-ulasan {
+	margin-top: 20px;
+}
+
+.isi-ulasan {
+	margin-top: 5px;
+	margin-bottom: 20px;
+	background-color: white;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	border: 1px solid black;
+	padding: 10px;
+}

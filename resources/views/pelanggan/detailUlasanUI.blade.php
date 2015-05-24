@@ -45,7 +45,7 @@
 </div>
 
 <div id= "footer" class="col-xs-12">
-	<a href="{{ url('/') }}">
+	<a href="{{ URL::previous() }}">
     	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
     </a>
 </div>
