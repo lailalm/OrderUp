@@ -141,8 +141,8 @@ class CustomerController extends Controller {
 			$pemanggilan->pesan = 'Membayar pemesanan dengan uang tunai '.Input::get('nominal');
 			$pemanggilan->status_pemanggilan =0;
 			$pemanggilan->save();
-			$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
-			$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+			$listPemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->get();
+			$pemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
 			foreach($pemesanan as $key=>$value){
 				$pemesanan[$key]=Menu::find($key)->name;
 			}
@@ -164,8 +164,8 @@ class CustomerController extends Controller {
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
 
-		$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
-		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+		$listPemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->get();
+		$pemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
 		foreach($pemesanan as $key=>$value){
 			$pemesanan[$key]=Menu::find($key)->name;
 		}
@@ -189,8 +189,8 @@ class CustomerController extends Controller {
 		$pemanggilan->save();
 
 		//KOK QUEUED DOANG?
-		$listPemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->get();
-		$pemesanan = Pemesanan::where('status', 'Queued')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+		$listPemesanan = Pemesanan::whereIn('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->get();
+		$pemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
 
 		foreach($pemesanan as $key=>$value){
 			$pemesanan[$key]=Menu::find($key)->name;
