@@ -116,7 +116,7 @@
 							</div>
 
 							<div id = "semua-ulasan" class = "col-xs-12">
-					        	<a href="/ulasanmenudetail">Lihat semua ulasan</a>
+					        	<a href="{{ URL::to('ulasanmenudetail/'. $menu->id_menu) }}">Lihat semua ulasan</a>
 					        </div>
 
 					      </div>

@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+date_default_timezone_set("Asia/Jakarta");
 
 class ManajerMenuController extends Controller {
+
 
 	/*
 	|--------------------------------------------------------------------------
@@ -171,8 +173,11 @@ class ManajerMenuController extends Controller {
 	}
 
 	public function ulasanMenuDetail($id){
-		// $ulasanmakanan = UlasanMakanan::where('id_menu', $id)->get();
-		// return Redirect::to('ulasanmenudetail/'.$id, ['ulasan_makanan' => $ulasanmakanan]);
+		$ulasanmakanan = UlasanMakanan::where('id_menu', $id)->get();
+		$menu = Menu::find($id);
+		return View::make('manajer.UlasanMenuDetailUI')
+			->with('ulasanmknn', $ulasanmakanan)
+			->with('menu', $menu->name);
 	}
 
 	public function rangkuman(){

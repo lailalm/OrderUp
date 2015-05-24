@@ -2,52 +2,51 @@
 
 @section('content')
 <div class="main col-md-10 col-md-offset-2">
-	<div class="judul-halaman col-xs-10 col-xs-offset-1"> 
-		Ulasan Menu [INSERT NAMA MENU HERE]
+	<div class="judul-halaman col-xs-10 col-xs-offset-1">
+		Ulasan Menu {{$menu}}
 	</div>
 
 	<div class="isi" style="overflow:auto; max-height:470px; width:100%;">
 		<!-- FOREACH EXCEPT THE FIRST ONE -->
+		@foreach($ulasanmknn as $um)
 		<div id="ulasan-layanan1" class="col-xs-10 col-xs-offset-1 clearfix ulasan-layanan">
 			<div id="judul-ulasan1" class="judul-ulasan col-xs-12">
 				<div id="nomor-ulasan1" class="nomor-ulasan"> <!--increment untuk tiap ulasan-->
-					#2 |
+					{{$um->id_review}} |
 				</div>
 				<div id="tanggal-ulasan1" class="tanggal-ulasan"> <!--tergantung tgl simpan ulasan-->
-					15 Mei 2015
+					{{$um->created_at}}
 				</div>
-			</div>	
+			</div>
 			<div class="clearfix visible-xs-block"></div>
-			
+
 			<div class="col-xs-12">
 				<div id="rating-layanan1" class="rating rating-layanan col-xs-4 col-xs-offset-1">
 					<div id="angka-rating1" class="angka-rating">
-						4
+						{{$um->nilai}}
 					</div>
 					<div id="star" class = "star-rating">
-						<span class="rating r4">1/5</span>
-
-						<!--RATING
-						rating: 0 berarti class = "r0"
-						rating: 1 berarti class = "r1"
-						rating: 2 berarti class = "r2"
-						rating: 3 berarti class = "r3"
-						rating: 4 berarti class = "r4"
-						rating: 5 berarti class = "r5"-->
+						@if($um->nilai===0)	<span class="rating r0">0/5</span>
+						@elseif($um->nilai===1) <span class="rating r1">1/5</span>
+						@elseif($um->nilai===2) <span class="rating r2">2/5</span>
+						@elseif($um->nilai===3) <span class="rating r3">3/5</span>
+						@elseif($um->nilai===4)	<span class="rating r4">4/5</span>
+						@else	<span class="rating r5">5/5</span>
+						@endif
 					</div>
 				</div>
-				
+
 				<div id="isi-ulasan-layanan1" class="isi-ulasan col-xs-6">
-					Tempatnya asik banget buat ngobrol bareng temen-temen :)
+					{{$um->komentar}}
 				</div>
 				<div class="clearfix visible-xs-block"></div>
 			</div>
 			<div class="clearfix visible-xs-block"></div>
 		</div>
-		<!-- ENDOFFOREACH -->
+		@endforeach
 	</div>
 	<div id="kembali-ke-menu" class="col-xs-10 col-xs-offset-1 ulasan-layanan">
 		<a href="{{ URL::previous() }}">Kembali ke detil menu</a>
 	</div>
-</div>	
+</div>
 @endsection
