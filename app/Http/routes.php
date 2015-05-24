@@ -54,7 +54,7 @@ Route::get('manajermenu/{rekomendasi}/{id}', 'ManajerMenuController@rekomendasi'
 
 Route::get('ulasanlayanan', 'ManajerMenuController@lihatLayanan');
 
-Route::get('statistikmingguan', 'ManajerMenuController@statistikMingguan');
+Route::get('statistikmingguan/{namaMinggu}', 'ManajerMenuController@statistikMingguan');
 
 Route::get('statistikbulanan/{namaBulan}', 'ManajerMenuController@statistikBulanan');
 

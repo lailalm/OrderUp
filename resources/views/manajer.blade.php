@@ -137,7 +137,7 @@
 								<div class="clearfix visible-xs-block"></div>
 								<a class = "submenu-link" href = "{{ url('/statistikbulanan/now') }}"><div class="submenu col-sm-12">Lihat Statistik Bulanan</div></a>
 								<div class="clearfix visible-xs-block"></div>
-								<a class = "submenu-link" href = "{{ url('/statistikmingguan') }}"><div class="submenu col-sm-12">Lihat Statistik Mingguan</div></a>
+								<a class = "submenu-link" href = "{{ url('/statistikmingguan/now') }}"><div class="submenu col-sm-12">Lihat Statistik Mingguan</div></a>
 								<div class="clearfix visible-xs-block"></div>
 							</div>
 						</div>
