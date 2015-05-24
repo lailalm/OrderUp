@@ -2,6 +2,7 @@
 
 use App\Menu;
 use App\UlasanRestoran;
+use App\UlasanMakanan;
 use View;
 use Validator;
 use Input;
@@ -161,8 +162,9 @@ class ManajerMenuController extends Controller {
 		return View::make('manajer.StatistikMingguanUI');
 	}
 
-	public function ulasanMenuDetail(){
-		return View::make('manajer.UlasanMenuDetailUI');
+	public function ulasanMenuDetail($id){
+		// $ulasanmakanan = UlasanMakanan::where('id_menu', $id)->get();
+		// return Redirect::to('ulasanmenudetail/'.$id, ['ulasan_makanan' => $ulasanmakanan]);
 	}
 
 	public function rangkuman(){

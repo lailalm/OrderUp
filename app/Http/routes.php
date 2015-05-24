@@ -58,7 +58,7 @@ Route::get('statistikmingguan', 'ManajerMenuController@statistikMingguan');
 
 Route::get('statistikbulanan', 'ManajerMenuController@statistikBulanan');
 
-Route::get('ulasanmenudetail', 'ManajerMenuController@ulasanMenuDetail');
+Route::get('ulasanmenudetail/{id}', ['as' => 'ulasanmenudetail','uses'=> 'ManajerMenuController@ulasanMenuDetail']);
 
 Route::get('rangkumanstatistik', 'ManajerMenuController@rangkuman');
 

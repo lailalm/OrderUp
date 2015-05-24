@@ -118,7 +118,7 @@
 							</div>
 
 							<div id = "semua-ulasan" class = "col-xs-12">
-					        	<a href="#">Lihat semua ulasan</a>
+					        	<a href="/ulasanmenudetail">Lihat semua ulasan</a>
 					        </div>
 
 					      </div>
