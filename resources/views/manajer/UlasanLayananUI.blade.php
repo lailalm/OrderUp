@@ -15,7 +15,7 @@
 					{{$ulsan->id_review}} |
 				</div>
 				<div id="tanggal-ulasan1" class="tanggal-ulasan"> <!--tergantung tgl simpan ulasan-->
-					{{$ulsan->tanggal}}
+					{{$ulsan->created_at}}
 				</div>
 			</div>
 			<div class="clearfix visible-xs-block"></div>
@@ -26,12 +26,12 @@
 						{{$ulsan->nilai}}
 					</div>
 					<div id="star" class = "star-rating">
-						@if($ulsan->nilai===0)	<span class="rating r0">1/5</span>
-						@elseif($ulsan->nilai===1) <span class="rating r1">2/5</span>
-						@elseif($ulsan->nilai===2) <span class="rating r2">3/5</span>
-						@elseif($ulsan->nilai===3) <span class="rating r3">4/5</span>
-						@elseif($ulsan->nilai===4)	<span class="rating r4">5 /5</span>
-						@else	<span class="rating r5">1/5</span>
+						@if($ulsan->nilai===0)	<span class="rating r0">0/5</span>
+						@elseif($ulsan->nilai===1) <span class="rating r1">1/5</span>
+						@elseif($ulsan->nilai===2) <span class="rating r2">2/5</span>
+						@elseif($ulsan->nilai===3) <span class="rating r3">3/5</span>
+						@elseif($ulsan->nilai===4)	<span class="rating r4">4/5</span>
+						@else	<span class="rating r5">5/5</span>
 						@endif
 
 					</div>

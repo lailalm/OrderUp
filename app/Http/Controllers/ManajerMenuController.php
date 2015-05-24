@@ -13,8 +13,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+date_default_timezone_set("Asia/Jakarta");
 
 class ManajerMenuController extends Controller {
+
 
 	/*
 	|--------------------------------------------------------------------------
@@ -170,8 +172,12 @@ class ManajerMenuController extends Controller {
 		return View::make('manajer.StatistikMingguanUI');
 	}
 
-	public function ulasanMenuDetail(){
-		return View::make('manajer.UlasanMenuDetailUI');
+	public function ulasanMenuDetail($id){
+		$ulasanmakanan = UlasanMakanan::where('id_menu', $id)->get();
+		$menu = Menu::find($id);
+		return View::make('manajer.UlasanMenuDetailUI')
+			->with('ulasanmknn', $ulasanmakanan)
+			->with('menu', $menu->name);
 	}
 
 	public function rangkuman(){
