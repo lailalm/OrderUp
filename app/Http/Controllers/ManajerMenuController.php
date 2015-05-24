@@ -175,7 +175,7 @@ class ManajerMenuController extends Controller {
 			if(array_key_exists(date('M Y',strtotime($pemesanan->waktu)), $bulans)){
 				$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+$pemesanan->jumlah;
 				if(array_key_exists($pemesanan->id_menu, $bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'])){
-					$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->id_menu;
+					$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->jumlah;
 				}
 				else{
 					$menu=array();
@@ -186,7 +186,7 @@ class ManajerMenuController extends Controller {
 
 					$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]=$menu;
 				}
-			}else{
+			} else {
 				$menu=array();
 				$menu['id_menu']=$pemesanan->id_menu;
 				$menu['nama']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->name;
@@ -204,6 +204,7 @@ class ManajerMenuController extends Controller {
 
 			}
 		}
+		// dd($bulans);
 		return View::make('manajer.StatistikBulananUI')
 			->with('bulans',$bulans)
 			->with('namaBulan',$namaBulan);
