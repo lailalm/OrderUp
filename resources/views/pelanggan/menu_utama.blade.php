@@ -1,20 +1,20 @@
 @extends('pelanggan')
 
-@section('content')		
+@section('content')
 <div id = "content" class="clearfix">
 	<div id="utama-title" class="col-xs-10 ">
-		@if(Session::has('message'))				
+		@if(Session::has('message'))
 		    <div class="alert {{ Session::get('alert-class') }}">
 		        <a href="#" class="close" data-dismiss="alert">&times;</a>
 		        {{ Session::get('message') }}
 		    </div>
 		@endif
 		<h4 class="utama-title white"> Menu {{  ucfirst($kategori) }}</h4>
-	</div>	
-	<div id="content-menu" class="col-sm-10 col-sm-offset-1">	
-		@foreach ($list_menu as $menu)	
+	</div>
+	<div id="content-menu" class="col-sm-10 col-sm-offset-1">
+		@foreach ($list_menu as $menu)
 
-		<div id="$menu->id_menu" class ="text-center space-bottom col-sm-4 col-xs-12 clear-fix" data-toggle="modal" data-target="#menu-modal"> 
+		<div id="$menu->id_menu" class ="text-center space-bottom col-sm-4 col-xs-12 clear-fix" data-toggle="modal" data-target="#menu-modal">
       		{!! HTML::image('storage/app/'.$menu->photoname, 'panggil', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
       		<div class="white">
       			@if($menu->is_rekomendasi == 1)
@@ -24,20 +24,20 @@
       		</div>
       	</div>
   		<div class="clearfix visible-xs-block space-bottom"></div>
-		
+
 		<!-- Modal Detail -->
 
 		<!--tambahan css baru-->
 
 		<div class="modal fade" id="menu-modal{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
-				
+
 			    <div class="modal-content">
 			      	<div class="modal-header">
 			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			      	</div>
 			      	<div class="modal-body">
-			    		{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}             
+			    		{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
 				        <div id= "nama-menu" class= "col-xs-12 space">
 				        @if($menu->is_rekomendasi == 1)
 	          			<i class="fa fa-star"></i>
@@ -45,7 +45,7 @@
 				        	<b>{{$menu->name}}</b>
 				        </div>
 
-				        @if ($menu->status == 1)	
+				        @if ($menu->status == 1)
 			        	<div id="status-menu" class= "col-xs-12 text-left">
 			        		Tersedia
 			        	</div>
@@ -78,9 +78,12 @@
 			      	</div>
 			      	<div class="modal-footer">
 			      		<div id="harga-menu" class= "harga-menu col-xs-12">
-							<?php 
+							<?php
 					        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
 					        ?>
+						</div>
+						<div id = "semua-ulasan" class = "col-xs-12">
+									<a href="{{ URL::to('ulasanmenu/'. $menu->id_menu) }}">Lihat semua ulasan</a>
 						</div>
 						 @if ($menu->status == 1)
 						<button type="button" class="btn btn-primary col-xs-4 col-xs-offset-8" data-dismiss="modal" data-toggle="modal" data-target="#modal-pesan{{$menu->id_menu}}">Pesan</button>
@@ -89,7 +92,7 @@
 			    </div>
 			</div>
 		</div>
-		
+
 		<!-- Modal Add Pesan -->
 		<div class="modal fade" id="modal-pesan{{$menu->id_menu}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -102,35 +105,36 @@
 					</div>
 					<div class="modal-body">
 						<input id="satuan{{$menu->id_menu}}" style="display:none;" value="{{ $menu->harga }}">
-						{!! Form::open(array('route' => 'addpemesanan', 'class' => 'form-inline text-center center-block')) !!}	
+						{!! Form::open(array('route' => 'addpemesanan', 'class' => 'form-inline text-center center-block')) !!}
 						<div class= "col-xs-12 clearfix space-bottom text-center">
 							Berapa porsi yang Anda ingin pesan?
 						</div>
 						<!-- <input type="button" class="btn col-xs-1 col-xs-offset-2 text-center add_subs" value=" - "> -->
 						<div class="col-xs-6 col-xs-offset-3">
-		                    {!! Form::text('porsi', null, 
+		                    {!! Form::text('porsi', null,
 		                    array('required', 'class'=>'form-control', 'id'=>'porsi'.$menu->id_menu)) !!}
 						</div>
 						<!-- <input type="button" class="col-xs-1 btn add_subs" value=" + "> -->
 						<div class= "space col-xs-12 clearfix space-bottom">
 							Apakah Anda memiliki permintaan khusus?
 						</div>
-						{!! Form::textarea('deskripsi', null, 
+						{!! Form::textarea('deskripsi', null,
                         array('class'=>'form-control','rows'=>5, 'placeholder'=>'Deskripsi Pemesanan (Optional)')) !!}
-               			
+
                    		{!!Form::hidden('id_menu', $menu->id_menu) !!}
                    		{!!Form::hidden('kategori', $kategori) !!}
 	                    <div class="col-xs-10 col-xs-offset-1">
 							<div class="col-xs-12 harga-menu space">
-								Total 
+								Total
 							</div>
 							<div id="harga-total{{$menu->id_menu}}" class="col-xs-12 harga-menu space-bottom">
-								<?php 
+								<?php
 					        		echo "Rp " .str_replace(",",".",number_format($menu->harga, 0)).",-"
 					        	?>
 							</div>
+
 							<button data-dismiss="modal" class="btn btn-primary col-xs-4 col-xs-offset-2"> Cancel</button>
-               				{!! Form::submit('Pesan', array('class' => 'btn btn-primary col-xs-4 col-xs-offset-1')) !!}							
+               				{!! Form::submit('Pesan', array('class' => 'btn btn-primary col-xs-4 col-xs-offset-1')) !!}
 						</div>
                		</div>
                		<div class="modal-footer row"></div>
@@ -149,12 +153,12 @@
 		@endforeach
 	</div>
 </div>
-	
+
 <div class="pengisi"></div>
 
 <div id= "footer" class="col-xs-12">
 	<a href="{{ url('/') }}">
-    	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
+    	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}
     </a>
 </div>
 
@@ -166,7 +170,7 @@
 	    }, "") + "," + p[1];
 	}
 
-	
+
 </script>
 
 <?php

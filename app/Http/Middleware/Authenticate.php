@@ -117,7 +117,8 @@ class Authenticate {
 				$path=="/bayar" ||
 				$path=="/kredit" ||
 				$path=="/debit" ||
-				substr($path,0,5)==='/menu')
+				substr($path,0,5)==='/menu' ||
+				substr($path,0,11)==='/ulasanmenu')
 			{
 				return $next($request);
 			} else {

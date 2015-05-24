@@ -181,3 +181,5 @@ Route::get('kredit', 'CustomerController@kredit');
 Route::get('debit', 'CustomerController@debit');
 
 Route::post('simpanulasan', ['as'=>'simpanulasan', 'uses'=>'CustomerController@saveUlasan']);
+
+Route::get('ulasanmenu/{id}', ['as' => 'ulasanmenu','uses'=> 'CustomerController@ulasanMenu']);

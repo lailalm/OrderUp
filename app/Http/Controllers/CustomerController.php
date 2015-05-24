@@ -255,6 +255,13 @@ class CustomerController extends Controller {
 		return View::make('pelanggan.caraPenggunaanUI');
 	}
 
+	public function ulasanmenu($id){
+		$ulasanmakanan = UlasanMakanan::where('id_menu', $id)->get();
+		$menu = Menu::find($id);
+		return View::make('pelanggan.detailUlasanUI')
+			->with('ulasanmknn', $ulasanmakanan)
+			->with('menu', $menu->name);
+	}
 	public function addPemesanan()
 	{
 		$rules = array(

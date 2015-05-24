@@ -3,50 +3,51 @@
 @section('content')
 <div id = "content" class="clearfix">
 	<div class="pengisi-atas"></div>
-	<h4 class="white text-center">Ulasan Menu ###</h4> <!--sesuai dgn menu yg lagi dilihat-->
+	<h4 class="white text-center">Ulasan Menu {{$menu}}</h4> <!--sesuai dgn menu yg lagi dilihat-->
+
 	<div class="kotak-putih space">
 		<div class="row">
+			@foreach($ulasanmknn as $key=>$ul)
 			<div id="judul-ulasan1" class="ulasan judul-ulasan col-xs-12">
 				<div id="nomor-ulasan1" class="nomor-ulasan"> <!--increment untuk tiap ulasan-->
-					#2 |
+					#{{$key+1}} |
 				</div>
 				<div id="tanggal-ulasan1" class="tanggal-ulasan"> <!--tergantung tgl simpan ulasan-->
-					15 Mei 2015
+					{{$ul->created_at}}
 				</div>
-			</div>	
+			</div>
 			<div class="clearfix visible-xs-block"></div>
-				
+
 			<div class=" ulasan col-xs-12 space-bottom">
 				<div id="rating-menu1" class="rating rating-menu col-xs-12 col-sm-4 col-sm-offset-1">
 					<div class="text-center angka-rating">
-						444
+						{{$ul->nilai}}
 					</div>
 					<div class = "text-center star-rating">
-						<span class="rating r5">1/5</span>
-
-						<!--RATING
-						rating: 0 berarti class = "r0"
-						rating: 1 berarti class = "r1"
-						rating: 2 berarti class = "r2"
-						rating: 3 berarti class = "r3"
-						rating: 4 berarti class = "r4"
-						rating: 5 berarti class = "r5"-->
+						@if($ul->nilai===0)	<span class="rating r0">0/5</span>
+						@elseif($ul->nilai===1) <span class="rating r1">1/5</span>
+						@elseif($ul->nilai===2) <span class="rating r2">2/5</span>
+						@elseif($ul->nilai===3) <span class="rating r3">3/5</span>
+						@elseif($ul->nilai===4)	<span class="rating r4">4/5</span>
+						@else	<span class="rating r5">5/5</span>
+						@endif
 					</div>
 				</div>
 				<div class="clearfix visible-xs-block"></div>
-				
+
 				<div id="isi-ulasan-menu1" class="isi-ulasan col-xs-12 col-sm-6">
-					This menu is superb! One of the best in Jakarta.
+					{{$ul->komentar}}
 				</div>
 
 			</div>
+			@endforeach
 		</div>
 	</div>
 </div>
 
 <div id= "footer" class="col-xs-12">
 	<a href="{{ URL::previous() }}">
-    	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}              
+    	{!! HTML::image('assets/img/kembali.png', 'panggil', array( 'width' => '70px')) !!}
     </a>
 </div>
 @endsection
