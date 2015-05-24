@@ -8,11 +8,16 @@
 
 	<div class="isi" style="overflow:auto; max-height:470px; width:100%;">
 		<!-- FOREACH EXCEPT THE FIRST ONE -->
-		@foreach($ulasanmknn as $um)
+		@if (count($ulasanmknn) <= 0)
+			<h5 class="judul-role col-xs-10 col-xs-offset-1">
+				Belum ada ulasan menu {{ $menu }}.
+			</h5>
+		@endif
+		@foreach($ulasanmknn as $key=>$um)
 		<div id="ulasan-layanan1" class="col-xs-10 col-xs-offset-1 clearfix ulasan-layanan">
 			<div id="judul-ulasan1" class="judul-ulasan col-xs-12">
 				<div id="nomor-ulasan1" class="nomor-ulasan"> <!--increment untuk tiap ulasan-->
-					{{$um->id_review}} |
+					#{{$key + 1}} |
 				</div>
 				<div id="tanggal-ulasan1" class="tanggal-ulasan"> <!--tergantung tgl simpan ulasan-->
 					{{$um->created_at}}
@@ -21,6 +26,7 @@
 			<div class="clearfix visible-xs-block"></div>
 
 			<div class="col-xs-12">
+
 				<div id="rating-layanan1" class="rating rating-layanan col-xs-4 col-xs-offset-1">
 					<div id="angka-rating1" class="angka-rating">
 						{{$um->nilai}}
