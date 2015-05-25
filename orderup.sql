@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.4.3
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: May 24, 2015 at 01:27 PM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Host: localhost
+-- Generation Time: May 25, 2015 at 04:34 AM
+-- Server version: 5.6.24
+-- PHP Version: 5.6.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `karyawan` (
-`id_karyawan` int(10) unsigned NOT NULL,
+  `id_karyawan` int(10) unsigned NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -46,14 +46,14 @@ CREATE TABLE IF NOT EXISTS `karyawan` (
 --
 
 INSERT INTO `karyawan` (`id_karyawan`, `name`, `email`, `password`, `role`, `telepon`, `photoname`, `mime`, `original_photoname`, `alamat`, `tanggal_mulai`, `remember_token`) VALUES
-(1, 'Laila Mauhibah', 'laila.mauhibah@gmail.com', '$2y$10$pgj7iTq1UNdp5itu.nLM3.y./9T/5rbun2cMajTOVFhc/TE13ByY2', 'Manajer', '444', 'php2B25.tmp.jpg', 'image/jpeg', 'photo.jpg', 'huhu', '2015-04-21', 'ECvsERKQoyBQ16W5lLPeEvYkqyx2dAhukHfK7LXV4tseN2SWVzcPhGY4zKLB'),
+(1, 'Laila Mauhibah', 'laila.mauhibah@gmail.com', '$2y$10$pgj7iTq1UNdp5itu.nLM3.y./9T/5rbun2cMajTOVFhc/TE13ByY2', 'Manajer', '444', 'php2B25.tmp.jpg', 'image/jpeg', 'photo.jpg', 'huhu', '2015-04-21', '2rZ6xaltJJNtfmnDcYgeMMFZiBO9QEMqdI5dLCH35FTX79V6JK8Whuw7rbOe'),
 (4, 'aditya', 'budiajah@gmail.com', '$2y$10$HG8GEiwMaHH6Aw/wsEb1VO5z1pHWtr2FpuH7R/lboTdCdOG8vaBmq', 'Koki', '123123', 'php6AA.tmp.jpg', 'image/jpeg', 'andi.jpg', '12313', '2015-04-23', 'HijjN2BGpyxEjUrCqVyhAiCmFr609RjAarGFMfQBFoEFooW3U2knHgPsQdT5'),
 (6, '5', 'sYKa4', '$2y$10$HWNl/Du5.mjU9EFa5hrdmOkzU5IfSrEaoKGKa8rP4o.ArxFwgk/1a', 'Meja', '', '', '', '', '', '0000-00-00', 'Da0j0L6DHHiSs0jxwhdfMb8U4VvTMteKoB2rT4pv6uThTmrWSOmMZ4IuO13B'),
 (7, '6', 'B0IgX', '$2y$10$P2BIPw032pWGeAUjJkMxEOa.Mla4WDYRUNTA1lja.FsciPmXOds5i', 'Meja', '', '', '', '', '', '0000-00-00', 'I9RKwRDYtEVhbrsKU1slKJy3V6Nw2mWN507ua8rt6wdgOiO8AIz2e5uzalkM'),
 (14, '13', 'pAW1k', '$2y$10$1GvyskHU4iru7fpV/pcUGuz6PqfqQ0SBAObtObQxWTXULvCXMbesa', 'Meja', '', '', '', '', '', '0000-00-00', 'RS3PFVKntSx98adviSyNvcmDPRtdmNNfm0dLUtU4yKVbn76jppHtWdKVTJ1b'),
 (17, 'Ayu Zenitha', 'ayuzenitha@gmail.com', '$2y$10$1jQs9HXd8fU0NooxF1ba8.VqfkKEn1xodulRbToUsSCHLJ6etPABS', 'Pelayan', '081617658897', 'php4E50.tmp.jpg', 'image/jpeg', 'pelayan1.jpg', 'Jl. Pepaya No 30 Lebak Bulus', '2015-04-01', '2KZ3WgphQK3E5Y3hm6b839w6edNWd6jTYemiCdg5P1QbbJFUsWRiiN6DiGl5'),
 (19, 'Aulia Arshad', 'aulia.arshad@ui.ac.id', '$2y$10$fDaO2XqSMlUFYmu6VuVmrOcc7rdoNr5oesYI5X/611F8cFSVS5m2S', 'Koki', '90991888', 'phpF21F.tmp.jpg', 'image/jpeg', 'koki2.jpg', 'Jalan Kenari 4 No.29', '2015-01-01', 'Le1gXC0oB1tnGJkePdeHpiioQ897R2v6dPMoZBlNqM224zVgrG2Neved7tNG'),
-(20, '14', 'hOMoG', '$2y$10$q4W789B1pu3b5yLoKOwreu12TbOXxRj1yRe7AwAHIxRU40tIKSmWm', 'Meja', '', '', '', '', '', '0000-00-00', 'OONHtkkYaqxtAqJqfcVv067VpNzIKJdHkwcqmHUa9Na6sXPmAXIshi4zvZu1'),
+(20, '14', 'hOMoG', '$2y$10$q4W789B1pu3b5yLoKOwreu12TbOXxRj1yRe7AwAHIxRU40tIKSmWm', 'Meja', '', '', '', '', '', '0000-00-00', 'DtZWM0jMHQIZQiFBBfpJOKoeNF2KcXYvbEFBt2LDxJhOhHyTNECMHTaLUDFp'),
 (21, '15', 'RWtY7', '$2y$10$ltmyQ/3GoM4mkVsDVDR7uei0Mtk1T.zrOP8XyfkGVnYlMtv0c4n6.', 'Meja', '', '', '', '', '', '0000-00-00', 'OaPkNvYhqYdiBJ2r88hBSscowggjKOlN2KFrtGcGj6TMGDLkDkITcO49Gcz6'),
 (24, 'Aditya Zulfahmi', 'adityazulfahmii@gmail.com', '$2y$10$pgj7iTq1UNdp5itu.nLM3.y./9T/5rbun2cMajTOVFhc/TE13ByY2', 'Koki', '0856976542383', 'php126E.tmp.jpg', 'image/jpeg', 'koki1.jpg', 'Jl. Cendrawasih no 13', '2014-09-13', NULL),
 (27, '16', '7Fko1', '$2y$10$Q7xcnb50P6l7kgT1J50FsexvUVFE0zcjcMz.xg4l0WtjKnGFx9Twu', 'Meja', '', '', '', '', '', '0000-00-00', NULL),
@@ -68,7 +68,7 @@ INSERT INTO `karyawan` (`id_karyawan`, `name`, `email`, `password`, `role`, `tel
 --
 
 CREATE TABLE IF NOT EXISTS `meja` (
-`id_meja` int(10) unsigned NOT NULL,
+  `id_meja` int(10) unsigned NOT NULL,
   `nomormeja` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `kodemasuk` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `deskripsi` text COLLATE utf8_unicode_ci NOT NULL
@@ -90,7 +90,7 @@ INSERT INTO `meja` (`id_meja`, `nomormeja`, `kodemasuk`, `deskripsi`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `menu` (
-`id_menu` int(10) unsigned NOT NULL,
+  `id_menu` int(10) unsigned NOT NULL,
   `name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `harga` int(11) NOT NULL,
   `kategori` enum('Menu Pembuka','Menu Utama','Menu Sampingan','Menu Penutup','Menu Minuman') COLLATE utf8_unicode_ci NOT NULL,
@@ -421,7 +421,35 @@ INSERT INTO `pemanggilan` (`id_pemanggilan`, `id_meja`, `timestamp`, `pesan`, `s
 (0, 14, '2015-05-19 18:47:36', 'Membayar pemesanan dengan kartu kredit', 0),
 (0, 14, '2015-05-19 20:09:35', 'Membayar pemesanan dengan kartu kredit', 0),
 (0, 14, '2015-05-20 02:11:07', 'Membayar pemesanan dengan kartu kredit', 0),
-(0, 14, '2015-05-24 11:26:23', 'Membayar pemesanan dengan kartu kredit', 0);
+(0, 14, '2015-05-24 11:26:23', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 01:39:31', 'Membayar pemesanan dengan kartu debit', 0),
+(0, 0, '2015-05-25 01:51:18', 'Membayar pemesanan dengan kartu debit', 0),
+(0, 14, '2015-05-25 02:13:05', 'Membayar pemesanan dengan kartu debit', 0),
+(0, 0, '2015-05-25 02:18:43', 'Membayar pemesanan dengan kartu debit', 0),
+(0, 0, '2015-05-25 02:18:43', 'Membayar pemesanan dengan kartu debit', 0),
+(0, 0, '2015-05-25 02:20:21', 'Membayar pemesanan dengan kartu debit', 0),
+(0, 0, '2015-05-25 02:20:26', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 0, '2015-05-25 02:20:43', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 0, '2015-05-25 02:20:54', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 0, '2015-05-25 02:21:08', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 0, '2015-05-25 02:22:00', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 0, '2015-05-25 02:22:33', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 0, '2015-05-25 02:22:53', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:23:34', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:24:04', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:26:07', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:26:35', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:26:50', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:27:06', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:27:06', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:27:52', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:28:05', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:28:20', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:28:40', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:29:32', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:29:40', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:29:51', 'Membayar pemesanan dengan kartu kredit', 0),
+(0, 14, '2015-05-25 02:30:26', 'Membayar pemesanan dengan kartu kredit', 0);
 
 -- --------------------------------------------------------
 
@@ -430,21 +458,29 @@ INSERT INTO `pemanggilan` (`id_pemanggilan`, `id_meja`, `timestamp`, `pesan`, `s
 --
 
 CREATE TABLE IF NOT EXISTS `pemesanan` (
-`id_pemesanan` int(10) unsigned NOT NULL,
+  `id_pemesanan` int(10) unsigned NOT NULL,
   `id_meja` int(10) unsigned NOT NULL,
   `id_menu` int(10) unsigned NOT NULL,
   `jumlah` int(11) NOT NULL,
   `waktu` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` enum('Queued','On Process','Done','Paid','') COLLATE utf8_unicode_ci NOT NULL,
   `keterangan` text COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `pemesanan`
 --
 
 INSERT INTO `pemesanan` (`id_pemesanan`, `id_meja`, `id_menu`, `jumlah`, `waktu`, `status`, `keterangan`) VALUES
-(1, 14, 33, 100, '2015-05-24 11:26:03', 'Paid', '');
+(1, 14, 33, 100, '2015-05-24 11:26:03', 'Paid', ''),
+(2, 14, 25, 12, '2015-05-25 01:39:28', 'Paid', ''),
+(3, 0, 35, 400, '2015-05-25 01:51:14', 'Paid', ''),
+(4, 14, 29, 2, '2015-05-25 02:13:03', 'Paid', ''),
+(5, 0, 33, 21, '2015-05-25 02:18:40', 'Paid', ''),
+(6, 0, 27, 1, '2015-05-25 02:21:06', 'Paid', ''),
+(7, 14, 2, 2, '2015-05-25 02:23:29', 'Paid', ''),
+(8, 14, 35, 4, '2015-05-25 02:27:49', 'Paid', ''),
+(9, 14, 27, 4, '2015-05-25 02:29:15', 'Paid', '');
 
 -- --------------------------------------------------------
 
@@ -461,18 +497,6 @@ CREATE TABLE IF NOT EXISTS `review_makanan` (
   `komentar` text COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `review_makanan`
---
-
-INSERT INTO `review_makanan` (`id_review`, `id_meja`, `id_menu`, `tanggal`, `nilai`, `komentar`) VALUES
-(0, 14, 2, '2015-05-19', 5, 'dsadsasda'),
-(0, 14, 2, '2015-05-19', 4, 'aselole'),
-(0, 14, 25, '2015-05-19', 3, 'wasik'),
-(0, 14, 1, '2015-05-19', 5, 'jos jos'),
-(0, 14, 2, '2015-05-20', 4, 'walaaah'),
-(0, 14, 33, '2015-05-24', 3, 'mantap');
-
 -- --------------------------------------------------------
 
 --
@@ -486,34 +510,9 @@ CREATE TABLE IF NOT EXISTS `review_restoran` (
   `nama` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `review` text COLLATE utf8_unicode_ci NOT NULL,
   `nilai` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `review_restoran`
---
-
-INSERT INTO `review_restoran` (`id_review`, `id_meja`, `tanggal`, `nama`, `review`, `nilai`, `created_at`, `updated_at`) VALUES
-(0, 14, '2015-05-19', '', 'fahmi', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'fahmi', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'fahmi', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'fahmi', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'fahmi', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'fahmi', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'fahmi', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'mantap sekali', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'keren', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'asdasd', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'asdasd', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'asdasd', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'fghfgh', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'fghfgh', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'asdasd', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'asdasdasd', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-19', '', 'wanjir', 5, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-20', '', 'seru juga nih', 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(0, 14, '2015-05-24', '', 'coy', 4, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -539,25 +538,38 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Indexes for table `karyawan`
 --
 ALTER TABLE `karyawan`
- ADD PRIMARY KEY (`id_karyawan`), ADD UNIQUE KEY `karyawan_email_unique` (`email`);
+  ADD PRIMARY KEY (`id_karyawan`),
+  ADD UNIQUE KEY `karyawan_email_unique` (`email`);
 
 --
 -- Indexes for table `meja`
 --
 ALTER TABLE `meja`
- ADD PRIMARY KEY (`id_meja`);
+  ADD PRIMARY KEY (`id_meja`);
 
 --
 -- Indexes for table `menu`
 --
 ALTER TABLE `menu`
- ADD PRIMARY KEY (`id_menu`);
+  ADD PRIMARY KEY (`id_menu`);
 
 --
 -- Indexes for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
- ADD PRIMARY KEY (`id_pemesanan`);
+  ADD PRIMARY KEY (`id_pemesanan`);
+
+--
+-- Indexes for table `review_makanan`
+--
+ALTER TABLE `review_makanan`
+  ADD PRIMARY KEY (`id_review`);
+
+--
+-- Indexes for table `review_restoran`
+--
+ALTER TABLE `review_restoran`
+  ADD PRIMARY KEY (`id_review`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -567,22 +579,32 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT for table `karyawan`
 --
 ALTER TABLE `karyawan`
-MODIFY `id_karyawan` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+  MODIFY `id_karyawan` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `meja`
 --
 ALTER TABLE `meja`
-MODIFY `id_meja` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id_meja` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-MODIFY `id_menu` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
+  MODIFY `id_menu` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-MODIFY `id_pemesanan` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id_pemesanan` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `review_makanan`
+--
+ALTER TABLE `review_makanan`
+  MODIFY `id_review` int(10) unsigned NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `review_restoran`
+--
+ALTER TABLE `review_restoran`
+  MODIFY `id_review` int(10) unsigned NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

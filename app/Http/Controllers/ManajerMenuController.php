@@ -210,7 +210,7 @@ class ManajerMenuController extends Controller {
 		uasort($bulans, function ($a,$b)
 		{
 			if($a['tanggal']<$b['tanggal']){ return -1; }
-			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
+			elseif ($a['tanggal']>$b['tanggal']) { return 1;}
 			else return 0;
 		});
 		// dd($namaBulan);
@@ -267,7 +267,7 @@ class ManajerMenuController extends Controller {
 		uasort($minggus, function ($a,$b)
 		{
 			if($a['tanggal']<$b['tanggal']){ return -1; }
-			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
+			elseif ($a['tanggal']>$b['tanggal']) { return 1;}
 			else return 0;
 		});
 		// dd($minggus);
@@ -302,12 +302,12 @@ class ManajerMenuController extends Controller {
 		}
 		uasort($bulans, function ($a,$b)
 		{
-			if($a['tanggal']<$b['tanggal']){ 
+			if($a['tanggal']<$b['tanggal']){
 				return -1;
 			}
 			elseif ($a['tanggal']>$b['tanggal']) {
 				return 1;
-			} 
+			}
 			else return 0;
 		});
 		return View::make('manajer.RangkumanStatistikUI')
