@@ -9,7 +9,6 @@ use Validator;
 use Input;
 use Redirect;
 use Session;
-use DateTime;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -170,7 +169,7 @@ class ManajerMenuController extends Controller {
 		if($namaBulan=="now") {
 			$namaBulan=date('M Y');
 		}
-
+		
 		$bulans=array();
 		foreach (Pemesanan::get() as $pemesanan) {
 			if($pemesanan->status=="Paid"){
@@ -214,18 +213,12 @@ class ManajerMenuController extends Controller {
 			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
 			else return 0;
 		});
+		// dd($namaBulan);
 		return View::make('manajer.StatistikBulananUI')
 			->with('bulans',$bulans)
 			->with('namaBulan',$namaBulan);
 	}
 
-<<<<<<< HEAD
-	public function statistikMingguan(){
-		$date="2015-01-30";
-		$ddate = new DateTime($date);
-		dd($ddate->format('W'));
-		// return View::make('manajer.StatistikMingguanUI');
-=======
 	public function statistikMingguan($namaMinggu){
 		$namaBulan=date('M Y');
 		if($namaMinggu=="now") {
@@ -237,10 +230,11 @@ class ManajerMenuController extends Controller {
 			if($pemesanan->status=="Paid" && date('M Y',strtotime($pemesanan->waktu))==$namaBulan){
 				$week="Minggu ".(date("W",strtotime($pemesanan->waktu)) - date("W", strtotime(date("Y-m-01", time()))) + 1);
 				if(array_key_exists($week,$minggus)){
-					$minggus[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+$pemesanan->jumlah;
-					if(array_key_exists($pemesanan->id_menu, $bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'])){
-						$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']=$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->jumlah;
-					}
+				    $minggus[$week]['jumlah']=$minggus[$week]['jumlah']+$pemesanan->jumlah;
+
+					if(array_key_exists($pemesanan->id_menu, $minggus[$week]['menu'])){
+				      $minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']=$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->jumlah;
+				     }
 					else{
 						$menu=array();
 						$menu['id_menu']=$pemesanan->id_menu;
@@ -276,11 +270,10 @@ class ManajerMenuController extends Controller {
 			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
 			else return 0;
 		});
-		dd($minggus);
+		// dd($minggus);
 		return View::make('manajer.StatistikMingguanUI')
 			->with('minggus',$minggus)
 			->with('namaMinggu',$namaMinggu);;
->>>>>>> fe4654cf771f94fa6e455bf7d0e5b79cd01f4a66
 	}
 
 	public function ulasanMenuDetail($id){
