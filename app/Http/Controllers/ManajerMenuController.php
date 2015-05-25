@@ -9,6 +9,7 @@ use Validator;
 use Input;
 use Redirect;
 use Session;
+use DateTime;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
@@ -169,7 +170,7 @@ class ManajerMenuController extends Controller {
 		if($namaBulan=="now") {
 			$namaBulan=date('M Y');
 		}
-		
+
 		$bulans=array();
 		foreach (Pemesanan::get() as $pemesanan) {
 			if(array_key_exists(date('M Y',strtotime($pemesanan->waktu)), $bulans)){
@@ -210,7 +211,10 @@ class ManajerMenuController extends Controller {
 	}
 
 	public function statistikMingguan(){
-		return View::make('manajer.StatistikMingguanUI');
+		$date="2015-01-30";
+		$ddate = new DateTime($date);
+		dd($ddate->format('W'));
+		// return View::make('manajer.StatistikMingguanUI');
 	}
 
 	public function ulasanMenuDetail($id){
