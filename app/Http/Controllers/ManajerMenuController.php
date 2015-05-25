@@ -211,7 +211,7 @@ class ManajerMenuController extends Controller {
 		uasort($bulans, function ($a,$b)
 		{
 			if($a['tanggal']<$b['tanggal']){ return -1; }
-			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
+			elseif ($a['tanggal']>$b['tanggal']) { return 1;}
 			else return 0;
 		});
 		return View::make('manajer.StatistikBulananUI')
@@ -219,13 +219,7 @@ class ManajerMenuController extends Controller {
 			->with('namaBulan',$namaBulan);
 	}
 
-<<<<<<< HEAD
-	public function statistikMingguan(){
-		$date="2015-01-30";
-		$ddate = new DateTime($date);
-		dd($ddate->format('W'));
-		// return View::make('manajer.StatistikMingguanUI');
-=======
+
 	public function statistikMingguan($namaMinggu){
 		$namaBulan=date('M Y');
 		if($namaMinggu=="now") {
@@ -273,14 +267,14 @@ class ManajerMenuController extends Controller {
 		uasort($minggus, function ($a,$b)
 		{
 			if($a['tanggal']<$b['tanggal']){ return -1; }
-			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
+			elseif ($a['tanggal']>$b['tanggal']) { return 1;}
 			else return 0;
 		});
 		dd($minggus);
 		return View::make('manajer.StatistikMingguanUI')
 			->with('minggus',$minggus)
 			->with('namaMinggu',$namaMinggu);;
->>>>>>> fe4654cf771f94fa6e455bf7d0e5b79cd01f4a66
+
 	}
 
 	public function ulasanMenuDetail($id){
@@ -309,12 +303,12 @@ class ManajerMenuController extends Controller {
 		}
 		uasort($bulans, function ($a,$b)
 		{
-			if($a['tanggal']<$b['tanggal']){ 
+			if($a['tanggal']<$b['tanggal']){
 				return -1;
 			}
 			elseif ($a['tanggal']>$b['tanggal']) {
 				return 1;
-			} 
+			}
 			else return 0;
 		});
 		return View::make('manajer.RangkumanStatistikUI')
