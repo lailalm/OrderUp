@@ -173,48 +173,114 @@ class ManajerMenuController extends Controller {
 
 		$bulans=array();
 		foreach (Pemesanan::get() as $pemesanan) {
-			if(array_key_exists(date('M Y',strtotime($pemesanan->waktu)), $bulans)){
-				$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+$pemesanan->jumlah;
-				if(array_key_exists($pemesanan->id_menu, $bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'])){
-					$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->id_menu;
-				}
-				else{
+			if($pemesanan->status=="Paid"){
+				if(array_key_exists(date('M Y',strtotime($pemesanan->waktu)), $bulans)){
+					$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+$pemesanan->jumlah;
+					if(array_key_exists($pemesanan->id_menu, $bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'])){
+						$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->jumlah;
+					}
+					else{
+						$menu=array();
+						$menu['id_menu']=$pemesanan->id_menu;
+						$menu['nama']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->name;
+						$menu['jumlah']=$pemesanan->jumlah;
+						$menu['image']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->photoname;
+
+						$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]=$menu;
+					}
+				} else {
 					$menu=array();
 					$menu['id_menu']=$pemesanan->id_menu;
 					$menu['nama']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->name;
 					$menu['jumlah']=$pemesanan->jumlah;
 					$menu['image']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->photoname;
+					$menus=array();
+					$menus[$pemesanan->id_menu]=$menu;
 
-					$bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'][$pemesanan->id_menu]=$menu;
+					$bulan=array();
+					$bulan['nama']=date('M',strtotime($pemesanan->waktu));
+					$bulan['tahun']=date('Y',strtotime($pemesanan->waktu));
+					$bulan['tanggal']=$pemesanan->waktu;
+					$bulan['jumlah']=$pemesanan->jumlah;
+					$bulan['menu']=$menus;
+					$bulans[date('M Y',strtotime($pemesanan->waktu))]=$bulan;
+
 				}
-			}else{
-				$menu=array();
-				$menu['id_menu']=$pemesanan->id_menu;
-				$menu['nama']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->name;
-				$menu['jumlah']=$pemesanan->jumlah;
-				$menu['image']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->photoname;
-				$menus=array();
-				$menus[$pemesanan->id_menu]=$menu;
-
-				$bulan=array();
-				$bulan['nama']=date('M',strtotime($pemesanan->waktu));
-				$bulan['tahun']=date('Y',strtotime($pemesanan->waktu));
-				$bulan['jumlah']=$pemesanan->jumlah;
-				$bulan['menu']=$menus;
-				$bulans[date('M Y',strtotime($pemesanan->waktu))]=$bulan;
-
 			}
 		}
+		uasort($bulans, function ($a,$b)
+		{
+			if($a['tanggal']<$b['tanggal']){ return -1; }
+			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
+			else return 0;
+		});
 		return View::make('manajer.StatistikBulananUI')
 			->with('bulans',$bulans)
 			->with('namaBulan',$namaBulan);
 	}
 
+<<<<<<< HEAD
 	public function statistikMingguan(){
 		$date="2015-01-30";
 		$ddate = new DateTime($date);
 		dd($ddate->format('W'));
 		// return View::make('manajer.StatistikMingguanUI');
+=======
+	public function statistikMingguan($namaMinggu){
+		$namaBulan=date('M Y');
+		if($namaMinggu=="now") {
+			$namaMinggu= "Minggu ".(date("W") - date("W", strtotime(date("Y-m-01", time()))) + 1);
+		}
+
+		$minggus=array();
+		foreach (Pemesanan::get() as $pemesanan) {
+			if($pemesanan->status=="Paid" && date('M Y',strtotime($pemesanan->waktu))==$namaBulan){
+				$week="Minggu ".(date("W",strtotime($pemesanan->waktu)) - date("W", strtotime(date("Y-m-01", time()))) + 1);
+				if(array_key_exists($week,$minggus)){
+					$minggus[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+$pemesanan->jumlah;
+					if(array_key_exists($pemesanan->id_menu, $bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'])){
+						$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']=$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->jumlah;
+					}
+					else{
+						$menu=array();
+						$menu['id_menu']=$pemesanan->id_menu;
+						$menu['nama']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->name;
+						$menu['jumlah']=$pemesanan->jumlah;
+						$menu['image']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->photoname;
+
+						$minggus[$week]['menu'][$pemesanan->id_menu]=$menu;
+					}
+				} else {
+					$menu=array();
+					$menu['id_menu']=$pemesanan->id_menu;
+					$menu['nama']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->name;
+					$menu['jumlah']=$pemesanan->jumlah;
+					$menu['image']=Menu::where('id_menu',$pemesanan->id_menu)->get()->first()->photoname;
+					$menus=array();
+					$menus[$pemesanan->id_menu]=$menu;
+
+					$minggu=array();
+					$minggu['nama']=date('M',strtotime($pemesanan->waktu));
+					$minggu['tanggal']=$pemesanan->waktu;
+					$minggu['jumlah']=$pemesanan->jumlah;
+					$minggu['menu']=$menus;
+					$minggus[$week]=$minggu;
+
+				}
+
+			}
+		}
+		uasort($minggus, function ($a,$b)
+		{
+			if($a['tanggal']<$b['tanggal']){ return -1; }
+			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
+			else return 0;
+		});
+		dd($minggus);
+		return View::make('manajer.StatistikMingguanUI')
+			->with('minggus',$minggus)
+			->with('namaMinggu',$namaMinggu);;
+>>>>>>> fe4654cf771f94fa6e455bf7d0e5b79cd01f4a66
 	}
 
 	public function ulasanMenuDetail($id){
@@ -228,19 +294,33 @@ class ManajerMenuController extends Controller {
 	public function rangkuman(){
 		$bulans=array();
 		foreach (Pemesanan::get() as $pemesanan) {
-			if(array_key_exists(date('M Y',strtotime($pemesanan->waktu)), $bulans)){
-				$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+($pemesanan->jumlah*Menu::find($pemesanan->id_menu)->harga);
-			}else{
-				$bulan=array();
-				$bulan['nama']=date('M',strtotime($pemesanan->waktu));
-				$bulan['tahun']=date('Y',strtotime($pemesanan->waktu));
-				$bulan['jumlah']=$pemesanan->jumlah*Menu::find($pemesanan->id_menu)->harga;
-				$bulans[date('M Y',strtotime($pemesanan->waktu))]=$bulan;
+			if($pemesanan->status=="Paid"){
+				if(array_key_exists(date('M Y',strtotime($pemesanan->waktu)), $bulans)){
+					$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+($pemesanan->jumlah*Menu::find($pemesanan->id_menu)->harga);
+				}else{
+					$bulan=array();
+					$bulan['nama']=date('M',strtotime($pemesanan->waktu));
+					$bulan['tahun']=date('Y',strtotime($pemesanan->waktu));
+					$bulan['jumlah']=$pemesanan->jumlah*Menu::find($pemesanan->id_menu)->harga;
+					$bulan['tanggal']=$pemesanan->waktu;
+					$bulans[date('M Y',strtotime($pemesanan->waktu))]=$bulan;
+				}
 			}
 		}
+		uasort($bulans, function ($a,$b)
+		{
+			if($a['tanggal']<$b['tanggal']){ 
+				return -1;
+			}
+			elseif ($a['tanggal']>$b['tanggal']) {
+				return 1;
+			} 
+			else return 0;
+		});
 		return View::make('manajer.RangkumanStatistikUI')
 			->with('bulans', $bulans);
 	}
+
 
 	public function store()
 	{
@@ -457,7 +537,6 @@ class ManajerMenuController extends Controller {
 	Session::flash('alert-class', 'alert-success');
         return Redirect::to('manajermenu/'.$rute);
     }
-
 
 
 
