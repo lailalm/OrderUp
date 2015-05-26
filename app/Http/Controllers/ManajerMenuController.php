@@ -229,8 +229,8 @@ class ManajerMenuController extends Controller {
 			if($pemesanan->status=="Paid" && date('M Y',strtotime($pemesanan->waktu))==$namaBulan){
 				$week="Minggu ".(date("W",strtotime($pemesanan->waktu)) - date("W", strtotime(date("Y-m-01", time()))) + 1);
 				if(array_key_exists($week,$minggus)){
-					$minggus[date('M Y',strtotime($pemesanan->waktu))]['jumlah']=$bulans[date('M Y',strtotime($pemesanan->waktu))]['jumlah']+$pemesanan->jumlah;
-					if(array_key_exists($pemesanan->id_menu, $bulans[date('M Y',strtotime($pemesanan->waktu))]['menu'])){
+					$minggus[$week]['jumlah']=$minggus[$week]['jumlah']+$pemesanan->jumlah;
+					if(array_key_exists($pemesanan->id_menu, $minggus[$week]['menu'])){
 						$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']=$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->jumlah;
 					}
 					else{
