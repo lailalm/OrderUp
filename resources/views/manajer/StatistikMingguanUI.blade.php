@@ -3,15 +3,17 @@
 @section('content')
 <div class="main col-md-10 col-md-offset-2">
 	<div class="judul-halaman col-xs-6 col-xs-offset-1 space"> 
-		Statistik Mingguan (Bulan Mei 2015)
+		Statistik Mingguan (Minggu Mei 2015)
 	</div>
 
 	<div class="judul-halaman col-xs-3 col-xs-offset-1 space"> 
-		<select id="pilih-bulan" class="selectpicker" data-header="Bulan">
-		  <option>Minggu 1</option> 
-		  <option>Minggu 2</option>
+		<select id="pilih-bulan" class="selectpicker" data-header="Minggu"
+				onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+			>
+		@foreach($minggus as $key=>$value)
+			<option value="{{$key}}" {{ $namaMinggu === $key ? 'selected' : '' }}> {{$key}}</option>
+		@endforeach
 		</select>
-		
 		<script>
 			$('.selectpicker').selectpicker();
 		</script>
@@ -19,40 +21,51 @@
 	
 	<div id="bulan-stat" class="col-xs-10 col-xs-offset-1 clearfix">
 		<!-- SPECIAL FOR THE FIRST -->
+		<?php  $first = true; ?>
+		@foreach($minggus[$namaMinggu]['menu'] as $value)
+		@if($first)
 		<div id="foto-stat" class="foto-stat col-xs-5">
-			<img src="assets/img/menu-utama.jpg" width= 100%>
+			{!! HTML::image('storage/app/'.$value['image'], 'lala', array( 'width' => '100%')) !!}
 		</div>
 
 		<div id="stat1" class="stat1 col-xs-7">
 			<div id ="nomor1">
-				#1	
+				#1
 			</div>
 
 			<div id ="nama1">
-				Spaghetti Seafood
+				{{$value['nama']}}
 			</div>
 
 			<div id ="total1">
-				Total penjualan: 50 porsi
+				Total penjualan: {{$value['jumlah']}} porsi
 			</div>
 		</div>
-		<!-- END OF SPECIAL -->
+		@endif
+		<?php  $first = false; ?>
+		@endforeach
 
 		<div class="isi" style="overflow:auto; max-height:180px; width:100%;">
 			<!-- FOREACH EXCEPT THE FIRST ONE -->
+			<?php  $numb = 1; ?>
+			@foreach($minggus[$namaMinggu]['menu'] as $value)
+			@if ($numb != 1)
 			<div id="stat2" class="isi-stat col-xs-12 clearfix">
 				<div id="nomor-stat" class="bulan col-xs-3">
-					#2
+					#<?php echo "".$numb; ?>
 				</div>
 
 				<div id-"nama-stat" class="col-xs-5">
-					Fettucine Carbonara
+					{{$value['nama']}}
 				</div>
 
 				<div id="total-stat" class="col-xs-4">
-					Total penjualan: 40 porsi
+					Total penjualan: {{$value['jumlah']}} porsi
 				</div>
 			</div>
+			@endif
+			<?php $numb = $numb + 1; ?>
+			@endforeach
 			<!-- END OF FOREACH -->
 		</div>
 
@@ -62,7 +75,7 @@
 			</div>
 
 			<div id="total-porsi" class="col-xs-2">
-				125 porsi
+				{{$minggus[$namaMinggu]['jumlah']}} porsi
 			</div>
 		</div>
 	</div>

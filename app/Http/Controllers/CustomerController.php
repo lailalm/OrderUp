@@ -164,8 +164,9 @@ class CustomerController extends Controller {
 		$pemanggilan->status_pemanggilan =0;
 		$pemanggilan->save();
 
-		$listPemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->get();
-		$pemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+		$listPemesanan = Pemesanan::where('status', 'Queued')->orWhere('status','Done')->orWhere('status','On Process')->where('id_meja', Auth::user()->name)->get();
+		$pemesanan = Pemesanan::where('status', 'Queued')->orWhere('status','Done')->orWhere('status','On Process')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+
 		foreach($pemesanan as $key=>$value){
 			$pemesanan[$key]=Menu::find($key)->name;
 		}
@@ -174,6 +175,7 @@ class CustomerController extends Controller {
 			$pesan->status = "Paid";
 			$pesan->save();
 		}
+
 
 		return View::make('pelanggan.AddUlasanUI')
 			->with('list_pesanan', $listPemesanan)
@@ -255,6 +257,13 @@ class CustomerController extends Controller {
 		return View::make('pelanggan.caraPenggunaanUI');
 	}
 
+	public function ulasanmenu($id){
+		$ulasanmakanan = UlasanMakanan::where('id_menu', $id)->get();
+		$menu = Menu::find($id);
+		return View::make('pelanggan.detailUlasanUI')
+			->with('ulasanmknn', $ulasanmakanan)
+			->with('menu', $menu->name);
+	}
 	public function addPemesanan()
 	{
 		$rules = array(
@@ -344,7 +353,7 @@ class CustomerController extends Controller {
 			}
 			$i=$i+1;
 		}
-		return Redirect::to('/logout');
+		return redirect::to('logout');
 	}
 
 }

@@ -170,7 +170,9 @@ Route::get('pembayaran', 'CustomerController@getMyPayment');
 
 Route::get('tutorial', 'CustomerController@showTutorial');
 
-Route::get('logout', ['as' => 'logout', 'uses' => 'CustomerController@logout']);
+Route::post('logout', ['as' => 'logout', 'uses'=> 'CustomerController@logout']);
+
+Route::get('logout', 'CustomerController@logout');
 
 Route::post('addpemanggilan', ['as' => 'addpemanggilan', 'uses' => 'CustomerController@addPemanggilan']);
 
@@ -181,3 +183,5 @@ Route::get('kredit', 'CustomerController@kredit');
 Route::get('debit', 'CustomerController@debit');
 
 Route::post('simpanulasan', ['as'=>'simpanulasan', 'uses'=>'CustomerController@saveUlasan']);
+
+Route::get('ulasanmenu/{id}', ['as' => 'ulasanmenu','uses'=> 'CustomerController@ulasanMenu']);

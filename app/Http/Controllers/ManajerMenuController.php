@@ -160,7 +160,16 @@ class ManajerMenuController extends Controller {
 	}
 
 	public function lihatLayanan(){
-		$ulasan = UlasanRestoran::get();
+		$ulasan=array();
+		foreach(UlasanRestoran::get() as $aulasan){
+			array_push($ulasan, $aulasan);
+		}
+		uasort($ulasan, function ($a,$b)
+		{
+			if($a['tanggal']<$b['tanggal']){ return 1; }
+			elseif ($a['tanggal']>$b['tanggal']) { return -1;}
+			else return 0;
+		});
 		return View::make('manajer.UlasanLayananUI')
 			->with('ulasan', $ulasan);
 	}
@@ -210,9 +219,19 @@ class ManajerMenuController extends Controller {
 		uasort($bulans, function ($a,$b)
 		{
 			if($a['tanggal']<$b['tanggal']){ return -1; }
-			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
+			elseif ($a['tanggal']>$b['tanggal']) { return 1;}
 			else return 0;
 		});
+		foreach ($bulans as $key => $value) {
+			uasort($value['menu'], function ($a,$b)
+			{
+				if($a['jumlah']<$b['jumlah']){ return 1; }
+				elseif ($a['jumlah']>$b['jumlah']) { return -1;}
+				else return 0;
+			});
+			$bulans[$key]=$value;
+		}
+		// dd($namaBulan);
 		return View::make('manajer.StatistikBulananUI')
 			->with('bulans',$bulans)
 			->with('namaBulan',$namaBulan);
@@ -229,10 +248,11 @@ class ManajerMenuController extends Controller {
 			if($pemesanan->status=="Paid" && date('M Y',strtotime($pemesanan->waktu))==$namaBulan){
 				$week="Minggu ".(date("W",strtotime($pemesanan->waktu)) - date("W", strtotime(date("Y-m-01", time()))) + 1);
 				if(array_key_exists($week,$minggus)){
-					$minggus[$week]['jumlah']=$minggus[$week]['jumlah']+$pemesanan->jumlah;
+				    $minggus[$week]['jumlah']=$minggus[$week]['jumlah']+$pemesanan->jumlah;
+
 					if(array_key_exists($pemesanan->id_menu, $minggus[$week]['menu'])){
-						$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']=$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->jumlah;
-					}
+				      $minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']=$minggus[$week]['menu'][$pemesanan->id_menu]['jumlah']+$pemesanan->jumlah;
+				     }
 					else{
 						$menu=array();
 						$menu['id_menu']=$pemesanan->id_menu;
@@ -265,10 +285,19 @@ class ManajerMenuController extends Controller {
 		uasort($minggus, function ($a,$b)
 		{
 			if($a['tanggal']<$b['tanggal']){ return -1; }
-			elseif ($a['tanggal']>$b['tanggal']) { return 1;} 
+			elseif ($a['tanggal']>$b['tanggal']) { return 1;}
 			else return 0;
 		});
-		dd($minggus);
+		foreach ($minggus as $key => $value) {
+			uasort($value['menu'], function ($a,$b)
+			{
+				if($a['jumlah']<$b['jumlah']){ return 1; }
+				elseif ($a['jumlah']>$b['jumlah']) { return -1;}
+				else return 0;
+			});
+			$minggus[$key]=$value;
+		}
+		// dd($minggus);
 		return View::make('manajer.StatistikMingguanUI')
 			->with('minggus',$minggus)
 			->with('namaMinggu',$namaMinggu);;
@@ -300,12 +329,12 @@ class ManajerMenuController extends Controller {
 		}
 		uasort($bulans, function ($a,$b)
 		{
-			if($a['tanggal']<$b['tanggal']){ 
-				return -1;
+			if($a['tanggal']<$b['tanggal']){
+				return 1;
 			}
 			elseif ($a['tanggal']>$b['tanggal']) {
-				return 1;
-			} 
+				return -1;
+			}
 			else return 0;
 		});
 		return View::make('manajer.RangkumanStatistikUI')
