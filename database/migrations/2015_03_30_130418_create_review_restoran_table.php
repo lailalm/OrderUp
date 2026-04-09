@@ -1,76 +1,26 @@
 <?php
 
-
-
 use Illuminate\Database\Schema\Blueprint;
-
 use Illuminate\Database\Migrations\Migration;
 
+class CreateReviewRestoranTable extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('review_restoran', function (Blueprint $table) {
+            $table->increments('id_review');
+            $table->unsignedInteger('id_meja');
+            $table->foreign('id_meja')->references('id_meja')->on('meja');
+            $table->date('tanggal');
+            $table->string('nama')->nullable();
+            $table->text('review');
+            $table->unsignedInteger('nilai');
+            $table->timestamps();
+        });
+    }
 
-
-class CreateReviewRestoranTable extends Migration {
-
-
-
-	/**
-
-	 * Run the migrations.
-
-	 *
-
-	 * @return void
-
-	 */
-
-	public function up()
-
-	{
-
-		Schema::create('review_restoran', function(Blueprint $table)
-
-		{
-
-			$table->increments('id_review');
-
-			$table->integer('id_meja')->unsigned();
-
-			$table->foreign('id_meja')->references('id_meja')->on('meja');
-
-			$table->date('tanggal');
-
-			$table->string('nama');
-
-			$table->text('review');
-
-			$table->integer('nilai');->unsigned();
-
-			$table->timestamps();
-
-		});
-
-	}
-
-
-
-	/**
-
-	 * Reverse the migrations.
-
-	 *
-
-	 * @return void
-
-	 */
-
-	public function down()
-
-	{
-
-		Schema::drop('review_restoran');
-
-	}
-
-
-
+    public function down(): void
+    {
+        Schema::dropIfExists('review_restoran');
+    }
 }
-

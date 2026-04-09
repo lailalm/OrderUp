@@ -1,19 +1,43 @@
-# Version 1.0
+# ChangeLog
 
-This is the list of changes for the Version 1.0 release series.
+All notable changes are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
-## Version 1.0.3
+## [4.0.1] - 2023-02-07
 
-* Only look for Git repository in the supplied path (and not in its parent directories).
+### Fixed
 
-## Version 1.0.2
+* [#17](https://github.com/sebastianbergmann/version/pull/17): Release archive contains unnecessary assets
 
-* Errors from `exec()`uting the Git command are now suppressed.
+## [4.0.0] - 2023-02-03
 
-## Version 1.0.1
+### Changed
 
-* Fixed #2: `getVersion()` fails on Windows.
+* `Version::getVersion()` has been renamed to `Version::asString()`
 
-## Version 1.0.0
+### Removed
 
-* Initial release.
+* This component is no longer supported on PHP 7.3, PHP 7.4, and PHP 8.0
+
+## [3.0.2] - 2020-09-28
+
+### Changed
+
+* Changed PHP version constraint in `composer.json` from `^7.3 || ^8.0` to `>=7.3`
+
+## [3.0.1] - 2020-06-26
+
+### Added
+
+* This component is now supported on PHP 8
+
+## [3.0.0] - 2020-01-21
+
+### Removed
+
+* This component is no longer supported on PHP 7.1 and PHP 7.2
+
+[4.0.1]: https://github.com/sebastianbergmann/version/compare/4.0.0...4.0.1
+[4.0.0]: https://github.com/sebastianbergmann/version/compare/3.0.2...4.0.0
+[3.0.2]: https://github.com/sebastianbergmann/version/compare/3.0.1...3.0.2
+[3.0.1]: https://github.com/sebastianbergmann/version/compare/3.0.0...3.0.1
+[3.0.0]: https://github.com/sebastianbergmann/version/compare/2.0.1...3.0.0

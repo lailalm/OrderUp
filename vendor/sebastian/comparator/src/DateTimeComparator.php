@@ -1,85 +1,73 @@
-<?php
+<?php declare(strict_types=1);
 /*
- * This file is part of the Comparator package.
+ * This file is part of sebastian/comparator.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\Comparator;
 
-/**
- * Compares DateTime instances for equality.
- *
- * @package    Comparator
- * @author     Jeff Welch <whatthejeff@gmail.com>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/comparator
- */
-class DateTimeComparator extends ObjectComparator
+use function abs;
+use function assert;
+use function floor;
+use function sprintf;
+use DateInterval;
+use DateTimeInterface;
+use DateTimeZone;
+
+final class DateTimeComparator extends ObjectComparator
 {
-    /**
-     * Returns whether the comparator can compare two values.
-     *
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual The second value to compare
-     * @return boolean
-     */
-    public function accepts($expected, $actual)
+    public function accepts(mixed $expected, mixed $actual): bool
     {
-        return $expected instanceof \DateTime && $actual instanceof \DateTime;
+        return ($expected instanceof DateTimeInterface) &&
+               ($actual instanceof DateTimeInterface);
     }
 
     /**
-     * Asserts that two values are equal.
-     *
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual The second value to compare
-     * @param  float $delta The allowed numerical distance between two values to
-     *                      consider them equal
-     * @param  bool  $canonicalize If set to TRUE, arrays are sorted before
-     *                             comparison
-     * @param  bool  $ignoreCase If set to TRUE, upper- and lowercasing is
-     *                           ignored when comparing string values
-     * @throws ComparisonFailure Thrown when the comparison
-     *                           fails. Contains information about the
-     *                           specific errors that lead to the failure.
+     * @throws ComparisonFailure
      */
-    public function assertEquals($expected, $actual, $delta = 0.0, $canonicalize = false, $ignoreCase = false)
+    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false, array &$processed = []): void
     {
-        $delta = new \DateInterval(sprintf('PT%sS', abs($delta)));
+        assert($expected instanceof DateTimeInterface);
+        assert($actual instanceof DateTimeInterface);
 
-        $expectedLower = clone $expected;
-        $expectedUpper = clone $expected;
+        $absDelta = abs($delta);
+        $delta    = new DateInterval(sprintf('PT%dS', $absDelta));
+        $delta->f = $absDelta - floor($absDelta);
 
-        if ($actual < $expectedLower->sub($delta) ||
-            $actual > $expectedUpper->add($delta)) {
+        $actualClone = (clone $actual)
+            ->setTimezone(new DateTimeZone('UTC'));
+
+        $expectedLower = (clone $expected)
+            ->setTimezone(new DateTimeZone('UTC'))
+            ->sub($delta);
+
+        $expectedUpper = (clone $expected)
+            ->setTimezone(new DateTimeZone('UTC'))
+            ->add($delta);
+
+        if ($actualClone < $expectedLower || $actualClone > $expectedUpper) {
             throw new ComparisonFailure(
                 $expected,
                 $actual,
                 $this->dateTimeToString($expected),
                 $this->dateTimeToString($actual),
-                false,
-                'Failed asserting that two DateTime objects are equal.'
+                'Failed asserting that two DateTime objects are equal.',
             );
         }
     }
 
     /**
      * Returns an ISO 8601 formatted string representation of a datetime or
-     * 'Invalid DateTime object' if the provided DateTime was not properly
+     * 'Invalid DateTimeInterface object' if the provided DateTimeInterface was not properly
      * initialized.
-     *
-     * @param \DateTime $datetime
-     * @return string
      */
-    protected function dateTimeToString(\DateTime $datetime)
+    private function dateTimeToString(DateTimeInterface $datetime): string
     {
-        $string = $datetime->format(\DateTime::ISO8601);
+        $string = $datetime->format('Y-m-d\TH:i:s.uO');
 
-        return $string ? $string : 'Invalid DateTime object';
+        return $string ?: 'Invalid DateTimeInterface object';
     }
 }

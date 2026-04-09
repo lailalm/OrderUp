@@ -1,35 +1,27 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use View;
-use Auth;
-use Validator;
-use Input;
-use Redirect;
-use Session;
-use App\Menu;
-use App\Pemanggilan;
+namespace App\Http\Controllers;
 
-class PelayanController extends Controller {
-        
-        public function __construct()
-	{
-		$this->middleware('auth'); 
-	}
-	
-	public function getPemanggilan()
-	{
-		$panggilan = Pemanggilan::orderBy('id_pemanggilan', 'ASC')->
-					where('status_pemanggilan','!=','1')->get();
+use App\Models\Pemanggilan;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
-		return View::make('pelayan.listPanggilanUI')
-			->with('panggilan', $panggilan);
+class PelayanController extends Controller
+{
+    public function getPemanggilan(): View
+    {
+        return view('pelayan.listPanggilanUI', [
+            'panggilan' => Pemanggilan::pending()->orderBy('id_pemanggilan')->get(),
+        ]);
+    }
 
-	}
+    public function removePemanggilan(Request $request): RedirectResponse
+    {
+        $request->validate(['id_pemanggilan' => 'required|integer|exists:pemanggilan,id_pemanggilan']);
 
-	public function removePemanggilan(){
+        Pemanggilan::findOrFail($request->integer('id_pemanggilan'))->delete();
 
-		Pemanggilan::where('id_pemanggilan', Input::get('id_pemanggilan'))->delete();
-		return Redirect::to('listpemanggilan');
-	}
-	
+        return redirect()->route('pelayan.pemanggilan');
+    }
 }

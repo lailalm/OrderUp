@@ -1,316 +1,70 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use View;
-use Auth;
-use Validator;
-use Input;
-use Redirect;
-use Session;
-use Hash;
-use App\Menu;
-use App\Pemesanan;
-use App\Meja;
-use App\Karyawan;
+namespace App\Http\Controllers;
 
+use App\Models\Menu;
+use App\Services\PemesananService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
+class KokiController extends Controller
+{
+    public function __construct(private readonly PemesananService $pemesananService) {}
 
-class KokiController extends Controller {
+    public function index(): View
+    {
+        $pemesanan = $this->pemesananService->getAllActiveOrders();
+        $view      = auth()->user()->isKoki() ? 'koki.DaftarPesananUI' : 'pelayan.DaftarPesananUI';
 
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
+        return view($view, compact('pemesanan'));
+    }
 
-	public function index()
-	{
-		$pemesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')->
-					where('status','!=','Paid')->get();
+    public function getStatusMenu(string $kategori): View
+    {
+        return view('koki.StatusMenuUI', [
+            'list_menu' => Menu::bySlug($kategori)->get(),
+            'kategori'  => $kategori,
+        ]);
+    }
 
-		if(Auth::user()->role=="Koki"){
-			return View::make('koki.DaftarPesananUI')
-			->with('pemesanan', $pemesanan);
-		}
-		else{
-			return View::make('pelayan.DaftarPesananUI')
-			->with('pemesanan', $pemesanan);
-		}
+    public function makeAvailable(int $id): RedirectResponse
+    {
+        $menu = Menu::findOrFail($id);
+        $menu->update(['status' => true]);
 
-	}
+        session()->flash('message', "{$menu->name} menjadi tersedia.");
+        session()->flash('alert-class', 'alert-success');
 
-	public function getstatusmenu($kategori)
-	{
+        return redirect()->route('koki.statusmenu', $menu->categorySlug());
+    }
 
-		if($kategori=="utama"){
-			return View::make('koki.StatusMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="pembuka"){
-			return View::make('koki.StatusMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="sampingan"){
-			return View::make('koki.StatusMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="penutup"){
-			return View::make('koki.StatusMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="minuman"){
-			return View::make('koki.StatusMenuUI')
-			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="rekomendasi"){
-			return View::make('koki.StatusMenuUI')
-			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="promosi"){
-			return View::make('koki.StatusMenuUI')
-			->with('list_menu', Menu::where('is_promosi','1')->get())
-			->with('kategori', $kategori);;
-		}
-		else {
+    public function makeUnavailable(int $id): RedirectResponse
+    {
+        $menu = Menu::findOrFail($id);
+        $menu->update(['status' => false]);
 
-		}
-	}
+        session()->flash('message', "{$menu->name} menjadi tidak tersedia.");
+        session()->flash('alert-class', 'alert-success');
 
+        return redirect()->route('koki.statusmenu', $menu->categorySlug());
+    }
 
-	public function makeAvailable($id)
-	{
-		$menu = Menu::find($id);
-		$menu->status = 1;
-		$menu->save();
-		$kategori = $menu->kategori;
+    public function changeStatus(string $status, int $id): RedirectResponse
+    {
+        $pemesanan = $this->pemesananService->changeStatus($id, $status);
+        $namaMenu  = $pemesanan->menu?->name ?? '—';
+        $nomorMeja = $pemesanan->meja?->nomormeja ?? '—';
 
-		if($kategori=="Menu Utama"){
-			$rute = "utama";
-		}
-		else if($kategori=="Menu Pembuka"){
-			$rute = "pembuka";
-		}
-		else if($kategori=="Menu Sampingan"){
-			$rute = "sampingan";
-		}
-		else if($kategori=="Menu Penutup"){
-			$rute = "Penutup";
-		}
-		else if($kategori=="Menu Minuman"){
-			$rute = "minuman";
-		}
-		else if($menu->is_rekomendasi=="1"){
-			$rute = "rekomendasi";
-		}
-		else if($menu->is_promosi=="1"){
-			$rute = "promosi";
-		}
-		else {
+        $label = match ($pemesanan->status) {
+            'Queued'     => 'Waiting',
+            'On Process' => 'On Process',
+            'Done'       => 'Done',
+            default      => $pemesanan->status,
+        };
 
-		}
+        session()->flash('message', "Pesanan {$namaMenu} pada meja {$nomorMeja} di-set \"{$label}\".");
+        session()->flash('alert-class', 'alert-success');
 
-		Session::flash('message',  $menu->name .' menjadi tersedia.');
-		Session::flash('alert-class', 'alert-success');
-
-
-		return Redirect::to('statusmenu/'.$rute);
-	}
-
-
-	public function makeUnavailable($id)
-	{
-		$menu = Menu::find($id);
-		$menu->status = 0;
-		$menu->save();
-		$kategori = $menu->kategori;
-
-		if($kategori=="Menu Utama"){
-			$rute = "utama";
-		}
-		else if($kategori=="Menu Pembuka"){
-			$rute = "pembuka";
-		}
-		else if($kategori=="Menu Sampingan"){
-			$rute = "sampingan";
-		}
-		else if($kategori=="Menu Penutup"){
-			$rute = "Penutup";
-		}
-		else if($kategori=="Menu Minuman"){
-			$rute = "minuman";
-		}
-		else if($menu->is_rekomendasi=="1"){
-			$rute = "rekomendasi";
-		}
-		else if($menu->is_promosi=="1"){
-			$rute = "promosi";
-		}
-		else {
-
-		}
-
-		Session::flash('message',  $menu->name .' menjadi tidak tersedia.');
-		Session::flash('alert-class', 'alert-success');
-		return Redirect::to('statusmenu/'.$rute);
-	}
-
-	public function create()
-	{
-		//
-	}
-
-
-	public function changeStatus($status, $id){
-
-		$pemesanan = Pemesanan::find($id);
-		if($status == "waiting"){
-			$pemesanan->status = "Queued";
-			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "Waiting".');
-			Session::flash('alert-class', 'alert-success');
-		}
-		else if($status == "process"){
-			$pemesanan->status = "On Process";
-			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "On Process".');
-			Session::flash('alert-class', 'alert-success');
-		}
-		else if($status == "done"){
-			$pemesanan->status = "Done";
-			Session::flash('message',  'Pemesanan '.Menu::find($pemesanan->id_menu)->name.' pada meja '.Meja::find($pemesanan->id_meja)->nomormeja.' di set "Done".');
-			Session::flash('alert-class', 'alert-success');
-		}
-		else{
-			//ErrorView
-		}
-		$pemesanan->save();
-		return Redirect::to('daftarpesanan');
-	}
-
-
-	public function store()
-	{
-
-	}
-
-	public function show($id)
-	{
-		//
-	}
-
-
-	public function edit()
-	{
-		$karyawan = Karyawan::find(Auth::user()->id_karyawan);
-
-		// show the Edit form and pass Karyawan
-		if (Auth::user()->role == 'Manajer'){
-			return View::make('manajer.EditProfilUI')
-				->with('karyawan', $karyawan);
-		}
-		else if (Auth::user()->role == 'Koki'){
-			return View::make('koki.EditProfilUI')
-				->with('karyawan', $karyawan);
-		}
-		else{
-			return View::make('pelayan.EditProfilUI')
-				->with('karyawan', $karyawan);
-		}
-
-
-	}
-
-
-	public function update()
-	{
-		$rules = array(
-			"name" => 'required',
-			"email" => 'required|email',
-			"telepon" => "required|numeric",
-			"alamat" => "required"
-		);
-
-		$validator = Validator::make(Input::all(), $rules);
-
-		if($validator->fails()) {
-			Session::flash('message', 'Gagal mengubah. Mohon cek kembali isian Anda.');
-			Session::flash('alert-class', 'alert-danger');
-			return Redirect::to('editprofil');
-				// ->withError($validator);
-		} else {
-
-			$karyawan = Karyawan::find(Auth::user()->id_karyawan);
-			$karyawan->name 			= Input::get('name');
-			$karyawan->email 			= Input::get('email');
-			$password					= Input::get('password');
-			// if(!$password==""){
-			// 	$karyawan->password 	= bcrypt(Input::get('password'));
-			// }
-			$karyawan->telepon 			= Input::get('telepon');
-			$karyawan->alamat 			= Input::get('alamat');
-			// $karyawan->tanggal_mulai 	= Input::get('tanggal_mulai');
-			$file 						= Input::file('foto');
-
-			if(!is_null($file)){
-				$extension 					= $file->getClientOriginalExtension();
-				Storage::disk('local')->put($file->getFilename().'.'.$extension,  File::get($file));
-				$karyawan->mime = $file->getClientMimeType();
-				$karyawan->original_photoname = $file->getClientOriginalName();
-				$karyawan->photoname = $file->getFilename().'.'.$extension;
-			}
-			$karyawan->save();
-
-			Session::flash('message','Profil '. $karyawan->name .' berhasil diubah.');
-			Session::flash('alert-class', 'alert-success');
-
-				return Redirect::to('editprofil');
-			}
-	}
-
-	public function updateKodeLogin()
-	{
-		$rules = array(
-			"old_pw" => 'required|min:8',
-			"new_pw" => 'required|min:8',
-			"new_pw_conf" => 'required'
-		);
-
-		$validator = Validator::make(Input::all(), $rules);
-		if(!Hash::check(Input::get("old_pw"),Auth::user()->password)){
-			Session::flash('message', 'Gagal Mengubah kode login. Kode login lama yang anda masukkan salah.');
-			Session::flash('alert-class', 'alert-danger');
-			return Redirect::to('editprofil');
-		}
-		elseif(Input::get("new_pw")!=Input::get("new_pw_conf")){
-			Session::flash('message', 'Gagal mengubah kode login. Konfirmasi kode login tidak sama dengan kode login baru');
-			Session::flash('alert-class', 'alert-danger');
-			return Redirect::to('editprofil');
-		}
-		elseif($validator->fails()){
-			Session::flash('message', 'Gagal mengubah kode login. Mohon cek kembali isian Anda. (minimal 8 karakter)');
-			Session::flash('alert-class', 'alert-danger');
-			return Redirect::to('editprofil');
-				// ->withError($validator);
-		} else {
-			$karyawan = Karyawan::find(Auth::user()->id_karyawan);
-			$karyawan->password 	= bcrypt(Input::get('new_pw'));
-			$karyawan->save();
-
-			Session::flash('message', 'Kode login untuk user '. $karyawan->name .' berhasil diubah.');
-			Session::flash('alert-class', 'alert-success');
-
-				return Redirect::to('editprofil');
-			}
-	}
-
-
-	public function destroy($id)
-	{
-		//
-	}
-
+        return redirect()->route('koki.pesanan');
+    }
 }

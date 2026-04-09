@@ -1,42 +1,17 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace PhpParser\Node\Stmt;
 
-use PhpParser\Node;
-use PhpParser\Error;
+use PhpParser\Node\UseItem;
 
-class UseUse extends Node\Stmt
-{
-    /** @var Node\Name Namespace, class, function or constant to alias */
-    public $name;
-    /** @var string Alias */
-    public $alias;
+require __DIR__ . '/../UseItem.php';
 
+if (false) {
     /**
-     * Constructs an alias (use) node.
+     * For classmap-authoritative support.
      *
-     * @param Node\Name   $name       Namespace/Class to alias
-     * @param null|string $alias      Alias
-     * @param array       $attributes Additional attributes
+     * @deprecated use \PhpParser\Node\UseItem instead.
      */
-    public function __construct(Node\Name $name, $alias = null, array $attributes = array()) {
-        if (null === $alias) {
-            $alias = $name->getLast();
-        }
-
-        if ('self' == $alias || 'parent' == $alias) {
-            throw new Error(sprintf(
-                'Cannot use %s as %s because \'%2$s\' is a special class name',
-                $name, $alias
-            ));
-        }
-
-        parent::__construct(null, $attributes);
-        $this->name = $name;
-        $this->alias = $alias;
-    }
-
-    public function getSubNodeNames() {
-        return array('name', 'alias');
+    class UseUse extends UseItem {
     }
 }

@@ -1,79 +1,67 @@
-<?php
+<?php declare(strict_types=1);
 /*
- * This file is part of the Comparator package.
+ * This file is part of sebastian/comparator.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\Comparator;
 
-/**
- * Compares numerical values for equality.
- *
- * @package    Comparator
- * @author     Bernhard Schussek <bschussek@2bepublished.at>
- * @author     Alexander <iam.asm89@gmail.com>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/comparator
- */
-class NumericComparator extends ScalarComparator
+use function abs;
+use function is_float;
+use function is_infinite;
+use function is_nan;
+use function is_numeric;
+use function is_string;
+use function sprintf;
+use SebastianBergmann\Exporter\Exporter;
+
+final class NumericComparator extends ScalarComparator
 {
-    /**
-     * Returns whether the comparator can compare two values.
-     *
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual The second value to compare
-     * @return boolean
-     */
-    public function accepts($expected, $actual)
+    public function accepts(mixed $expected, mixed $actual): bool
     {
-        // all numerical values, but not if one of them is a double
-        // or both of them are strings
+        // all numerical values, but not if both of them are strings
         return is_numeric($expected) && is_numeric($actual) &&
-               !(is_double($expected) || is_double($actual)) &&
                !(is_string($expected) && is_string($actual));
     }
 
     /**
-     * Asserts that two values are equal.
-     *
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual The second value to compare
-     * @param  float $delta The allowed numerical distance between two values to
-     *                      consider them equal
-     * @param  bool  $canonicalize If set to TRUE, arrays are sorted before
-     *                             comparison
-     * @param  bool  $ignoreCase If set to TRUE, upper- and lowercasing is
-     *                           ignored when comparing string values
-     * @throws ComparisonFailure Thrown when the comparison
-     *                           fails. Contains information about the
-     *                           specific errors that lead to the failure.
+     * @throws ComparisonFailure
      */
-    public function assertEquals($expected, $actual, $delta = 0.0, $canonicalize = false, $ignoreCase = false)
+    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false): void
     {
-        if (is_infinite($actual) && is_infinite($expected)) {
+        if ($this->isInfinite($actual) && $this->isInfinite($expected)) {
             return;
         }
 
-        if ((is_infinite($actual) xor is_infinite($expected)) ||
-            (is_nan($actual) or is_nan($expected)) ||
+        if (($this->isInfinite($actual) xor $this->isInfinite($expected)) ||
+            ($this->isNan($actual) || $this->isNan($expected)) ||
             abs($actual - $expected) > $delta) {
+            $exporter = new Exporter;
+
             throw new ComparisonFailure(
                 $expected,
                 $actual,
                 '',
                 '',
-                false,
                 sprintf(
                     'Failed asserting that %s matches expected %s.',
-                    $this->exporter->export($actual),
-                    $this->exporter->export($expected)
-                )
+                    $exporter->export($actual),
+                    $exporter->export($expected),
+                ),
             );
         }
+    }
+
+    private function isInfinite(mixed $value): bool
+    {
+        return is_float($value) && is_infinite($value);
+    }
+
+    private function isNan(mixed $value): bool
+    {
+        return is_float($value) && is_nan($value);
     }
 }

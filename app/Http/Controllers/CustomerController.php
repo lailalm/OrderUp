@@ -1,359 +1,191 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use Auth;
-use App\Menu;
-use App\Pemesanan;
-use App\Pemanggilan;
-use App\Meja;
-use App\UlasanRestoran;
-use App\UlasanMakanan;
-use View;
-use Validator;
-use Input;
-use Redirect;
-use Session;
+namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
+use App\Http\Requests\BayarRequest;
+use App\Http\Requests\CancelPemesananRequest;
+use App\Http\Requests\StorePemesananRequest;
+use App\Models\Menu;
+use App\Models\Pemanggilan;
+use App\Models\UlasanMakanan;
+use App\Models\UlasanRestoran;
+use App\Services\PemesananService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
-class CustomerController extends Controller {
+class CustomerController extends Controller
+{
+    public function __construct(private readonly PemesananService $pemesananService) {}
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	// public function __construct()
-	// {
-	// 	$this->middleware('auth');
-	// }
+    // ─── Home & Menu browsing ─────────────────────────────────────────────────
 
+    public function index(): View
+    {
+        return view('pelanggan.menu', [
+            'menu_promosi' => Menu::where('is_promosi', 1)->get(),
+        ]);
+    }
 
-	public function index()
-	{
-		$menu_promosi = Menu::where('is_promosi','1')->get();
-		return view('pelanggan.menu')
-			->with('menu_promosi', $menu_promosi);
-	}
+    public function indexByCat(string $kategori): View
+    {
+        return view('pelanggan.menu_utama', [
+            'list_menu' => Menu::bySlug($kategori)->get(),
+            'kategori'  => $kategori,
+            'review'    => UlasanMakanan::all(),
+        ]);
+    }
 
-	public function indexByCat($kategori)
-	{
-		if($kategori=="utama"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
-			->with('kategori', $kategori)
-			->with('review', UlasanMakanan::get());
-		}
-		else if($kategori=="pembuka"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
-			->with('kategori', $kategori)
-			->with('review', UlasanMakanan::get());
-		}
-		else if($kategori=="sampingan"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
-			->with('kategori', $kategori)
-			->with('review', UlasanMakanan::get());
-		}
-		else if($kategori=="penutup"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
-			->with('kategori', $kategori)
-			->with('review', UlasanMakanan::get());
-		}
-		else if($kategori=="minuman"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
-			->with('kategori', $kategori)
-			->with('review', UlasanMakanan::get());;
-		}
-		else if($kategori=="rekomendasi"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
-			->with('kategori', $kategori)
-			->with('review', UlasanMakanan::get());
-		}
-		else if($kategori=="promosi"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('is_promosi','1')->get())
-			->with('kategori', $kategori)
-			->with('review', UlasanMakanan::get());
-		}
-		else{
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
-			->with('kategori', $kategori)
-			->with('review', UlasanMakanan::get());
-		}
-	}
+    public function showTutorial(): View
+    {
+        return view('pelanggan.caraPenggunaanUI');
+    }
 
-	public function getMyPesanan()
-	{
-		$idm = Auth::user()->name;
-		$list_pesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')
-					->where('status','!=','Paid')
-					->where('id_meja', $idm)
-					->get();
-		return View::make('pelanggan.listPesananUI')
-			->with('list_pesanan', $list_pesanan);;
-	}
+    public function ulasanMenu(int $id): View
+    {
+        $menu = Menu::findOrFail($id);
 
-	public function getMyPayment()
-	{
-		$idm = Auth::user()->name;
-		$list_pesanan = Pemesanan::orderBy('id_pemesanan', 'ASC')
-						->where('status','!=','Paid')
-						->where('id_meja', $idm)
-						->get();
-		return View::make('pelanggan.pembayaranUI')
-			->with('list_pesanan', $list_pesanan);;
-	}
+        return view('pelanggan.detailUlasanUI', [
+            'menu'       => $menu->name,
+            'ulasanmknn' => $menu->ulasanMakanan()->get(),
+        ]);
+    }
 
+    // ─── Orders ───────────────────────────────────────────────────────────────
 
-	public function addPemanggilan()
-	{
+    public function addPemesanan(StorePemesananRequest $request): RedirectResponse
+    {
+        $idMeja = (int) Auth::user()->name;
 
-		$pemanggilan = new Pemanggilan;
-		$pemanggilan->id_meja 				= Auth::user()->name;
-		$pemanggilan->pesan 				= Input::get('deskripsi');
-		$pemanggilan->status_pemanggilan 	= 0;
+        $this->pemesananService->create(
+            $idMeja,
+            $request->integer('id_menu'),
+            $request->integer('porsi'),
+            $request->input('deskripsi')
+        );
 
-		$pemanggilan->save();
-		return Redirect::to('/');
-	}
+        session()->flash('message', 'Berhasil menambahkan pesanan.');
+        session()->flash('alert-class', 'alert-success');
 
+        return redirect()->route('menu.kategori', $request->input('kategori', 'utama'));
+    }
 
-	public function bayar()
-	{
-		$rules = array(
-			"nominal" => 'required|integer|min:1'
-		);
+    public function getMyPesanan(): View
+    {
+        $idMeja = (int) Auth::user()->name;
 
-		$validator = Validator::make(Input::all(), $rules);
-		if($validator->fails()) {
-	        Session::flash('message', 'Gagal membayar. Periksa masukan Anda.');
-			Session::flash('alert-class', 'alert-danger');
-			return Redirect::to('/pembayaran');
-		} else {
-			$pemanggilan = new Pemanggilan;
-			$pemanggilan->id_meja = Auth::user()->name;
-			$pemanggilan->pesan = 'Membayar pemesanan dengan uang tunai '.Input::get('nominal');
-			$pemanggilan->status_pemanggilan =0;
-			$pemanggilan->save();
-			$listPemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->get();
-			$pemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
-			foreach($pemesanan as $key=>$value){
-				$pemesanan[$key]=Menu::find($key)->name;
-			}
-			foreach(Pemesanan::get() as $pesan){
-				$pesan->status = "Paid";
-				$pesan->save();
-			}
-			return View::make('pelanggan.AddUlasanUI')
-				->with('list_pesanan', $listPemesanan)
-				->with('id_name',$pemesanan);
-		}
-	}
+        return view('pelanggan.listPesananUI', [
+            'list_pesanan' => $this->pemesananService->getActiveOrdersForMeja($idMeja),
+        ]);
+    }
 
-	public function kredit()
-	{
-		$pemanggilan = new Pemanggilan;
-		$pemanggilan->id_meja = Auth::user()->name;
-		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu kredit';
-		$pemanggilan->status_pemanggilan =0;
-		$pemanggilan->save();
+    public function cancelPemesanan(CancelPemesananRequest $request): RedirectResponse
+    {
+        $this->pemesananService->cancel(
+            $request->integer('id_pemesanan'),
+            $request->integer('countcancel')
+        );
 
-		$listPemesanan = Pemesanan::where('status', 'Queued')->orWhere('status','Done')->orWhere('status','On Process')->where('id_meja', Auth::user()->name)->get();
-		$pemesanan = Pemesanan::where('status', 'Queued')->orWhere('status','Done')->orWhere('status','On Process')->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+        session()->flash('message', 'Berhasil membatalkan pesanan.');
+        session()->flash('alert-class', 'alert-success');
 
-		foreach($pemesanan as $key=>$value){
-			$pemesanan[$key]=Menu::find($key)->name;
-		}
+        return redirect()->route('customer.pesanan');
+    }
 
-		foreach(Pemesanan::get() as $pesan){
-			$pesan->status = "Paid";
-			$pesan->save();
-		}
+    // ─── Payment ──────────────────────────────────────────────────────────────
 
+    public function getMyPayment(): View
+    {
+        $idMeja = (int) Auth::user()->name;
 
-		return View::make('pelanggan.AddUlasanUI')
-			->with('list_pesanan', $listPemesanan)
-			->with('id_name',$pemesanan);
+        return view('pelanggan.pembayaranUI', [
+            'list_pesanan' => $this->pemesananService->getActiveOrdersForMeja($idMeja),
+        ]);
+    }
 
-	}
+    public function bayar(BayarRequest $request): View
+    {
+        return $this->processPayment('tunai', $request->integer('nominal'));
+    }
 
-	public function debit(){
-		$pemanggilan = new Pemanggilan;
-		$pemanggilan->id_meja = Auth::user()->name;
-		$pemanggilan->pesan = 'Membayar pemesanan dengan kartu debit';
-		$pemanggilan->status_pemanggilan =0;
-		$pemanggilan->save();
+    public function kredit(): View
+    {
+        return $this->processPayment('kredit');
+    }
 
-		//KOK QUEUED DOANG?
-		$listPemesanan = Pemesanan::whereIn('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->get();
-		$pemesanan = Pemesanan::where('status', array('Queued','Done','On Process'))->where('id_meja', Auth::user()->name)->lists('jumlah','id_menu');
+    public function debit(): View
+    {
+        return $this->processPayment('debit');
+    }
 
-		foreach($pemesanan as $key=>$value){
-			$pemesanan[$key]=Menu::find($key)->name;
-		}
+    // ─── Customer calls ───────────────────────────────────────────────────────
 
-		foreach(Pemesanan::get() as $pesan){
-			$pesan->status = "Paid";
-			$pesan->save();
-		}
+    public function addPemanggilan(Request $request): RedirectResponse
+    {
+        $request->validate(['deskripsi' => 'nullable|string|max:500']);
 
-		return View::make('pelanggan.AddUlasanUI')
-			->with('list_pesanan', $listPemesanan)
-			->with('id_name',$pemesanan);
-	}
+        Pemanggilan::create([
+            'id_meja'            => (int) Auth::user()->name,
+            'pesan'              => $request->input('deskripsi', ''),
+            'status_pemanggilan' => false,
+        ]);
 
-	public function showMenuUtama()
-	{
-		if($kategori=="utama"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="pembuka"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Pembuka')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="sampingan"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Sampingan')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="penutup"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Penutup')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="minuman"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Minuman')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="rekomendasi"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('is_rekomendasi','1')->get())
-			->with('kategori', $kategori);;
-		}
-		else if($kategori=="promosi"){
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('is_promosi','1')->get())
-			->with('kategori', $kategori);;
-		}
-		else {
-			return View::make('pelanggan.menu_utama')
-			->with('list_menu', Menu::where('kategori','Menu Utama')->get())
-			->with('kategori', 'utama');;
-		}
-	}
+        return redirect()->route('customer.home');
+    }
 
-	public function showTutorial()
-	{
-		return View::make('pelanggan.caraPenggunaanUI');
-	}
+    // ─── Reviews ─────────────────────────────────────────────────────────────
 
-	public function ulasanmenu($id){
-		$ulasanmakanan = UlasanMakanan::where('id_menu', $id)->get();
-		$menu = Menu::find($id);
-		return View::make('pelanggan.detailUlasanUI')
-			->with('ulasanmknn', $ulasanmakanan)
-			->with('menu', $menu->name);
-	}
-	public function addPemesanan()
-	{
-		$rules = array(
-			"id_menu"=> 'required',
-			"porsi" => 'required|integer|min:1'
-		);
+    public function saveUlasan(Request $request): RedirectResponse
+    {
+        $idMeja  = (int) Auth::user()->name;
+        $tanggal = now()->toDateString();
 
-		$validator = Validator::make(Input::all(), $rules);
-		if($validator->fails()) {
-	        	Session::flash('message', 'Gagal menambahkan pesanan. Mohon periksa isian Anda.');
-			Session::flash('alert-class', 'alert-danger');
-		} else {
-			$pesan = new Pemesanan;
+        if ($request->filled('nilailayanan')) {
+            UlasanRestoran::create([
+                'id_meja' => $idMeja,
+                'tanggal' => $tanggal,
+                'review'  => $request->input('deskripsiRestoran', ''),
+                'nilai'   => $request->integer('nilailayanan'),
+            ]);
+        }
 
-			$pesan->id_meja 		= Auth::user()->name;
-			$pesan->id_menu 		= Input::get('id_menu');
-			$pesan->jumlah 			= Input::get('porsi');
-			$pesan->keterangan 		= Input::get('deskripsi');
+        $total = $request->integer('total', 0);
+        for ($i = 1; $i <= $total; $i++) {
+            if ($request->filled("nilaimenu{$i}")) {
+                UlasanMakanan::create([
+                    'id_meja'  => $idMeja,
+                    'tanggal'  => $tanggal,
+                    'id_menu'  => $request->integer("id{$i}"),
+                    'komentar' => $request->input("deskripsi{$i}", ''),
+                    'nilai'    => $request->integer("nilaimenu{$i}"),
+                ]);
+            }
+        }
 
-			$pesan->save();
-			Session::flash('message', 'Berhasil menambahkan pesanan.');
-			Session::flash('alert-class', 'alert-success');
-		}
-		return Redirect::to('menu/'.Input::get('kategori'));
-	}
+        return redirect()->route('customer.logout');
+    }
 
-	public function cancelPemesanan()
-	{
-		$rules = array(
-			"countcancel" => 'required|integer|min:1'
-		);
+    // ─── Logout ───────────────────────────────────────────────────────────────
 
-		$validator = Validator::make(Input::all(), $rules);
-		if($validator->fails()) {
-			Session::flash('message', 'Gagal membatalkan pesanan.');
-			Session::flash('alert-class', 'alert-danger');
-			return Redirect::to('listpesanan');
-		}
-		else {
-			$batal = Input::get('countcancel');
-			$id_pemesanan = Input::get('id_pemesanan');
-			$pesan = Pemesanan::find(Input::get('id_pemesanan'));
-			$current_jumlah = $pesan->jumlah;
+    public function logout(): View
+    {
+        Auth::logout();
+        return view('pelanggan.logoutUI');
+    }
 
-			if ( $batal >= $current_jumlah){
-				Pemesanan::where('id_pemesanan', $id_pemesanan)->delete();
-				Session::flash('message', 'Berhasil membatalkan pesanan.');
-				Session::flash('alert-class', 'alert-success');
-				return Redirect::to('listpesanan');
-			}
-			else {
-				$pesan->jumlah = $current_jumlah - $batal;
-				$pesan->save();
-				Session::flash('message', 'Berhasil membatalkan pesanan.');
-				Session::flash('alert-class', 'alert-success');
-				return Redirect::to('listpesanan');
-			}
-		}
-	}
+    // ─── Private ─────────────────────────────────────────────────────────────
 
-	public function logout()
-	{
-		Auth::logout();
-		return view('pelanggan.logoutUI');
-	}
+    private function processPayment(string $method, ?int $nominal = null): View
+    {
+        $idMeja = (int) Auth::user()->name;
+        $orders = $this->pemesananService->processPayment($idMeja, $method, $nominal);
 
+        $idName = $orders->pluck('menu.name', 'id_menu')->toArray();
 
-
-	public function saveUlasan(){
-		if(Input::get('nilailayanan')!=""){
-			$ulasanR = new UlasanRestoran;
-			$ulasanR->id_meja = Auth::user()->name;
-			$ulasanR->tanggal = date('Y-m-d');
-			$ulasanR->review = Input::get('deskripsiRestoran');
-			$ulasanR->nilai= Input::get('nilailayanan');
-			$ulasanR->save();
-		}
-		for($i=1;$i<(Input::get('total')+1);){
-			if(Input::get('nilaimenu'.$i)!=""){
-				$ulasanM= new UlasanMakanan;
-				$ulasanM->id_meja = Auth::user()->name;
-				$ulasanM->tanggal = date('Y-m-d');
-				$ulasanM->id_menu = Input::get('id'.($i));
-				$ulasanM->komentar = Input::get('deskripsi'.$i);
-				$ulasanM->nilai= Input::get('nilaimenu'.$i);
-				$ulasanM->save();
-			}
-			$i=$i+1;
-		}
-		return redirect::to('logout');
-	}
-
+        return view('pelanggan.AddUlasanUI', [
+            'list_pesanan' => $orders,
+            'id_name'      => $idName,
+        ]);
+    }
 }

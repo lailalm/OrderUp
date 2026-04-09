@@ -1,45 +1,26 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated {
+class RedirectIfAuthenticated
+{
+    public function handle(Request $request, Closure $next, string ...$guards): mixed
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            return match ($user->role) {
+                'Manajer' => redirect()->route('manajer.menu.index', 'utama'),
+                'Koki'    => redirect()->route('koki.pesanan'),
+                'Pelayan' => redirect()->route('pelayan.pesanan'),
+                'Meja'    => redirect()->route('customer.home'),
+                default   => redirect('/'),
+            };
+        }
 
-	/**
-	 * The Guard implementation.
-	 *
-	 * @var Guard
-	 */
-	protected $auth;
-	protected $role;
-
-	/**
-	 * Create a new filter instance.
-	 *
-	 * @param  Guard  $auth
-	 * @return void
-	 */
-	public function __construct(Guard $auth)
-	{
-		$this->auth = $auth;
-	}
-
-	/**
-	 * Handle an incoming request.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
-	 * @return mixed
-	 */
-	public function handle($request, Closure $next)
-	{
-		if ($this->auth->check())
-		{
-			return new RedirectResponse(url('/manajermenu'));
-		}
-
-		return $next($request);
-	}
-
+        return $next($request);
+    }
 }

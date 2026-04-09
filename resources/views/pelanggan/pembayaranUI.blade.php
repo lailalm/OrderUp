@@ -63,7 +63,7 @@
 	<div id= "pembayaran-main" class="col-sm-8 col-sm-offset-2">
 		<div id= "cara-bayar" class= "col-sm-6 row text-center">
 			<div id="btn-bayar3" class = "col-xs-12">
-				<a href="{{ url('/auth/logout') }}">
+				<a href="{{ route('customer.logout') }}">
 					{!! HTML::image('assets/img/logout.png', 'panggil', array( 'width' => '70px')) !!}
 				</a>
 			</div>

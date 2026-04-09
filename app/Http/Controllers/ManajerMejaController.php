@@ -1,194 +1,63 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Meja;
-use App\Karyawan;
-use View;
-use Validator;
-use Input;
-use Redirect;
-use Session;
-use Mail;
-use Config;
+namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMejaRequest;
+use App\Http\Requests\UpdateMejaRequest;
+use App\Models\Meja;
+use App\Services\MejaService;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
-class ManajerMejaController extends Controller {
+class ManajerMejaController extends Controller
+{
+    public function __construct(private readonly MejaService $mejaService) {}
 
-	/*
-	|--------------------------------------------------------------------------
-	| Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders your application's "dashboard" for users that
-	| are authenticated. Of course, you are free to change or remove the
-	| controller as you wish. It is just here to get your app started!
-	|
-	*/
-
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
-
-	/**
-	 * Show the application dashboard to the user.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$list_meja = Meja::get();
-
-		return View::make('manajer.DaftarMejaUI')
-			->with('daftar_meja', $list_meja);
-	}
-
-	/**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-	public function create()
-	{
-		return View::make('manajer.FormMejaUI');
-	}
-
-	/**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-	public function store()
-	{
-		//validate
-
-		$rules = array(
-			"kodemasuk" => 'required',
-			"nomormeja"	=> 'required',
-			"deskripsi" => 'required'
-		);
-
-		$validator = Validator::make(Input::all(), $rules);
-
-		if($validator->fails()) {		
-	        Session::flash('message', 'Gagal menambahkan meja. Mohon periksa isian Anda.'); 
-			Session::flash('alert-class', 'alert-danger'); 
-			return redirect('addmeja')
-				->withError($validator);
-		} else {
-
-			$meja = new Meja;
-			$meja->nomormeja	= Input::get('nomormeja');
-			$meja->kodemasuk	= Input::get('kodemasuk');
-			$meja->deskripsi	= Input::get('deskripsi');
-			$meja->save();
-
-			$karyawan = new Karyawan;
-			$karyawan->name = $meja->id_meja;
-			$karyawan->email = $meja->kodemasuk;
-			$karyawan->password = bcrypt($meja->kodemasuk);
-			$karyawan->role= "Meja";
-			$karyawan->save();
-
-
-	        Session::flash('message', 'Berhasil menambahkan '.$meja->nomormeja); 
-			Session::flash('alert-class', 'alert-success'); 
-			//Session::flash('message', 'Successfully created nerd!');
-			return redirect('manajermeja');
-		}
-
-	}
-
-	/**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
+    public function index(): View
     {
-        //
+        return view('manajer.DaftarMejaUI', ['daftar_meja' => Meja::all()]);
     }
 
-     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
+    public function create(): View
     {
-    	// echo '<script type="text/javascript">','alert("Ceritanya nanti ngambil data ',$id,'");','</script>';
-        // get Meja
-        $mejas = Meja::find($id);
-
-        // show the Edit form and pass Meja
-        return View::make('manajer/EditMejaUI')
-        	->with('meja', $mejas);
+        return view('manajer.FormMejaUI');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($id)
+    public function store(StoreMejaRequest $request): RedirectResponse
     {
-        //validate
+        $meja = $this->mejaService->create($request->validated());
 
-		$rules = array(
-			"kodemasuk" => 'required',
-			"deskripsi" => 'required'
-		);
+        session()->flash('message', "Berhasil menambahkan {$meja->nomormeja}.");
+        session()->flash('alert-class', 'alert-success');
 
-		$validator = Validator::make(Input::all(), $rules);
-
-		if($validator->fails()) {
-			return redirect('addmeja')
-				->withError($validator);
-		} else{
-
-			$meja = Meja::find($id);
-			$meja->nomormeja	= Input::get('nomormeja');
-			$meja->kodemasuk	= Input::get('kodemasuk');
-			$meja->deskripsi	= Input::get('deskripsi');
-			$meja->save();
-
-			$karyawan = Karyawan::where('name',$id)->get()[0];
-			$karyawan->name = $meja->id_meja;
-			$karyawan->email = $meja->kodemasuk;
-			$karyawan->password = bcrypt($meja->kodemasuk);
-			$karyawan->save(); 
-
-	        Session::flash('message', 'Berhasil mengubah '.$meja->nomormeja); 
-			Session::flash('alert-class', 'alert-success'); 
-			//Session::flash('message', 'Successfully created nerd!');
-			return redirect('manajermeja');
-		}
+        return redirect()->route('manajer.meja.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
+    public function edit(int $id): View
     {
-        $meja = Meja::find($id);
-        $temp = $meja->nomormeja;
-        $meja->delete();
-
-
-        Session::flash('message', 'Berhasil menghapus '.$temp.' dari daftar meja.'); 
-		Session::flash('alert-class', 'alert-success'); 
-		return redirect('manajermeja');
-
+        return view('manajer.EditMejaUI', ['meja' => Meja::findOrFail($id)]);
     }
 
+    public function update(UpdateMejaRequest $request, int $id): RedirectResponse
+    {
+        $meja = $this->mejaService->update(Meja::findOrFail($id), $request->validated());
+
+        session()->flash('message', "Berhasil mengubah {$meja->nomormeja}.");
+        session()->flash('alert-class', 'alert-success');
+
+        return redirect()->route('manajer.meja.index');
+    }
+
+    public function destroy(int $id): RedirectResponse
+    {
+        $meja = Meja::findOrFail($id);
+        $nama = $meja->nomormeja;
+
+        $this->mejaService->delete($meja);
+
+        session()->flash('message', "Berhasil menghapus {$nama}.");
+        session()->flash('alert-class', 'alert-success');
+
+        return redirect()->route('manajer.meja.index');
+    }
 }

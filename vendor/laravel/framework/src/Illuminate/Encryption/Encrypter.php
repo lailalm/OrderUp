@@ -1,306 +1,292 @@
-<?php namespace Illuminate\Encryption;
+<?php
 
-use Exception;
+namespace Illuminate\Encryption;
+
 use Illuminate\Contracts\Encryption\DecryptException;
-use Symfony\Component\Security\Core\Util\StringUtils;
-use Symfony\Component\Security\Core\Util\SecureRandom;
 use Illuminate\Contracts\Encryption\Encrypter as EncrypterContract;
+use Illuminate\Contracts\Encryption\EncryptException;
+use Illuminate\Contracts\Encryption\StringEncrypter;
+use RuntimeException;
 
-class Encrypter implements EncrypterContract {
+class Encrypter implements EncrypterContract, StringEncrypter
+{
+    /**
+     * The encryption key.
+     *
+     * @var string
+     */
+    protected $key;
 
-	/**
-	 * The encryption key.
-	 *
-	 * @var string
-	 */
-	protected $key;
+    /**
+     * The algorithm used for encryption.
+     *
+     * @var string
+     */
+    protected $cipher;
 
-	/**
-	 * The algorithm used for encryption.
-	 *
-	 * @var string
-	 */
-	protected $cipher = MCRYPT_RIJNDAEL_128;
+    /**
+     * The supported cipher algorithms and their properties.
+     *
+     * @var array
+     */
+    private static $supportedCiphers = [
+        'aes-128-cbc' => ['size' => 16, 'aead' => false],
+        'aes-256-cbc' => ['size' => 32, 'aead' => false],
+        'aes-128-gcm' => ['size' => 16, 'aead' => true],
+        'aes-256-gcm' => ['size' => 32, 'aead' => true],
+    ];
 
-	/**
-	 * The mode used for encryption.
-	 *
-	 * @var string
-	 */
-	protected $mode = MCRYPT_MODE_CBC;
+    /**
+     * Create a new encrypter instance.
+     *
+     * @param  string  $key
+     * @param  string  $cipher
+     * @return void
+     *
+     * @throws \RuntimeException
+     */
+    public function __construct($key, $cipher = 'aes-128-cbc')
+    {
+        $key = (string) $key;
 
-	/**
-	 * The block size of the cipher.
-	 *
-	 * @var int
-	 */
-	protected $block = 16;
+        if (! static::supported($key, $cipher)) {
+            $ciphers = implode(', ', array_keys(self::$supportedCiphers));
 
-	/**
-	 * Create a new encrypter instance.
-	 *
-	 * @param  string  $key
-	 * @return void
-	 */
-	public function __construct($key)
-	{
-		$this->key = (string) $key;
-	}
+            throw new RuntimeException("Unsupported cipher or incorrect key length. Supported ciphers are: {$ciphers}.");
+        }
 
-	/**
-	 * Encrypt the given value.
-	 *
-	 * @param  string  $value
-	 * @return string
-	 */
-	public function encrypt($value)
-	{
-		$iv = mcrypt_create_iv($this->getIvSize(), $this->getRandomizer());
+        $this->key = $key;
+        $this->cipher = $cipher;
+    }
 
-		$value = base64_encode($this->padAndMcrypt($value, $iv));
+    /**
+     * Determine if the given key and cipher combination is valid.
+     *
+     * @param  string  $key
+     * @param  string  $cipher
+     * @return bool
+     */
+    public static function supported($key, $cipher)
+    {
+        if (! isset(self::$supportedCiphers[strtolower($cipher)])) {
+            return false;
+        }
 
-		// Once we have the encrypted value we will go ahead base64_encode the input
-		// vector and create the MAC for the encrypted value so we can verify its
-		// authenticity. Then, we'll JSON encode the data in a "payload" array.
-		$mac = $this->hash($iv = base64_encode($iv), $value);
+        return mb_strlen($key, '8bit') === self::$supportedCiphers[strtolower($cipher)]['size'];
+    }
 
-		return base64_encode(json_encode(compact('iv', 'value', 'mac')));
-	}
+    /**
+     * Create a new encryption key for the given cipher.
+     *
+     * @param  string  $cipher
+     * @return string
+     */
+    public static function generateKey($cipher)
+    {
+        return random_bytes(self::$supportedCiphers[strtolower($cipher)]['size'] ?? 32);
+    }
 
-	/**
-	 * Pad and use mcrypt on the given value and input vector.
-	 *
-	 * @param  string  $value
-	 * @param  string  $iv
-	 * @return string
-	 */
-	protected function padAndMcrypt($value, $iv)
-	{
-		$value = $this->addPadding(serialize($value));
+    /**
+     * Encrypt the given value.
+     *
+     * @param  mixed  $value
+     * @param  bool  $serialize
+     * @return string
+     *
+     * @throws \Illuminate\Contracts\Encryption\EncryptException
+     */
+    public function encrypt($value, $serialize = true)
+    {
+        $iv = random_bytes(openssl_cipher_iv_length(strtolower($this->cipher)));
 
-		return mcrypt_encrypt($this->cipher, $this->key, $value, $this->mode, $iv);
-	}
+        $value = \openssl_encrypt(
+            $serialize ? serialize($value) : $value,
+            strtolower($this->cipher), $this->key, 0, $iv, $tag
+        );
 
-	/**
-	 * Decrypt the given value.
-	 *
-	 * @param  string  $payload
-	 * @return string
-	 */
-	public function decrypt($payload)
-	{
-		$payload = $this->getJsonPayload($payload);
+        if ($value === false) {
+            throw new EncryptException('Could not encrypt the data.');
+        }
 
-		// We'll go ahead and remove the PKCS7 padding from the encrypted value before
-		// we decrypt it. Once we have the de-padded value, we will grab the vector
-		// and decrypt the data, passing back the unserialized from of the value.
-		$value = base64_decode($payload['value']);
+        $iv = base64_encode($iv);
+        $tag = base64_encode($tag ?? '');
 
-		$iv = base64_decode($payload['iv']);
+        $mac = self::$supportedCiphers[strtolower($this->cipher)]['aead']
+            ? '' // For AEAD-algorithms, the tag / MAC is returned by openssl_encrypt...
+            : $this->hash($iv, $value);
 
-		return unserialize($this->stripPadding($this->mcryptDecrypt($value, $iv)));
-	}
+        $json = json_encode(compact('iv', 'value', 'mac', 'tag'), JSON_UNESCAPED_SLASHES);
 
-	/**
-	 * Run the mcrypt decryption routine for the value.
-	 *
-	 * @param  string  $value
-	 * @param  string  $iv
-	 * @return string
-	 *
-	 * @throws \Exception
-	 */
-	protected function mcryptDecrypt($value, $iv)
-	{
-		try
-		{
-			return mcrypt_decrypt($this->cipher, $this->key, $value, $this->mode, $iv);
-		}
-		catch (Exception $e)
-		{
-			throw new DecryptException($e->getMessage());
-		}
-	}
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new EncryptException('Could not encrypt the data.');
+        }
 
-	/**
-	 * Get the JSON array from the given payload.
-	 *
-	 * @param  string  $payload
-	 * @return array
-	 *
-	 * @throws \Illuminate\Contracts\Encryption\DecryptException
-	 */
-	protected function getJsonPayload($payload)
-	{
-		$payload = json_decode(base64_decode($payload), true);
+        return base64_encode($json);
+    }
 
-		// If the payload is not valid JSON or does not have the proper keys set we will
-		// assume it is invalid and bail out of the routine since we will not be able
-		// to decrypt the given value. We'll also check the MAC for this encryption.
-		if ( ! $payload || $this->invalidPayload($payload))
-		{
-			throw new DecryptException('Invalid data.');
-		}
+    /**
+     * Encrypt a string without serialization.
+     *
+     * @param  string  $value
+     * @return string
+     *
+     * @throws \Illuminate\Contracts\Encryption\EncryptException
+     */
+    public function encryptString($value)
+    {
+        return $this->encrypt($value, false);
+    }
 
-		if ( ! $this->validMac($payload))
-		{
-			throw new DecryptException('MAC is invalid.');
-		}
+    /**
+     * Decrypt the given value.
+     *
+     * @param  string  $payload
+     * @param  bool  $unserialize
+     * @return mixed
+     *
+     * @throws \Illuminate\Contracts\Encryption\DecryptException
+     */
+    public function decrypt($payload, $unserialize = true)
+    {
+        $payload = $this->getJsonPayload($payload);
 
-		return $payload;
-	}
+        $iv = base64_decode($payload['iv']);
 
-	/**
-	 * Determine if the MAC for the given payload is valid.
-	 *
-	 * @param  array  $payload
-	 * @return bool
-	 *
-	 * @throws \RuntimeException
-	 */
-	protected function validMac(array $payload)
-	{
-		$bytes = (new SecureRandom)->nextBytes(16);
+        $this->ensureTagIsValid(
+            $tag = empty($payload['tag']) ? null : base64_decode($payload['tag'])
+        );
 
-		$calcMac = hash_hmac('sha256', $this->hash($payload['iv'], $payload['value']), $bytes, true);
+        // Here we will decrypt the value. If we are able to successfully decrypt it
+        // we will then unserialize it and return it out to the caller. If we are
+        // unable to decrypt this value we will throw out an exception message.
+        $decrypted = \openssl_decrypt(
+            $payload['value'], strtolower($this->cipher), $this->key, 0, $iv, $tag ?? ''
+        );
 
-		return StringUtils::equals(hash_hmac('sha256', $payload['mac'], $bytes, true), $calcMac);
-	}
+        if ($decrypted === false) {
+            throw new DecryptException('Could not decrypt the data.');
+        }
 
-	/**
-	 * Create a MAC for the given value.
-	 *
-	 * @param  string  $iv
-	 * @param  string  $value
-	 * @return string
-	 */
-	protected function hash($iv, $value)
-	{
-		return hash_hmac('sha256', $iv.$value, $this->key);
-	}
+        return $unserialize ? unserialize($decrypted) : $decrypted;
+    }
 
-	/**
-	 * Add PKCS7 padding to a given value.
-	 *
-	 * @param  string  $value
-	 * @return string
-	 */
-	protected function addPadding($value)
-	{
-		$pad = $this->block - (strlen($value) % $this->block);
+    /**
+     * Decrypt the given string without unserialization.
+     *
+     * @param  string  $payload
+     * @return string
+     *
+     * @throws \Illuminate\Contracts\Encryption\DecryptException
+     */
+    public function decryptString($payload)
+    {
+        return $this->decrypt($payload, false);
+    }
 
-		return $value.str_repeat(chr($pad), $pad);
-	}
+    /**
+     * Create a MAC for the given value.
+     *
+     * @param  string  $iv
+     * @param  mixed  $value
+     * @return string
+     */
+    protected function hash($iv, $value)
+    {
+        return hash_hmac('sha256', $iv.$value, $this->key);
+    }
 
-	/**
-	 * Remove the padding from the given value.
-	 *
-	 * @param  string  $value
-	 * @return string
-	 */
-	protected function stripPadding($value)
-	{
-		$pad = ord($value[($len = strlen($value)) - 1]);
+    /**
+     * Get the JSON array from the given payload.
+     *
+     * @param  string  $payload
+     * @return array
+     *
+     * @throws \Illuminate\Contracts\Encryption\DecryptException
+     */
+    protected function getJsonPayload($payload)
+    {
+        if (! is_string($payload)) {
+            throw new DecryptException('The payload is invalid.');
+        }
 
-		return $this->paddingIsValid($pad, $value) ? substr($value, 0, $len - $pad) : $value;
-	}
+        $payload = json_decode(base64_decode($payload), true);
 
-	/**
-	 * Determine if the given padding for a value is valid.
-	 *
-	 * @param  string  $pad
-	 * @param  string  $value
-	 * @return bool
-	 */
-	protected function paddingIsValid($pad, $value)
-	{
-		$beforePad = strlen($value) - $pad;
+        // If the payload is not valid JSON or does not have the proper keys set we will
+        // assume it is invalid and bail out of the routine since we will not be able
+        // to decrypt the given value. We'll also check the MAC for this encryption.
+        if (! $this->validPayload($payload)) {
+            throw new DecryptException('The payload is invalid.');
+        }
 
-		return substr($value, $beforePad) == str_repeat(substr($value, -1), $pad);
-	}
+        if (! self::$supportedCiphers[strtolower($this->cipher)]['aead'] && ! $this->validMac($payload)) {
+            throw new DecryptException('The MAC is invalid.');
+        }
 
-	/**
-	 * Verify that the encryption payload is valid.
-	 *
-	 * @param  array|mixed  $data
-	 * @return bool
-	 */
-	protected function invalidPayload($data)
-	{
-		return ! is_array($data) || ! isset($data['iv']) || ! isset($data['value']) || ! isset($data['mac']);
-	}
+        return $payload;
+    }
 
-	/**
-	 * Get the IV size for the cipher.
-	 *
-	 * @return int
-	 */
-	protected function getIvSize()
-	{
-		return mcrypt_get_iv_size($this->cipher, $this->mode);
-	}
+    /**
+     * Verify that the encryption payload is valid.
+     *
+     * @param  mixed  $payload
+     * @return bool
+     */
+    protected function validPayload($payload)
+    {
+        if (! is_array($payload)) {
+            return false;
+        }
 
-	/**
-	 * Get the random data source available for the OS.
-	 *
-	 * @return int
-	 */
-	protected function getRandomizer()
-	{
-		if (defined('MCRYPT_DEV_URANDOM')) return MCRYPT_DEV_URANDOM;
+        foreach (['iv', 'value', 'mac'] as $item) {
+            if (! isset($payload[$item]) || ! is_string($payload[$item])) {
+                return false;
+            }
+        }
 
-		if (defined('MCRYPT_DEV_RANDOM')) return MCRYPT_DEV_RANDOM;
+        if (isset($payload['tag']) && ! is_string($payload['tag'])) {
+            return false;
+        }
 
-		mt_srand();
+        return strlen(base64_decode($payload['iv'], true)) === openssl_cipher_iv_length(strtolower($this->cipher));
+    }
 
-		return MCRYPT_RAND;
-	}
+    /**
+     * Determine if the MAC for the given payload is valid.
+     *
+     * @param  array  $payload
+     * @return bool
+     */
+    protected function validMac(array $payload)
+    {
+        return hash_equals(
+            $this->hash($payload['iv'], $payload['value']), $payload['mac']
+        );
+    }
 
-	/**
-	 * Set the encryption key.
-	 *
-	 * @param  string  $key
-	 * @return void
-	 */
-	public function setKey($key)
-	{
-		$this->key = (string) $key;
-	}
+    /**
+     * Ensure the given tag is a valid tag given the selected cipher.
+     *
+     * @param  string  $tag
+     * @return void
+     */
+    protected function ensureTagIsValid($tag)
+    {
+        if (self::$supportedCiphers[strtolower($this->cipher)]['aead'] && strlen($tag) !== 16) {
+            throw new DecryptException('Could not decrypt the data.');
+        }
 
-	/**
-	 * Set the encryption cipher.
-	 *
-	 * @param  string  $cipher
-	 * @return void
-	 */
-	public function setCipher($cipher)
-	{
-		$this->cipher = $cipher;
+        if (! self::$supportedCiphers[strtolower($this->cipher)]['aead'] && is_string($tag)) {
+            throw new DecryptException('Unable to use tag because the cipher algorithm does not support AEAD.');
+        }
+    }
 
-		$this->updateBlockSize();
-	}
-
-	/**
-	 * Set the encryption mode.
-	 *
-	 * @param  string  $mode
-	 * @return void
-	 */
-	public function setMode($mode)
-	{
-		$this->mode = $mode;
-
-		$this->updateBlockSize();
-	}
-
-	/**
-	 * Update the block size for the current cipher and mode.
-	 *
-	 * @return void
-	 */
-	protected function updateBlockSize()
-	{
-		$this->block = mcrypt_get_iv_size($this->cipher, $this->mode);
-	}
-
+    /**
+     * Get the encryption key that the encrypter is currently using.
+     *
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
 }

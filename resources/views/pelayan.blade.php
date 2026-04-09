@@ -83,7 +83,7 @@
 
 	            <div class = "menu-nav cols-xs-12">
 	            <li>
-	              <a href="{{ url('/auth/logout') }}">
+	              <a href="{{ route('customer.logout') }}">
 	        		{!! HTML::image('assets/img/logout.png', 'karyawan', array( 'width' => '70px')) !!}
 	              </a>
 	            </li>

@@ -1,53 +1,91 @@
 # Intervention Image
+## PHP Image Processing
 
-Intervention Image is a **PHP image handling and manipulation** library providing an easier and expressive way to create, edit, and compose images. The package includes ServiceProviders and Facades for easy **Laravel** integration.
+[![Latest Version](https://img.shields.io/packagist/v/intervention/image.svg)](https://packagist.org/packages/intervention/image)
+[![Build Status](https://github.com/Intervention/image/actions/workflows/run-tests.yml/badge.svg)](https://github.com/Intervention/image/actions)
+[![Monthly Downloads](https://img.shields.io/packagist/dm/intervention/image.svg)](https://packagist.org/packages/intervention/image/stats)
+[![Support me on Ko-fi](https://raw.githubusercontent.com/Intervention/image/develop/.github/images/support.svg)](https://ko-fi.com/interventionphp)
 
-[![Build Status](https://travis-ci.org/Intervention/image.png?branch=master)](https://travis-ci.org/Intervention/image)
+Intervention Image is a **PHP image processing library** that provides a simple
+and expressive way to create, edit, and compose images. It comes with a universal
+interface for the two most popular PHP image manipulation extensions. You can
+choose between the GD library or Imagick as the base layer for all operations.
 
-## Requirements
+- Simple interface for common image editing tasks
+- Interchangeable driver architecture
+- Support for animated images
+- Framework-agnostic
+- PSR-12 compliant
 
-- PHP >=5.3
-- Fileinfo Extension
+## Installation
 
-## Supported Image Libraries
+You can easily install this library using [Composer](https://getcomposer.org).
+Simply request the package with the following command:
 
-- GD Library (>=2.0)
-- Imagick PHP extension (>=6.5.7)
+```bash
+composer require intervention/image
+```
 
-## Getting started
+## Getting Started
 
-- [Installation](http://image.intervention.io/getting_started/installation)
-- [Laravel Framework Integration](http://image.intervention.io/getting_started/installation#laravel)
-- [Official Documentation](http://image.intervention.io/)
+Learn the [basics](https://image.intervention.io/v3/basics/instantiation/) on
+how to use Intervention Image and more with the [official
+documentation](https://image.intervention.io/v3/).
 
 ## Code Examples
 
 ```php
+use Intervention\Image\ImageManager;
+
+// create image manager with desired driver
+$manager = new ImageManager(
+    new Intervention\Image\Drivers\Gd\Driver()
+);
+
 // open an image file
-$img = Image::make('public/foo.jpg');
+$image = $manager->read('images/example.gif');
 
 // resize image instance
-$img->resize(320, 240);
+$image->resize(height: 300);
 
 // insert a watermark
-$img->insert('public/watermark.png');
+$image->place('images/watermark.png');
 
-// save image in desired format
-$img->save('public/bar.jpg');
+// encode edited image
+$encoded = $image->toJpg();
+
+// save encoded image
+$encoded->save('images/example.jpg');
 ```
 
-Refer to the [documentation](http://image.intervention.io/) to learn more about Intervention Image.
+## Requirements
 
-## Contributing
+Before you begin with the installation make sure that your server environment
+supports the following requirements.
 
-Contributions to the Intervention Image library are welcome. Please note the following guidelines before submiting your pull request.
+- PHP >= 8.1
+- Mbstring PHP Extension
+- Image Processing PHP Extension
 
-- Follow [PSR-2](http://www.php-fig.org/psr/psr-2/) coding standards.
-- Write tests for new functions and added features
-- API calls should work consistently with both GD and Imagick drivers
+## Supported Image Libraries
+
+Depending on your environment Intervention Image lets you choose between
+different image processing extensions.
+
+- GD Library
+- Imagick PHP extension
+- [libvips](https://github.com/Intervention/image-driver-vips)
+
+## Security
+
+If you discover any security related issues, please email oliver@intervention.io directly.
+
+## Authors
+
+This library is developed and maintained by [Oliver Vogel](https://intervention.io)
+
+Thanks to the community of [contributors](https://github.com/Intervention/image/graphs/contributors) who have helped to improve this project.
 
 ## License
 
-Intervention Image is licensed under the [MIT License](http://opensource.org/licenses/MIT).
-
-Copyright 2014 [Oliver Vogel](http://olivervogel.net/)
+Intervention Image is licensed under the [MIT License](LICENSE).

@@ -1,78 +1,59 @@
-<?php
+<?php declare(strict_types=1);
 /*
- * This file is part of the Comparator package.
+ * This file is part of sebastian/comparator.
  *
  * (c) Sebastian Bergmann <sebastian@phpunit.de>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace SebastianBergmann\Comparator;
 
-/**
- * Compares objects for equality.
- *
- * @package    Comparator
- * @author     Bernhard Schussek <bschussek@2bepublished.at>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.github.com/sebastianbergmann/comparator
- */
+use function assert;
+use function in_array;
+use function is_object;
+use function sprintf;
+use function substr_replace;
+use SebastianBergmann\Exporter\Exporter;
+
 class ObjectComparator extends ArrayComparator
 {
-    /**
-     * Returns whether the comparator can compare two values.
-     *
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual The second value to compare
-     * @return boolean
-     */
-    public function accepts($expected, $actual)
+    public function accepts(mixed $expected, mixed $actual): bool
     {
         return is_object($expected) && is_object($actual);
     }
 
     /**
-     * Asserts that two values are equal.
-     *
-     * @param  mixed $expected The first value to compare
-     * @param  mixed $actual The second value to compare
-     * @param  float $delta The allowed numerical distance between two values to
-     *                      consider them equal
-     * @param  bool  $canonicalize If set to TRUE, arrays are sorted before
-     *                             comparison
-     * @param  bool  $ignoreCase If set to TRUE, upper- and lowercasing is
-     *                           ignored when comparing string values
-     * @param  array $processed
-     * @throws ComparisonFailure Thrown when the comparison
-     *                           fails. Contains information about the
-     *                           specific errors that lead to the failure.
+     * @throws ComparisonFailure
      */
-    public function assertEquals($expected, $actual, $delta = 0.0, $canonicalize = false, $ignoreCase = false, array &$processed = array())
+    public function assertEquals(mixed $expected, mixed $actual, float $delta = 0.0, bool $canonicalize = false, bool $ignoreCase = false, array &$processed = []): void
     {
-        if (get_class($actual) !== get_class($expected)) {
+        assert(is_object($expected));
+        assert(is_object($actual));
+
+        if ($actual::class !== $expected::class) {
+            $exporter = new Exporter;
+
             throw new ComparisonFailure(
                 $expected,
                 $actual,
-                $this->exporter->export($expected),
-                $this->exporter->export($actual),
-                false,
+                $exporter->export($expected),
+                $exporter->export($actual),
                 sprintf(
                     '%s is not instance of expected class "%s".',
-                    $this->exporter->export($actual),
-                    get_class($expected)
-                )
+                    $exporter->export($actual),
+                    $expected::class,
+                ),
             );
         }
 
         // don't compare twice to allow for cyclic dependencies
-        if (in_array(array($actual, $expected), $processed, true) ||
-            in_array(array($expected, $actual), $processed, true)) {
+        if (in_array([$actual, $expected], $processed, true) ||
+            in_array([$expected, $actual], $processed, true)) {
             return;
         }
 
-        $processed[] = array($actual, $expected);
+        $processed[] = [$actual, $expected];
 
         // don't compare objects if they are identical
         // this helps to avoid the error "maximum function nesting level reached"
@@ -85,31 +66,23 @@ class ObjectComparator extends ArrayComparator
                     $delta,
                     $canonicalize,
                     $ignoreCase,
-                    $processed
+                    $processed,
                 );
             } catch (ComparisonFailure $e) {
                 throw new ComparisonFailure(
                     $expected,
                     $actual,
                     // replace "Array" with "MyClass object"
-                    substr_replace($e->getExpectedAsString(), get_class($expected) . ' Object', 0, 5),
-                    substr_replace($e->getActualAsString(), get_class($actual) . ' Object', 0, 5),
-                    false,
-                    'Failed asserting that two objects are equal.'
+                    substr_replace($e->getExpectedAsString(), $expected::class . ' Object', 0, 5),
+                    substr_replace($e->getActualAsString(), $actual::class . ' Object', 0, 5),
+                    'Failed asserting that two objects are equal.',
                 );
             }
         }
     }
 
-    /**
-     * Converts an object to an array containing all of its private, protected
-     * and public properties.
-     *
-     * @param  object $object
-     * @return array
-     */
-    protected function toArray($object)
+    protected function toArray(object $object): array
     {
-        return $this->exporter->toArray($object);
+        return (new Exporter)->toArray($object);
     }
 }

@@ -1,158 +1,182 @@
-<?php namespace Illuminate\Config;
+<?php
+
+namespace Illuminate\Config;
 
 use ArrayAccess;
 use Illuminate\Contracts\Config\Repository as ConfigContract;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Macroable;
 
-class Repository implements ArrayAccess, ConfigContract {
+class Repository implements ArrayAccess, ConfigContract
+{
+    use Macroable;
 
-	/**
-	 * All of the configuration items.
-	 *
-	 * @var array
-	 */
-	protected $items = [];
+    /**
+     * All of the configuration items.
+     *
+     * @var array
+     */
+    protected $items = [];
 
-	/**
-	 * Create a new configuration repository.
-	 *
-	 * @param  array  $items
-	 * @return void
-	 */
-	public function __construct(array $items = array())
-	{
-		$this->items = $items;
-	}
+    /**
+     * Create a new configuration repository.
+     *
+     * @param  array  $items
+     * @return void
+     */
+    public function __construct(array $items = [])
+    {
+        $this->items = $items;
+    }
 
-	/**
-	 * Determine if the given configuration value exists.
-	 *
-	 * @param  string  $key
-	 * @return bool
-	 */
-	public function has($key)
-	{
-		return array_has($this->items, $key);
-	}
+    /**
+     * Determine if the given configuration value exists.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function has($key)
+    {
+        return Arr::has($this->items, $key);
+    }
 
-	/**
-	 * Get the specified configuration value.
-	 *
-	 * @param  string  $key
-	 * @param  mixed   $default
-	 * @return mixed
-	 */
-	public function get($key, $default = null)
-	{
-		return array_get($this->items, $key, $default);
-	}
+    /**
+     * Get the specified configuration value.
+     *
+     * @param  array|string  $key
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public function get($key, $default = null)
+    {
+        if (is_array($key)) {
+            return $this->getMany($key);
+        }
 
-	/**
-	 * Set a given configuration value.
-	 *
-	 * @param  array|string  $key
-	 * @param  mixed   $value
-	 * @return void
-	 */
-	public function set($key, $value = null)
-	{
-		if (is_array($key))
-		{
-			foreach ($key as $innerKey => $innerValue)
-			{
-				array_set($this->items, $innerKey, $innerValue);
-			}
-		}
-		else
-		{
-			array_set($this->items, $key, $value);
-		}
-	}
+        return Arr::get($this->items, $key, $default);
+    }
 
-	/**
-	 * Prepend a value onto an array configuration value.
-	 *
-	 * @param  string  $key
-	 * @param  mixed  $value
-	 * @return void
-	 */
-	public function prepend($key, $value)
-	{
-		$array = $this->get($key);
+    /**
+     * Get many configuration values.
+     *
+     * @param  array  $keys
+     * @return array
+     */
+    public function getMany($keys)
+    {
+        $config = [];
 
-		array_unshift($array, $value);
+        foreach ($keys as $key => $default) {
+            if (is_numeric($key)) {
+                [$key, $default] = [$default, null];
+            }
 
-		$this->set($key, $array);
-	}
+            $config[$key] = Arr::get($this->items, $key, $default);
+        }
 
-	/**
-	 * Push a value onto an array configuration value.
-	 *
-	 * @param  string  $key
-	 * @param  mixed  $value
-	 * @return void
-	 */
-	public function push($key, $value)
-	{
-		$array = $this->get($key);
+        return $config;
+    }
 
-		$array[] = $value;
+    /**
+     * Set a given configuration value.
+     *
+     * @param  array|string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function set($key, $value = null)
+    {
+        $keys = is_array($key) ? $key : [$key => $value];
 
-		$this->set($key, $array);
-	}
+        foreach ($keys as $key => $value) {
+            Arr::set($this->items, $key, $value);
+        }
+    }
 
-	/**
-	 * Get all of the configuration items for the application.
-	 *
-	 * @return array
-	 */
-	public function all()
-	{
-		return $this->items;
-	}
+    /**
+     * Prepend a value onto an array configuration value.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function prepend($key, $value)
+    {
+        $array = $this->get($key, []);
 
-	/**
-	 * Determine if the given configuration option exists.
-	 *
-	 * @param  string  $key
-	 * @return bool
-	 */
-	public function offsetExists($key)
-	{
-		return $this->has($key);
-	}
+        array_unshift($array, $value);
 
-	/**
-	 * Get a configuration option.
-	 *
-	 * @param  string  $key
-	 * @return mixed
-	 */
-	public function offsetGet($key)
-	{
-		return $this->get($key);
-	}
+        $this->set($key, $array);
+    }
 
-	/**
-	 * Set a configuration option.
-	 *
-	 * @param  string  $key
-	 * @param  mixed  $value
-	 * @return void
-	 */
-	public function offsetSet($key, $value)
-	{
-		$this->set($key, $value);
-	}
+    /**
+     * Push a value onto an array configuration value.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function push($key, $value)
+    {
+        $array = $this->get($key, []);
 
-	/**
-	 * Unset a configuration option.
-	 *
-	 * @param  string  $key
-	 * @return void
-	 */
-	public function offsetUnset($key)
-	{
-		$this->set($key, null);
-	}
+        $array[] = $value;
 
+        $this->set($key, $array);
+    }
+
+    /**
+     * Get all of the configuration items for the application.
+     *
+     * @return array
+     */
+    public function all()
+    {
+        return $this->items;
+    }
+
+    /**
+     * Determine if the given configuration option exists.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function offsetExists($key): bool
+    {
+        return $this->has($key);
+    }
+
+    /**
+     * Get a configuration option.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    public function offsetGet($key): mixed
+    {
+        return $this->get($key);
+    }
+
+    /**
+     * Set a configuration option.
+     *
+     * @param  string  $key
+     * @param  mixed  $value
+     * @return void
+     */
+    public function offsetSet($key, $value): void
+    {
+        $this->set($key, $value);
+    }
+
+    /**
+     * Unset a configuration option.
+     *
+     * @param  string  $key
+     * @return void
+     */
+    public function offsetUnset($key): void
+    {
+        $this->set($key, null);
+    }
 }

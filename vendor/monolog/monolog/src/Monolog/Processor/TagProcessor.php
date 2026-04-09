@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /*
  * This file is part of the Monolog package.
@@ -11,23 +11,54 @@
 
 namespace Monolog\Processor;
 
+use Monolog\LogRecord;
+
 /**
  * Adds a tags array into record
  *
  * @author Martijn Riemers
  */
-class TagProcessor
+class TagProcessor implements ProcessorInterface
 {
-    private $tags;
+    /** @var string[] */
+    private array $tags;
 
-    public function __construct(array $tags = array())
+    /**
+     * @param string[] $tags
+     */
+    public function __construct(array $tags = [])
     {
-        $this->tags = $tags;
+        $this->setTags($tags);
     }
 
-    public function __invoke(array $record)
+    /**
+     * @param  string[] $tags
+     * @return $this
+     */
+    public function addTags(array $tags = []): self
     {
-        $record['extra']['tags'] = $this->tags;
+        $this->tags = array_merge($this->tags, $tags);
+
+        return $this;
+    }
+
+    /**
+     * @param  string[] $tags
+     * @return $this
+     */
+    public function setTags(array $tags = []): self
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __invoke(LogRecord $record): LogRecord
+    {
+        $record->extra['tags'] = $this->tags;
 
         return $record;
     }
