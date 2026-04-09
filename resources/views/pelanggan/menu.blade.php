@@ -116,7 +116,7 @@
 		@foreach ($menu_promosi as $menu)
 			<li>
 			    <a href="{{ url('menu/promosi')}}">
-			    	{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array('width' => '200px')) !!}
+			    	<img src="{{ route('photo.menu', $menu->photoname) }}" alt="{{ $menu->name }}" width="200px">
 			    </a>
 			</li>
 		@endforeach

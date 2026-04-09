@@ -36,7 +36,7 @@
 		  	@foreach ($list_menu as $menu)	
 
 			<div id="menu1" class ="col-sm-4 col-xs-12 clear-fix" data-toggle="modal" data-target="#menu-modal"> 
-	      		{!! HTML::image('storage/app/'.$menu->photoname, 'panggil', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
+	      		<img src="{{ route('photo.menu', $menu->photoname) }}" width="100%" data-toggle="modal" data-target="#menu-modal{{ $menu->id_menu }}">
 	      		{{$menu->name}}
 	      	</div>
 	  				
@@ -50,7 +50,7 @@
 				        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				      	</div>
 				    <div class="modal-body">   
-			        	{!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}             
+			        	<img src="{{ route('photo.menu', $menu->photoname) }}" width="100%" data-toggle="modal{{ $menu->id_menu }}" data-target="#menu-modal{{ $menu->id_menu }}">
 				        <div id= "penjelasan-menu" class= "col-xs-8">
 				        	<b>{{$menu->name}}</b>
 				        </div>

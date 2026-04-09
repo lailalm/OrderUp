@@ -22,7 +22,7 @@
 
                 {!! Form::model($karyawan, array('route' => array('editkaryawan_update', $karyawan->id_karyawan), 'method' => 'PUT','files'=>true)) !!}
                 <div class="form-group col-xs-4">
-                    {!! HTML::image('storage/app/'.$karyawan->photoname, $karyawan->name, array( 'width' => '100%')) !!}
+                    <img src="{{ route('photo.karyawan', $karyawan->photoname) }}" alt="{{ $karyawan->name }}" width="100%">
                 </div>
                 <div class="form-group col-xs-8">
                     {!! Form::label('Nama*') !!}

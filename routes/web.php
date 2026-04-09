@@ -7,8 +7,16 @@ use App\Http\Controllers\ManajerKaryawanController;
 use App\Http\Controllers\ManajerMenuController;
 use App\Http\Controllers\ManajerMejaController;
 use App\Http\Controllers\PelayanController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProfilController;
 use Illuminate\Support\Facades\Route;
+
+// ─── Shared photo serving (any authenticated user) ────────────────────────────
+
+Route::middleware('auth')->group(function () {
+    Route::get('photo/karyawan/{photoname}', [PhotoController::class, 'karyawan'])->name('photo.karyawan');
+    Route::get('photo/menu/{photoname}',     [PhotoController::class, 'menu'])->name('photo.menu');
+});
 
 // ─── Authentication ───────────────────────────────────────────────────────────
 

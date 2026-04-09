@@ -15,7 +15,7 @@
 		@foreach ($list_menu as $menu)
 
 		<div id="$menu->id_menu" class ="text-center space-bottom col-sm-4 col-xs-12 clear-fix" data-toggle="modal" data-target="#menu-modal">
-      		{!! HTML::image('storage/app/'.$menu->photoname, 'panggil', array( 'width' => '100%', 'data-toggle' => 'modal', 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
+      		<img src="{{ route('photo.menu', $menu->photoname) }}" width="100%" data-toggle="modal" data-target="#menu-modal{{ $menu->id_menu }}">
       		<div class="white">
       			@if($menu->is_rekomendasi == 1)
           			<i class="fa fa-star"></i>
@@ -37,7 +37,7 @@
 			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			      	</div>
 			      	<div class="modal-body">
-			    		{!! HTML::image('storage/app/'.$menu->photoname, $menu->name, array( 'width' => '100%', 'data-toggle' => 'modal'.$menu->id_menu, 'data-target' => '#menu-modal'.$menu->id_menu)) !!}
+			    		<img src="{{ route('photo.menu', $menu->photoname) }}" alt="{{ $menu->name }}" width="100%" data-toggle="modal{{ $menu->id_menu }}" data-target="#menu-modal{{ $menu->id_menu }}">
 				        <div id= "nama-menu" class= "col-xs-12 space">
 				        @if($menu->is_rekomendasi == 1)
 	          			<i class="fa fa-star"></i>

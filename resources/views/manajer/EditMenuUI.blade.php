@@ -27,7 +27,7 @@
                 
                 <h3>Ubah Menu {{ $menu->is_promosi? "Promosi" : ""}}</h3>
                 <div class="form-group col-xs-6">
-                    {!! HTML::image('storage/app/'.$menu->photoname, 'lala', array( 'width' => '100%')) !!}
+                    <img src="{{ route('photo.menu', $menu->photoname) }}" width="100%">
                 </div>
                 <div class="form-group col-xs-6">
                     {!! Form::label('Nama Menu*') !!}
