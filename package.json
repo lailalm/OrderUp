@@ -1,7 +1,7 @@
 {
   "private": true,
+  "type": "module",
   "devDependencies": {
-    "gulp": "^3.8.8",
-    "laravel-elixir": "*"
+    "puppeteer": "^24.41.0"
   }
 }
